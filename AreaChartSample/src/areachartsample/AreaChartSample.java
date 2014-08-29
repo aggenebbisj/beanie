@@ -20,8 +20,9 @@ import javafx.stage.Stage;
 /**
  * A chart that fills in the area between a line of data points and the axes.
  * Good for comparing accumulated totals over time.
+ * https://community.oracle.com/thread/2413087
  * 
-* @see javafx.scene.chart.Chart
+ * @see javafx.scene.chart.Chart
  * @see javafx.scene.chart.Axis
  * @see javafx.scene.chart.NumberAxis
  * @related charts/line/LineChart
