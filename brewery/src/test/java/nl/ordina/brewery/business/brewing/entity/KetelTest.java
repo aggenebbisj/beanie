@@ -38,14 +38,9 @@ public class KetelTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
-    public void teveel_water_toevoegen_geeft_exceptie() {
+    public void teveel_ingredienten_toevoegen_geeft_exceptie() {
         Ketel sut = new Ketel(new Volume(500, LITER));
         sut.voegIngredientToe(new Water(new Volume(600, LITER)));
     }
     
-    @Test
-    public void hop_toevoegen_zonder_overschrijden_maximum_capaciteit() {
-        Ketel sut = new Ketel(new Volume(500, LITER));
-        sut.voegIngredientToe(new Hop(new Volume(100, LITER)));
-    }
 }
