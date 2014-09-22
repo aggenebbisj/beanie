@@ -5,9 +5,9 @@ import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LIT
 
 public class Ketel {
     private Temperatuur temperatuur = new Temperatuur(0, CELSIUS);
-    private Volume capaciteit;
-    private Water water = new Water(new Volume(0, LITER));
-
+    private final Volume capaciteit;    
+    private final Ingredienten ingredienten = new Ingredienten();
+    
     public Ketel() {
         this(new Volume(500, LITER));
     }
@@ -24,18 +24,27 @@ public class Ketel {
         return temperatuur;
     }
 
-    public void voegWaterToe(Water toegevoegdWater) {
-        if (isMaximumCapaciteitOverschreden(toegevoegdWater.getVolume())) {
-            throw new IllegalArgumentException("Maximumcapaciteit ketel overschreden. Het bier is mislukt...");
-        }
-        this.water = this.water.plus(toegevoegdWater);
-    }
-    
     public Volume getCapaciteit() {
         return capaciteit;
     }
 
-    private boolean isMaximumCapaciteitOverschreden(Volume toegevoegdVolume) {
-        return water.plus(new Water(toegevoegdVolume)).getVolume().compareTo(capaciteit) > 0;
+    public void voegWaterToe(Water water) {
+        voegIngredientToe(water);
     }
+    
+    public void voegHopToe(Hop hop) {
+        voegIngredientToe(hop);
+    }
+
+    private void voegIngredientToe(Ingredient toegevoegdIngredient) {
+        if (isMaximumCapaciteitOverschreden(toegevoegdIngredient.getVolume())) {
+            throw new IllegalArgumentException("Maximumcapaciteit ketel overschreden. Het bier is mislukt...");
+        }        
+        ingredienten.voegToe(toegevoegdIngredient);
+    }
+    
+    private boolean isMaximumCapaciteitOverschreden(Volume toegevoegdVolume) {
+        return capaciteit.compareTo(ingredienten.getVolume().plus(toegevoegdVolume)) < 0;
+    }
+
 }
