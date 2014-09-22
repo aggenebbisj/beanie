@@ -4,6 +4,7 @@ import static nl.ordina.brewery.business.brewing.entity.Temperatuur.Schaal.CELSI
 import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LITER;
 
 public class Ketel {
+    
     private Temperatuur temperatuur = new Temperatuur(0, CELSIUS);
     private final Volume capaciteit;    
     private final Ingredienten ingredienten = new Ingredienten();
@@ -28,15 +29,7 @@ public class Ketel {
         return capaciteit;
     }
 
-    public void voegWaterToe(Water water) {
-        voegIngredientToe(water);
-    }
-    
-    public void voegHopToe(Hop hop) {
-        voegIngredientToe(hop);
-    }
-
-    private void voegIngredientToe(Ingredient toegevoegdIngredient) {
+    public void voegIngredientToe(Ingredient toegevoegdIngredient) {
         if (isMaximumCapaciteitOverschreden(toegevoegdIngredient.getVolume())) {
             throw new IllegalArgumentException("Maximumcapaciteit ketel overschreden. Het bier is mislukt...");
         }        

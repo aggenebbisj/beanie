@@ -30,8 +30,8 @@ public class KetelTest {
     public void ingredient_toevoegen_zonder_overschrijden_maximum_capaciteit() {
         Ketel sut = new Ketel(new Volume(500, LITER));
         try {
-            sut.voegWaterToe(new Water(new Volume(100, LITER)));
-            sut.voegHopToe(new Hop(new Volume(400, LITER)));            
+            sut.voegIngredientToe(new Water(new Volume(100, LITER)));
+            sut.voegIngredientToe(new Hop(new Volume(400, LITER)));            
         } catch (Exception e) {
             fail("Capaciteit zou niet mogen zijn overschreden");
         }
@@ -40,12 +40,12 @@ public class KetelTest {
     @Test(expected = IllegalArgumentException.class)
     public void teveel_water_toevoegen_geeft_exceptie() {
         Ketel sut = new Ketel(new Volume(500, LITER));
-        sut.voegWaterToe(new Water(new Volume(600, LITER)));
+        sut.voegIngredientToe(new Water(new Volume(600, LITER)));
     }
     
     @Test
     public void hop_toevoegen_zonder_overschrijden_maximum_capaciteit() {
         Ketel sut = new Ketel(new Volume(500, LITER));
-        sut.voegHopToe(new Hop(new Volume(100, LITER)));
+        sut.voegIngredientToe(new Hop(new Volume(100, LITER)));
     }
 }

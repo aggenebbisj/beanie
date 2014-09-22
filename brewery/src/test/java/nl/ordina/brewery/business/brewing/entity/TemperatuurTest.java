@@ -10,9 +10,7 @@ public class TemperatuurTest {
     @Test
     public void test_temperatuur_verhogen_met_zelfde_schaal() {
         Temperatuur sut = new Temperatuur(10, CELSIUS);
-        
         Temperatuur result = sut.plus(new Temperatuur(20, CELSIUS));
-                
         assertThat(result, is(new Temperatuur(30, CELSIUS)));
     }
     

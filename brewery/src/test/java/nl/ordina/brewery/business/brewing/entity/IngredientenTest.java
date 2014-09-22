@@ -11,8 +11,10 @@ public class IngredientenTest {
     public void volume_van_ingredienten_is_som_van_volumes_alle_losse_ingredienten() {
         Ingredienten sut = new Ingredienten();
         sut.voegToe(new Water(new Volume(10, LITER)))
-           .voegToe(new Hop(new Volume(20, LITER)));        
-        assertThat(sut.getVolume(), is(new Volume(30, LITER)));
+           .voegToe(new Hop(new Volume(20, LITER)))
+           .voegToe(new Mout(new Volume(30, LITER)))
+           .voegToe(new Gist(new Volume(40, LITER)));        
+        assertThat(sut.getVolume(), is(new Volume(100, LITER)));
     }
     
 }
