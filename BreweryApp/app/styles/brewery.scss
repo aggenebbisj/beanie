@@ -1,0 +1,21 @@
+.background {
+  background: url("../images/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.header {
+  background: rgb(223, 223, 223);
+  /* shape-outside: inherit; */
+  /* column-fill: initial; */
+  /* width: 100%; */
+  background-blend-mode: 70%;
+  opacity: 0.7;
+  filter: alpha(opacity=40);
+  padding-top: 0.3em;
+  padding-left: 0.3em;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
