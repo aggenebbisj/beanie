@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the breweryApp
  */
-angular.module('breweryAppApp')
+angular.module('breweryApp')
   .controller('ChatCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
