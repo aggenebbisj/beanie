@@ -4,5 +4,6 @@ beanie
 * brewery is het domein model
 * movieplex7 is de solution van het hands-on lab van Oracle
 * workshop-ee7-java8 is een licht aangepast versie
+* BreweryApp bevat de AngularJS broncode om de front-end applicatie te maken
 
 Het project workshop-ee7-java8 bevast de sources die de deelnemer krijgt. Het domein model (brewery) komt mee als jar.

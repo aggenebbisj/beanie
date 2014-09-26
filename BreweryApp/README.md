@@ -1,25 +1,31 @@
+
 Dit is een AngularJs project voor de Brewery webapplicatie. 
+====
 
-Het project is gescaffold mbv yeoman en draait op NodeJs.
+Het project is gescaffold mbv yeoman en draait tools via NodeJs.
 
-Vereisten:
+**Vereisten**
+
 * NodeJS v0.10 + (en npm)
 * Git 1.9+
 * Ruby 2+
 
-Om aan het project te kunnen werken voer de comando's uit:
+**Om aan het project te kunnen werken voer de comando's uit:**
+
 * npm install
 * grunt serve
 
+**Om een exporteerbare dist te maken voer het volgende commando uit:**
 
-In de project folder doe commando:
-npm install
-vervolgens
+* grunt build
 
 
-Known issues
+
+**Known issues**
+
 Meldingen over sass/compass?
-gem install sass
+
+gem install sass<br/>
 gem install compass
 
 
