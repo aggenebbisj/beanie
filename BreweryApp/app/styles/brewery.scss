@@ -1,0 +1,56 @@
+.background {
+  background: url("../images/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.fullheader {
+  background: rgb(223, 223, 223);
+  //  float: left;
+  position: fixed;
+  height: 80px;
+  margin: auto;
+  z-index: -1;
+  width: 100%;
+  top: 0px;
+  background-blend-mode: 70%;
+  opacity: 0.3;
+}
+
+.header {
+  color: #ffffff;
+}
+
+
+//.nav-pills > li > a {
+//  color: #ffffff;
+//}
+//
+//.nav-pills > li.active > a {
+//  background-color: #ab6a00;
+//}
+//.nav-pills > li > a:hover {
+//  background-color: #e69600;
+//  transition-duration: 0.5s;
+//  transition-timing-function: linear;
+//  transition-delay: 0s;
+//}
+//
+//.nav-pills > li.active > a:focus {
+//  background-color: #de9f1a;
+//}
+//
+//.nav-pills > li.active > a:hover {
+//  background-color: #e69600;
+//}
+
+.orange
+{
+  color: orange;
+}
+
+p {
+  color: #ffffff;
+}
