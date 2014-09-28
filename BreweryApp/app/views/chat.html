@@ -1,1 +1,11 @@
-<p>Chat will be here!</p>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<div ng-controller="ChatCtrl">
+    <ul>
+        <li ng-repeat="message in messages">{{message}}</li>
+    </ul>
+
+    <form ng-submit="sendMessage()">
+        <input type="text" ng-model="messageText" placeholder="Type your message here"/>
+        <input type="submit" value="Send"/>
+    </form>
+</div>
