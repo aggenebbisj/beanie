@@ -1,30 +1,30 @@
-package nl.ordina.brewery.business.brewing.entity;
+package nl.ordina.brewery.business.brewing.boundary;
 
+import nl.ordina.brewery.business.brewing.entity.*;
+import nl.ordina.brewery.business.brewing.entity.action.AddIngredient;
 import nl.ordina.brewery.business.brewing.entity.action.ChangeTemperature;
 import nl.ordina.brewery.business.brewing.entity.action.StableTemperature;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.JsonObject;
+import javax.ws.rs.*;
 import java.time.Duration;
 import java.util.Arrays;
 
 import static nl.ordina.brewery.business.brewing.entity.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.business.brewing.entity.Temperature.TemperatureUnit.valueOf;
 import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeUnit.LITER;
-import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BrewerTest {
+@Path("brewer")
+@ApplicationScoped
+public class BrewerResource {
+  @Inject Brewer brewer;
 
-  @Mock
-  private Kettle kettle;
-  @InjectMocks
-  private Brewer sut;
-
-  @Test
-  public void test() {
+  @POST
+  @Path("recipe")
+  public void recipe(JsonObject obj) {
+    System.out.println("RECIPE");
     Recipe recipe = new Recipe();
     Water water = new Water(new Volume(20, LITER));
     Malt malt = new Malt(new Volume(1, LITER));
@@ -34,16 +34,12 @@ public class BrewerTest {
     recipe.addStep("Mashing",
         Arrays.asList(water, malt),
         Arrays.asList(
+            new AddIngredient(water),
             new ChangeTemperature(temperature),
+            new AddIngredient(malt),
             new StableTemperature(duration)
         ));
+    brewer.brew(recipe);
 
-    sut.brew(recipe);
-
-    verify(kettle).addIngredient(water);
-    verify(kettle).addIngredient(malt);
-    verify(kettle).changeTemperatureTo(temperature);
-//    verify(kettle, never()).keepStableTemperature(duration);
-    verify(kettle).keepStableTemperature(duration);
   }
 }

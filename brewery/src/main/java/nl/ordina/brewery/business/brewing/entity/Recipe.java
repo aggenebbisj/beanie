@@ -52,4 +52,11 @@ class Step {
   public List<Action> getActions() {
     return actions;
   }
+
+  @Override
+  public String toString() {
+    return "Step{" +
+        "name='" + name + '\'' +
+        '}';
+  }
 }

@@ -1,5 +1,7 @@
 package nl.ordina.brewery.business.brewing.entity;
 
+import nl.ordina.brewery.business.brewing.entity.action.ChangeTemperature;
+import nl.ordina.brewery.business.brewing.entity.action.StableTemperature;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -7,8 +9,8 @@ import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-import static nl.ordina.brewery.business.brewing.entity.Temperature.Schaal.CELSIUS;
-import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LITER;
+import static nl.ordina.brewery.business.brewing.entity.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

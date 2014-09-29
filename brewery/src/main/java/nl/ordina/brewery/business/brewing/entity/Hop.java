@@ -11,4 +11,9 @@ public class Hop extends Ingredient<Hop> {
         return new Hop(volume);
     }
 
+  @Override
+  public String getName() {
+    return "Hop";
+  }
+
 }

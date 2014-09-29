@@ -10,4 +10,9 @@ public class Water extends Ingredient<Water> {
     protected Water newIngredient(Volume volume) {
         return new Water(volume);
     }
+
+  @Override
+  public String getName() {
+    return "Water";
+  }
 }

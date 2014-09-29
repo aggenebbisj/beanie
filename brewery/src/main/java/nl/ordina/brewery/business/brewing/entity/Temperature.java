@@ -3,24 +3,37 @@ package nl.ordina.brewery.business.brewing.entity;
 public class Temperature {
 
 
-  public enum Schaal {
+  public Temperature difference(Temperature goal) {
+    assert(this.unit == goal.unit);
+    return new Temperature(goal.value - this.value, this.unit);
+  }
+
+  public enum TemperatureUnit {
     CELSIUS;
   }
 
-  private final int waarde;
-  private final Schaal schaal;
+  private final int value;
+  private final TemperatureUnit unit;
 
-  public static Temperature ofDegrees(int degrees, Schaal scale) {
+  public static Temperature ofDegrees(int degrees, TemperatureUnit scale) {
     return new Temperature(degrees, scale);
   }
 
-  public Temperature(int waarde, Schaal schaal) {
-    this.waarde = waarde;
-    this.schaal = schaal;
+  public Temperature(int value, TemperatureUnit unit) {
+    this.value = value;
+    this.unit = unit;
   }
 
   public Temperature plus(Temperature verhoging) {
-    return new Temperature(waarde + verhoging.waarde, schaal);
+    return new Temperature(value + verhoging.value, unit);
+  }
+
+  public int getValue() {
+    return value;
+  }
+
+  public TemperatureUnit getUnit() {
+    return unit;
   }
 
   @Override
@@ -38,10 +51,10 @@ public class Temperature {
       return false;
     }
     final Temperature other = (Temperature) obj;
-    if (this.schaal != other.schaal) {
+    if (this.unit != other.unit) {
       return false;
     }
-    if (this.waarde != other.waarde) {
+    if (this.value != other.value) {
       return false;
     }
     return true;
@@ -49,7 +62,7 @@ public class Temperature {
 
   @Override
   public String toString() {
-    return "Temperatuur{" + "waarde=" + waarde + ", schaal=" + schaal + '}';
+    return "Temperature{" + value + " " + unit + '}';
   }
 
 }

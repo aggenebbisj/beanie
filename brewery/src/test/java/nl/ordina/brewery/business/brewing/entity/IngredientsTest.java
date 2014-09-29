@@ -1,6 +1,6 @@
 package nl.ordina.brewery.business.brewing.entity;
 
-import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LITER;
+import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class IngredientsTest {
         sut.add(new Water(new Volume(10, LITER)))
            .add(new Hop(new Volume(20, LITER)))
            .add(new Malt(new Volume(30, LITER)))
-           .add(new Gist(new Volume(40, LITER)));
+           .add(new Yeast(new Volume(40, LITER)));
         assertThat(sut.getVolume(), is(new Volume(100, LITER)));
     }
     

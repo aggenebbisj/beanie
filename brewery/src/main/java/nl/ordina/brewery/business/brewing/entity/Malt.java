@@ -11,4 +11,11 @@ public class Malt extends Ingredient<Malt> {
         return new Malt(volume);
     }
 
+  @Override
+  public String getName() {
+    return "Malt";
+  }
+
+
+
 }

@@ -1,6 +1,6 @@
 package nl.ordina.brewery.business.brewing.entity;
 
-import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LITER;
+import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;

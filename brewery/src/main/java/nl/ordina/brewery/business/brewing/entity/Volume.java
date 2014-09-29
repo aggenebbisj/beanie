@@ -2,24 +2,24 @@ package nl.ordina.brewery.business.brewing.entity;
 
 public class Volume implements Comparable<Volume>{
 
-    public enum VolumeEenheid {
+    public enum VolumeUnit {
         LITER;
     }
     
-    private final int waarde;
-    private final VolumeEenheid volumeEenheid;
+    private final int value;
+    private final VolumeUnit unit;
 
-    public Volume(int waarde, VolumeEenheid volumeEenheid) {
-        this.waarde = waarde;
-        this.volumeEenheid = volumeEenheid;
+    public Volume(int value, VolumeUnit unit) {
+        this.value = value;
+        this.unit = unit;
     }
     
     public Volume plus(Volume extraVolume) {
-        return new Volume(waarde + extraVolume.waarde, volumeEenheid);
+        return new Volume(value + extraVolume.value, unit);
     }
 
     public int compareTo(Volume o) {
-        return waarde < o.waarde ? -1 : waarde > o.waarde ? 1 : 0;
+        return value < o.value ? -1 : value > o.value ? 1 : 0;
     }
     
     @Override
@@ -37,10 +37,10 @@ public class Volume implements Comparable<Volume>{
             return false;
         }
         final Volume other = (Volume) obj;
-        if (this.waarde != other.waarde) {
+        if (this.value != other.value) {
             return false;
         }
-        if (this.volumeEenheid != other.volumeEenheid) {
+        if (this.unit != other.unit) {
             return false;
         }
         return true;
@@ -48,6 +48,15 @@ public class Volume implements Comparable<Volume>{
 
     @Override
     public String toString() {
-        return "Volume{" + "waarde=" + waarde + ", volumeEenheid=" + volumeEenheid + '}';
+        return "Volume{" + "value=" + value + ", unit=" + unit + '}';
     }
+
+
+  public int getValue() {
+    return value;
+  }
+
+  public VolumeUnit getUnit() {
+    return unit;
+  }
 }
