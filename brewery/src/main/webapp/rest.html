@@ -11,15 +11,13 @@
 
         function init() {
             output = document.getElementById("output");
-            wsuriField = document.getElementById("wsuri");
-            wsuriField.value = wsUri;
+            connect();
         }
 
         function connect() {
-            websocket = new WebSocket(wsuriField.value);
-            document.getElementById("send").style.visibility = "visible";
+            websocket = new WebSocket(wsUri);
             websocket.onopen = function (evt) {
-                writeToScreen("CONNECTED");
+                writeToScreen("CONNECTED to " + wsUri);
             };
 
             websocket.onmessage = function (evt) {
@@ -32,11 +30,6 @@
         }
 
 
-        function send_echo() {
-            websocket.send(textID.value);
-            writeToScreen("SENT: " + textID.value);
-        }
-
         function writeToScreen(message) {
             var pre = document.createElement("p");
             pre.style.wordWrap = "break-word";
@@ -48,19 +41,7 @@
     </script>
 </head>
 <body>
-<div>
-    <form action="">
-        <label for="wsuri">WebsocketUri: </label><input id="wsuri" type="text" size="50" maxlength="100"/>
-        <input type="button" value="CONNECT" onclick="connect(); return false;"/>
-    </form>
-</div>
-<div id="send" style="visibility: hidden">
-    <hr />
-    <form action="">
-        <input onclick="send_echo(); return false;" value="Press me" type="button">
-        <input id="textID" name="message" value="Hello WebSocket!" type="text"><br>
-    </form>
-</div>
+<H1>Websocket output</H1>
 <div id="output"></div>
 </body>
 </html>

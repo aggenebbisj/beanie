@@ -1,5 +1,6 @@
 package nl.ordina.brewery.business.brewing.entity;
 
+import nl.ordina.brewery.business.brewing.entity.action.AddIngredient;
 import nl.ordina.brewery.business.brewing.entity.action.ChangeTemperature;
 import nl.ordina.brewery.business.brewing.entity.action.StableTemperature;
 import org.junit.Test;
@@ -28,22 +29,19 @@ public class BrewerTest {
     Recipe recipe = new Recipe();
     Water water = new Water(new Volume(20, LITER));
     Malt malt = new Malt(new Volume(1, LITER));
-    Temperature temperature = Temperature.ofDegrees(65, CELSIUS);
+    Temperature temperature = Temperature.of(65, CELSIUS);
     Duration duration = Duration.ofMinutes(30);
 
     recipe.addStep("Mashing",
-        Arrays.asList(water, malt),
         Arrays.asList(
+            new AddIngredient(water),
             new ChangeTemperature(temperature),
+            new AddIngredient(malt),
             new StableTemperature(duration)
         ));
 
     sut.brew(recipe);
 
     verify(kettle).addIngredient(water);
-    verify(kettle).addIngredient(malt);
-    verify(kettle).changeTemperatureTo(temperature);
-//    verify(kettle, never()).keepStableTemperature(duration);
-    verify(kettle).keepStableTemperature(duration);
   }
 }

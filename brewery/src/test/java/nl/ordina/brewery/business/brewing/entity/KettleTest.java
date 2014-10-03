@@ -5,8 +5,11 @@ import static nl.ordina.brewery.business.brewing.entity.Temperature.TemperatureU
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
+import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangingEvent;
 import org.junit.Test;
 
 import javax.enterprise.event.Event;
@@ -25,10 +28,13 @@ public class KettleTest {
 
   @Test
   public void temperatuur_verhogen_leidt_tot_hogere_temperatuur() {
+    Event<KettleEvent> event = mock(Event.class);
+
     Kettle sut = new Kettle();
-    sut.setEvent(mock(Event.class));
+    sut.setEvent(event);
     sut.changeTemperatureTo(new Temperature(10, CELSIUS));
-    assertThat(sut.getTemperature(), is(new Temperature(10, CELSIUS)));
+
+    verify(event).fire(any(TemperatureChangingEvent.class));
   }
 
   @Test

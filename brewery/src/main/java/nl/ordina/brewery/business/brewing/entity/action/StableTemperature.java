@@ -1,11 +1,11 @@
 package nl.ordina.brewery.business.brewing.entity.action;
 
-import nl.ordina.brewery.business.brewing.entity.Action;
+import nl.ordina.brewery.business.brewing.entity.KettleAction;
 import nl.ordina.brewery.business.brewing.entity.Kettle;
 
 import java.time.Duration;
 
-public class StableTemperature implements Action {
+public class StableTemperature implements KettleAction {
   private final Duration duration;
 
   public StableTemperature(Duration duration) {

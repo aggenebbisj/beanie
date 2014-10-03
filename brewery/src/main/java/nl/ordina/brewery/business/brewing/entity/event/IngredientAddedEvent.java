@@ -32,4 +32,11 @@ public class IngredientAddedEvent implements KettleEvent {
   public Ingredient getIngredient() {
     return ingredient;
   }
+
+  @Override
+  public String toString() {
+    return "IngredientAddedEvent{" +
+        "ingredient=" + ingredient +
+        '}';
+  }
 }

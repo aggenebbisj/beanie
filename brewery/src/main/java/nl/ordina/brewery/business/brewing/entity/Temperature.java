@@ -15,7 +15,7 @@ public class Temperature {
   private final int value;
   private final TemperatureUnit unit;
 
-  public static Temperature ofDegrees(int degrees, TemperatureUnit scale) {
+  public static Temperature of(int degrees, TemperatureUnit scale) {
     return new Temperature(degrees, scale);
   }
 

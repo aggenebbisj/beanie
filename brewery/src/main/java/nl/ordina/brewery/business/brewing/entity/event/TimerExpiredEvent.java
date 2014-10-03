@@ -36,4 +36,12 @@ public class TimerExpiredEvent implements KettleEvent {
   public Temperature getTemperature() {
     return temperature;
   }
+
+  @Override
+  public String toString() {
+    return "TimerExpiredEvent{" +
+        "duration=" + duration +
+        ", temperature=" + temperature +
+        '}';
+  }
 }

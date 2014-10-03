@@ -1,6 +1,7 @@
 package nl.ordina.brewery.business.brewing.boundary;
 
 import nl.ordina.brewery.business.brewing.entity.Temperature;
+import nl.ordina.brewery.business.brewing.entity.TemperatureChangeCalculator;
 import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangedEvent;
 import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangingEvent;
 
@@ -28,63 +29,65 @@ public class TimedTemperatureChange {
   Event<TemperatureChangingEvent> changingEvent;
 
   public void changeTemperature(@Observes TemperatureChangingEvent event) {
-    final Temperature difference = event.getKettle().getTemperature().difference(event.getGoal());
-    Temperature change = calculateChangePerTimeslot(difference);
-
-    timerService.createSingleActionTimer(1000, new TimerConfig(new ChangeHolder(event, change), false));
-  }
-
-  private Temperature calculateChangePerTimeslot(Temperature difference) {
-    return difference.getValue() > MAXIMUM_TEMPERATURE_CHANGE ? new Temperature(MAXIMUM_TEMPERATURE_CHANGE, difference.getUnit()) : difference;
+    handleChange(event);
   }
 
   @Timeout
   public void timeout(Timer timer) {
-    final ChangeHolder holder = (ChangeHolder) timer.getInfo();
+    final Holder holder = (Holder) timer.getInfo();
     TemperatureChangingEvent event = holder.getEvent();
 
-    log.log(Level.FINER, "Timeout for event {0}  with change {1}", new Object[] {event, holder.getChange()} );
+    log.log(Level.INFO, "Timeout for event {0}  with new temperature {1}", new Object[] {event, holder.getNewTemperature()} );
 
-    Temperature newTemperature = event.getKettle().getTemperature().plus(holder.getChange());
-    event.getKettle().changeInternalTemperature(newTemperature);
+    event.getKettle().changeInternalTemperature(holder.getNewTemperature());
 
-    final Temperature difference = newTemperature.difference(event.getGoal());
-    if (difference.getValue() != 0) {
-      Temperature change = calculateChangePerTimeslot(difference);
-      timerService.createSingleActionTimer(1000, new TimerConfig(new ChangeHolder(event, change), false));
-    }
-    else {
-      // why does the kettle not react to the changed event????
-      changedEvent.fire(new TemperatureChangedEvent(newTemperature));
+    changingEvent.fire(new TemperatureChangingEvent(event.getKettle(), event.getGoal()));
+    handleChange(event);
+  }
 
-    }
+
+  private void handleChange(TemperatureChangingEvent event) {
+    TemperatureChangeCalculator calculator = new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
+
+    if( calculator.isEqual() ) fireChanged(event.getGoal());
+    else wait(event, calculator.calculateNewTemperature());
+  }
+
+  private void wait(TemperatureChangingEvent event, Temperature newTemperature) {
+    timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, newTemperature), false));
+  }
+
+
+  private void fireChanged(Temperature newTemperature) {
+    // why does the kettle not react to the changed event????
+    changedEvent.fire(new TemperatureChangedEvent(newTemperature));
   }
 
 
 }
 
-class ChangeHolder implements Serializable {
+class Holder implements Serializable {
   private final TemperatureChangingEvent event;
-  private final Temperature change;
+  private final Temperature newTemperature;
 
-  ChangeHolder(TemperatureChangingEvent event, Temperature change) {
+  Holder(TemperatureChangingEvent event, Temperature newTemperature) {
     this.event = event;
-    this.change = change;
+    this.newTemperature = newTemperature;
   }
 
   public TemperatureChangingEvent getEvent() {
     return event;
   }
 
-  public Temperature getChange() {
-    return change;
+  public Temperature getNewTemperature() {
+    return newTemperature;
   }
 
   @Override
   public String toString() {
     return "ChangeHolder{" +
         "event=" + event +
-        ", change=" + change +
+        ", newTemperature=" + newTemperature +
         '}';
   }
 }

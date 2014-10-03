@@ -1,5 +1,6 @@
 package nl.ordina.brewery.business.brewing.entity;
 
+import nl.ordina.brewery.business.brewing.entity.action.AddIngredient;
 import nl.ordina.brewery.business.brewing.entity.action.ChangeTemperature;
 import nl.ordina.brewery.business.brewing.entity.action.StableTemperature;
 import org.junit.Test;
@@ -25,10 +26,12 @@ public class RecipeTest {
   public void oneStep() {
     Recipe recipe = new Recipe();
     recipe.addStep("Mashing",
-        Arrays.asList(new Water(new Volume(20, LITER)), new Malt(new Volume(1, LITER))),
         Arrays.asList(
-            new ChangeTemperature(Temperature.ofDegrees(65, CELSIUS)),
+            new AddIngredient(new Water(new Volume(20, LITER))),
+            new ChangeTemperature(Temperature.of(65, CELSIUS)),
+            new AddIngredient(new Malt(new Volume(1, LITER))),
             new StableTemperature(Duration.ofMinutes(30))
+
         ));
     assertThat(recipe.getIngredients().size(), is(2));
   }
