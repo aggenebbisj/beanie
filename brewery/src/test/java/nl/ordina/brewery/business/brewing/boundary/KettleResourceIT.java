@@ -1,4 +1,4 @@
-package nl.ordina.brewery.business.brewing.entity;
+package nl.ordina.brewery.business.brewing.boundary;
 
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.Before;
@@ -11,7 +11,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-
 import java.time.Duration;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;

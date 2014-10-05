@@ -13,7 +13,6 @@ import javax.ws.rs.Path;
 
 import static java.time.Duration.parse;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static nl.ordina.brewery.business.brewing.boundary.IngredientParser.parseIngredient;
 import static nl.ordina.brewery.business.brewing.entity.Temperature.TemperatureUnit.valueOf;
 
 @Path("kettle")
@@ -22,12 +21,13 @@ public class KettleResource {
 
   @Inject
   Kettle kettle;
+  @Inject RecipeParser parser;
 
   @PUT
   @Path("ingredient")
   @Consumes(APPLICATION_JSON)
   public void post(JsonObject obj) {
-    kettle.addIngredient(parseIngredient(obj));
+    kettle.addIngredient(parser.parseIngredient(obj));
   }
 
   @POST

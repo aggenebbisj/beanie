@@ -1,6 +1,6 @@
 package nl.ordina.brewery.business.brewing.boundary;
 
-import nl.ordina.brewery.business.brewing.entity.Kettle;
+import nl.ordina.brewery.business.brewing.entity.StandardKettle;
 import nl.ordina.brewery.business.brewing.entity.Temperature;
 import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangedEvent;
 import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangingEvent;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TimedTemperatureChangeTest {
+public class ThermoregulationTest {
 
   public static final Temperature DEGREES_30 = of(30, CELSIUS);
   @Mock
@@ -29,10 +29,10 @@ public class TimedTemperatureChangeTest {
   @Mock TimerService timerService;
 
   @Mock
-  Kettle kettle;
+  StandardKettle kettle;
 
   @InjectMocks
-  private TimedTemperatureChange sut;
+  private Thermoregulation sut;
 
   @Test
   public void currentTemperatureDiffersFromGoal() {

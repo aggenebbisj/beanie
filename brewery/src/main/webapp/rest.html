@@ -33,7 +33,7 @@
         function writeToScreen(message) {
             var pre = document.createElement("p");
             pre.style.wordWrap = "break-word";
-            pre.innerHTML = message;
+            pre.innerHTML = new Date().toJSON() + " " + message;
             output.appendChild(pre);
         }
 

@@ -2,6 +2,7 @@ package nl.ordina.brewery.business.brewing.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeUnit.LITER;
 
 public class Ingredients {

@@ -16,10 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class TimedTemperatureChange {
+public class Thermoregulation {
   private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-  public static final int MAXIMUM_TEMPERATURE_CHANGE = 25;
   @Resource
   TimerService timerService;
 
@@ -37,12 +36,17 @@ public class TimedTemperatureChange {
     final Holder holder = (Holder) timer.getInfo();
     TemperatureChangingEvent event = holder.getEvent();
 
-    log.log(Level.INFO, "Timeout for event {0}  with new temperature {1}", new Object[] {event, holder.getNewTemperature()} );
+    log.log(Level.FINEST, "Timeout for event {0}  with new temperature {1}", new Object[] {event, holder.getNewTemperature()} );
 
     event.getKettle().changeInternalTemperature(holder.getNewTemperature());
 
-    changingEvent.fire(new TemperatureChangingEvent(event.getKettle(), event.getGoal()));
-    handleChange(event);
+//    handleChange(event);
+
+    TemperatureChangeCalculator calculator = new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
+
+    if( calculator.isEqual() ) fireChanged(event.getGoal());
+    else timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, calculator.calculateNewTemperature()), false));
+
   }
 
 
@@ -50,11 +54,7 @@ public class TimedTemperatureChange {
     TemperatureChangeCalculator calculator = new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
 
     if( calculator.isEqual() ) fireChanged(event.getGoal());
-    else wait(event, calculator.calculateNewTemperature());
-  }
-
-  private void wait(TemperatureChangingEvent event, Temperature newTemperature) {
-    timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, newTemperature), false));
+    else timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, calculator.calculateNewTemperature()), false));
   }
 
 

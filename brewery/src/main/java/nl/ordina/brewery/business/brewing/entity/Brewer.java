@@ -1,7 +1,7 @@
 package nl.ordina.brewery.business.brewing.entity;
 
 import nl.ordina.brewery.business.brewing.boundary.RecipeExecutor;
-import nl.ordina.brewery.business.brewing.entity.event.TemperatureChangingEvent;
+import nl.ordina.brewery.business.brewing.entity.event.*;
 
 import javax.ejb.Singleton;
 import javax.enterprise.event.Observes;
@@ -16,7 +16,8 @@ import static java.util.logging.Logger.getLogger;
 public class Brewer {
   private static final Logger log = getLogger(lookup().lookupClass().getName());
 
-  @Inject private Kettle kettle;
+  @Inject
+  private Kettle kettle;
 
   private RecipeExecutor executor;
 
@@ -26,14 +27,14 @@ public class Brewer {
   }
 
   public void changing(@Observes KettleEvent event) {
-    if(event instanceof TemperatureChangingEvent)
-      log.log(INFO, "Temperature changing current: {0}", event);
-    else
+    if (event instanceof IngredientAddedEvent || event instanceof TimerExpiredEvent || event instanceof TemperatureChangedEvent)
       nextAction(event);
+    else
+      log.log(INFO, "Ignoring event: {0}", event);
   }
 
   private void nextAction(KettleEvent event) {
-    log.log(INFO, "Event {0}", event);
+    log.log(INFO, "Next action after receiving {0}", event);
     nextAction();
   }
 

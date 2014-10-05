@@ -52,6 +52,7 @@
         <scope>test</scope>
       </dependency>
 
+      <!-- Websockets from the client -->
       <dependency>
         <groupId>org.glassfish.tyrus</groupId>
         <artifactId>tyrus-server</artifactId>
@@ -64,12 +65,14 @@
         <version>${tyrus.version}</version>
         <scope>test</scope>
       </dependency>
+      <!-- JSON message reading and writing -->
       <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
         <version>${json-api.version}</version>
         <scope>test</scope>
       </dependency>
+      <!-- REST client implementation -->
       <dependency>
         <groupId>org.glassfish.jersey.core</groupId>
         <artifactId>jersey-client</artifactId>
@@ -88,5 +91,21 @@
         <version>2.12</version>
         <scope>test</scope>
       </dependency>
+      <!-- Libraries needed to have a functioning JMS Client which uses Glassfish configured resources
+           to communicate through JMS to the OpenMQ Server.
+        -->
+      <dependency>
+        <groupId>org.glassfish.main.appclient</groupId>
+        <artifactId>gf-client</artifactId>
+        <version>4.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.mq</groupId>
+        <artifactId>imqjmsra</artifactId>
+        <version>5.1</version>
+        <scope>test</scope>
+      </dependency>
+
     </dependencies>
 </project>

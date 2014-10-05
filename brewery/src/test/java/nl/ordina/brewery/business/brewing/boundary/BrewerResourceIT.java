@@ -1,4 +1,4 @@
-package nl.ordina.brewery.business.brewing.entity;
+package nl.ordina.brewery.business.brewing.boundary;
 
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.Before;
@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -18,6 +17,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 import static javax.json.Json.createArrayBuilder;
 import static javax.json.Json.createObjectBuilder;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
+import static nl.ordina.brewery.business.brewing.boundary.RecipeBuilder.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -37,41 +37,18 @@ public class BrewerResourceIT {
         .target("http://localhost:8080/brewery-1.0-SNAPSHOT/resources/brewer");
 
     final JsonArrayBuilder actions = createArrayBuilder()
-        .add(
-            createObjectBuilder()
-                .add("type", "AddIngredient")
-                .add("ingredient", createIngredient("water", 10)))
-        .add(createObjectBuilder()
-            .add("type", "ChangeTemperature")
-            .add("value", 65)
-            .add("unit", "CELSIUS"))
-        .add(createObjectBuilder()
-            .add("type", "AddIngredient")
-            .add("ingredient", createIngredient("malt", 1)))
-        .add(createObjectBuilder()
-            .add("type", "StableTemperature")
-            .add("duration", Duration.of(30, MINUTES).toString()));
+        .add(createAddIngredientAction(createIngredient("water", 10)))
+        .add(RecipeBuilder.createChangeTemperature(65))
+        .add(createAddIngredientAction(createIngredient("malt", 1)))
+        .add(RecipeBuilder.createStableTemperature(Duration.of(30, MINUTES)));
 
     final JsonObject recipe = createObjectBuilder()
-        .add("steps",
-            createArrayBuilder()
-                .add(
-                    createObjectBuilder()
-                        .add("name", "Mashing")
-                        .add("actions", actions)))
+        .add("steps", createArrayBuilder().add(createStep("Mashing", actions)))
         .build();
 
     Response changeTemperatureResponse = target.path("recipe").request()
         .post(Entity.entity(recipe, APPLICATION_JSON_TYPE));
     assertThat(changeTemperatureResponse.getStatus(), is(204));
-  }
-
-  private JsonObjectBuilder createIngredient(String type, int amount) {
-    return createObjectBuilder()
-        .add("type", type)
-        .add("volume", createObjectBuilder()
-            .add("amount", amount)
-            .add("unit", "LITER"));
   }
 
 }
