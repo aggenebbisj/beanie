@@ -24,9 +24,7 @@ public class RecipeExecutor {
   }
 
   private void nextStep() {
-    if(steps.hasNext()) {
-      actions = steps.next().getActions().iterator();
-    }
+    if(steps.hasNext()) actions = steps.next().getActions().iterator();
   }
 
   public boolean isDone() {

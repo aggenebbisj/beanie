@@ -1,18 +1,19 @@
 package nl.ordina.brewery.business.brewing.boundary;
 
 import nl.ordina.brewery.business.brewing.entity.KettleEvent;
+import nl.ordina.brewery.business.brewing.entity.event.RecipeCompleteEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.logging.Logger;
 
 import static java.util.Collections.synchronizedSet;
@@ -46,16 +47,21 @@ public class MonitorWebSocket {
 
   public void receive(@Observes KettleEvent event) {
     log.log(FINER, "Received event {0}", event);
-    peers.stream().forEach(p -> send(event, p));
+    peers.stream().forEach(p -> send(p, event.createJson()));
 
     final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
     peers.removeAll(closed);
   }
 
-  private void send(KettleEvent event, Session p) {
+  public void processComplete(@Observes RecipeCompleteEvent event) {
+    final JsonObject json = Json.createObjectBuilder().add("status", "complete").build();
+    peers.stream().forEach(p -> send(p, json));
+  }
+
+  private void send(Session p, JsonObject json) {
     if (p.isOpen())
       try {
-        p.getBasicRemote().sendObject(event.createJson());
+        p.getBasicRemote().sendObject(json);
       } catch (IOException e) {
         log.log(WARNING, "Error writing to peer " + p, e);
       } catch (EncodeException e) {

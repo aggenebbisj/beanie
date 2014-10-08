@@ -3,7 +3,9 @@ package nl.ordina.brewery.business.brewing.entity;
 import nl.ordina.brewery.business.brewing.boundary.RecipeExecutor;
 import nl.ordina.brewery.business.brewing.entity.event.*;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Singleton;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.logging.Logger;
@@ -18,6 +20,8 @@ public class Brewer {
 
   @Inject
   private Kettle kettle;
+  @Inject
+  private Event<RecipeCompleteEvent> recipeComplete;
 
   private RecipeExecutor executor;
 
@@ -26,9 +30,12 @@ public class Brewer {
     nextAction();
   }
 
+  @Asynchronous
   public void changing(@Observes KettleEvent event) {
-    if (event instanceof IngredientAddedEvent || event instanceof TimerExpiredEvent || event instanceof TemperatureChangedEvent)
-      nextAction(event);
+    if (event instanceof IngredientAddedEvent || event instanceof TimerExpiredEvent || event instanceof TemperatureChangedEvent) {
+      if (executor.isDone()) recipeComplete.fire(new RecipeCompleteEvent());
+      else nextAction(event);
+    }
     else
       log.log(INFO, "Ignoring event: {0}", event);
   }
