@@ -10,7 +10,7 @@ public class Ingredients {
     public Volume getVolume() {
         return ingredienten.stream()
                            .map(Ingredient::getVolume)
-                           .reduce(new Volume(0, Volume.VolumeUnit.LITER), (i1, i2) -> i1.plus(i2));
+                           .reduce(new Volume(0, Volume.VolumeUnit.LITER), Volume::plus);
     }
 
     public Ingredients add(Ingredient ingredient) {

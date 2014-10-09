@@ -28,7 +28,7 @@ public class KettleTest {
 
   @Test
   public void temperatuur_verhogen_leidt_tot_hogere_temperatuur() {
-    Event<MonitorableEvent> event = mock(Event.class);
+    Event event = mock(Event.class);
 
     StandardKettle sut = new StandardKettle();
     sut.setEvent(event);
@@ -39,8 +39,9 @@ public class KettleTest {
 
   @Test
   public void ingredient_toevoegen_zonder_overschrijden_maximum_capaciteit() {
+    final Event event = mock(Event.class);
     StandardKettle sut = new StandardKettle(new Volume(500, LITER));
-    sut.setEvent(mock(Event.class));
+    sut.setEvent(event);
     try {
       sut.addIngredient(new Water(new Volume(100, LITER)));
       sut.addIngredient(new Hop(new Volume(400, LITER)));

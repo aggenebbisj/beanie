@@ -3,7 +3,7 @@ package nl.ordina.brewery.entity;
 public class Volume implements Comparable<Volume>{
 
     public enum VolumeUnit {
-        LITER;
+        LITER
     }
     
     private final int value;
@@ -24,8 +24,7 @@ public class Volume implements Comparable<Volume>{
     
     @Override
     public int hashCode() {
-        int hash = 7;
-        return hash;
+      return 7;
     }
 
     @Override
@@ -40,10 +39,7 @@ public class Volume implements Comparable<Volume>{
         if (this.value != other.value) {
             return false;
         }
-        if (this.unit != other.unit) {
-            return false;
-        }
-        return true;
+      return this.unit == other.unit;
     }
 
     @Override

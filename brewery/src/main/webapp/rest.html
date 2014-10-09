@@ -6,7 +6,7 @@
 </head>
 <head>
     <script language="javascript" type="text/javascript">
-        var contextRoot = window.location.pathname.split('/')[1]
+        var contextRoot = window.location.pathname.split('/')[1];
         var wsUri = "ws://" + document.location.host + "/" + contextRoot + "/brewer";
 
         function init() {
@@ -15,7 +15,7 @@
         }
 
         function connect() {
-            websocket = new WebSocket(wsUri);
+            var websocket = new WebSocket(wsUri);
             websocket.onopen = function (evt) {
                 writeToScreen("CONNECTED to " + wsUri);
             };

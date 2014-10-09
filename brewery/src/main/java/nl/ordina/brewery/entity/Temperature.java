@@ -9,7 +9,7 @@ public class Temperature {
   }
 
   public enum TemperatureUnit {
-    CELSIUS;
+    CELSIUS
   }
 
   private final int value;
@@ -38,8 +38,7 @@ public class Temperature {
 
   @Override
   public int hashCode() {
-    int hash = 7;
-    return hash;
+    return 7;
   }
 
   @Override
@@ -54,10 +53,7 @@ public class Temperature {
     if (this.unit != other.unit) {
       return false;
     }
-    if (this.value != other.value) {
-      return false;
-    }
-    return true;
+    return this.value == other.value;
   }
 
   @Override
