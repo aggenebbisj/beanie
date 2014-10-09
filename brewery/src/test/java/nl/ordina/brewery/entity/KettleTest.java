@@ -1,6 +1,5 @@
 package nl.ordina.brewery.entity;
 
-import nl.ordina.brewery.entity.*;
 import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class KettleTest {
 
   @Test
   public void temperatuur_verhogen_leidt_tot_hogere_temperatuur() {
-    Event<KettleEvent> event = mock(Event.class);
+    Event<MonitorableEvent> event = mock(Event.class);
 
     StandardKettle sut = new StandardKettle();
     sut.setEvent(event);

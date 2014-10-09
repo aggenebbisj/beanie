@@ -1,10 +1,8 @@
 package nl.ordina.brewery.recipe.entity;
 
+import nl.ordina.brewery.entity.ActionableEvent;
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.KettleEvent;
-import nl.ordina.brewery.entity.event.*;
-import nl.ordina.brewery.recipe.entity.Recipe;
-import nl.ordina.brewery.recipe.entity.RecipeExecutor;
+import nl.ordina.brewery.entity.event.RecipeCompleteEvent;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Singleton;
@@ -14,7 +12,7 @@ import javax.inject.Inject;
 import java.util.logging.Logger;
 
 import static java.lang.invoke.MethodHandles.lookup;
-import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.FINEST;
 import static java.util.logging.Logger.getLogger;
 
 @Singleton
@@ -34,15 +32,12 @@ public class Brewer {
   }
 
   @Asynchronous
-  public void changing(@Observes KettleEvent event) {
-    if (event instanceof IngredientAddedEvent || event instanceof TimerExpiredEvent || event instanceof TemperatureChangedEvent) {
-      if (executor.isDone())
-        recipeComplete.fire(new RecipeCompleteEvent());
-      else
-        executor.nextAction(kettle);
-    }
-    else
-      log.log(INFO, "Ignoring event: {0}", event);
-  }
+  public void changing(@Observes ActionableEvent event) {
+    log.log(FINEST, "Received event {0}", event);
 
+    if (executor.isDone())
+      recipeComplete.fire(new RecipeCompleteEvent());
+    else
+      executor.nextAction(kettle);
+  }
 }

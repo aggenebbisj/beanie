@@ -1,12 +1,12 @@
 package nl.ordina.brewery.entity.event;
 
+import nl.ordina.brewery.entity.ActionableEvent;
 import nl.ordina.brewery.entity.Ingredient;
-import nl.ordina.brewery.entity.KettleEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class IngredientAddedEvent implements KettleEvent {
+public class IngredientAddedEvent implements ActionableEvent {
   private final Ingredient ingredient;
 
   public IngredientAddedEvent(Ingredient ingredient) {
@@ -16,7 +16,7 @@ public class IngredientAddedEvent implements KettleEvent {
   @Override
   public JsonObject createJson() {
     return Json.createObjectBuilder()
-        .add("type", "IngredientAdded")
+        .add("event", "ingredient added")
         .add("ingredient",
             Json.createObjectBuilder()
               .add("name", ingredient.getName())

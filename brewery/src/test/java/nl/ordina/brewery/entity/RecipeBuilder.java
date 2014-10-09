@@ -2,7 +2,6 @@ package nl.ordina.brewery.entity;
 
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-
 import java.time.Duration;
 
 import static javax.json.Json.createObjectBuilder;

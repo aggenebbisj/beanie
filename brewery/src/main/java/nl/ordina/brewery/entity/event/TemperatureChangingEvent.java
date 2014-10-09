@@ -1,13 +1,13 @@
 package nl.ordina.brewery.entity.event;
 
-import nl.ordina.brewery.entity.KettleEvent;
+import nl.ordina.brewery.entity.MonitorableEvent;
 import nl.ordina.brewery.entity.StandardKettle;
 import nl.ordina.brewery.entity.Temperature;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class TemperatureChangingEvent implements KettleEvent {
+public class TemperatureChangingEvent implements MonitorableEvent {
   private final StandardKettle kettle;
   private final Temperature goal;
 
@@ -20,7 +20,7 @@ public class TemperatureChangingEvent implements KettleEvent {
   public JsonObject createJson() {
     return
         Json.createObjectBuilder()
-            .add("type", "TemperatureChanging")
+            .add("event", "temperature changing")
             .add("kettle",
                 Json.createObjectBuilder()
                     .add("scale", kettle.getTemperature().getUnit().name())

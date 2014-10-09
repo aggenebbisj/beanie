@@ -1,13 +1,13 @@
 package nl.ordina.brewery.entity.event;
 
-import nl.ordina.brewery.entity.KettleEvent;
+import nl.ordina.brewery.entity.MonitorableEvent;
 import nl.ordina.brewery.entity.Temperature;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.time.Duration;
 
-public class KitchenTimerEvent implements KettleEvent {
+public class KitchenTimerEvent implements MonitorableEvent {
   private final Duration duration;
   private final Temperature temperature;
 
@@ -19,7 +19,7 @@ public class KitchenTimerEvent implements KettleEvent {
   @Override
   public JsonObject createJson() {
     return Json.createObjectBuilder()
-        .add("type", "KitchenTimerEvent")
+        .add("event", "kitchen timer started")
         .add("duration", duration.toString())
         .add("temperature",
             Json.createObjectBuilder()

@@ -1,12 +1,11 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.control;
 
 import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.entity.TemperatureChangeCalculator;
 import org.junit.Test;
 
+import static nl.ordina.brewery.control.TemperatureChangeCalculator.MAXIMUM_TEMPERATURE_CHANGE;
 import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.brewery.entity.Temperature.of;
-import static nl.ordina.brewery.entity.TemperatureChangeCalculator.MAXIMUM_TEMPERATURE_CHANGE;
 import static org.junit.Assert.*;
 
 public class TemperatureChangeCalculatorTest {

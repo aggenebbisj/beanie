@@ -1,9 +1,8 @@
 package nl.ordina.brewery.control;
 
 import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.entity.TemperatureChangeCalculator;
-import nl.ordina.brewery.entity.event.TemperatureChangedEvent;
 import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
+import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -23,7 +22,7 @@ public class Thermoregulation {
   TimerService timerService;
 
   @Inject
-  Event<TemperatureChangedEvent> changedEvent;
+  Event<TemperatureReachedEvent> changedEvent;
   @Inject
   Event<TemperatureChangingEvent> changingEvent;
 
@@ -42,16 +41,20 @@ public class Thermoregulation {
 
 //    handleChange(event);
 
-    TemperatureChangeCalculator calculator = new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
+    TemperatureChangeCalculator calculator = createCalculator(event);
 
     if( calculator.isEqual() ) fireChanged(event.getGoal());
     else timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, calculator.calculateNewTemperature()), false));
 
   }
 
+  private TemperatureChangeCalculator createCalculator(TemperatureChangingEvent event) {
+    return new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
+  }
+
 
   private void handleChange(TemperatureChangingEvent event) {
-    TemperatureChangeCalculator calculator = new TemperatureChangeCalculator(event.getKettle().getTemperature(), event.getGoal());
+    TemperatureChangeCalculator calculator = createCalculator(event);
 
     if( calculator.isEqual() ) fireChanged(event.getGoal());
     else timerService.createSingleActionTimer(1000, new TimerConfig(new Holder(event, calculator.calculateNewTemperature()), false));
@@ -60,7 +63,7 @@ public class Thermoregulation {
 
   private void fireChanged(Temperature newTemperature) {
     // why does the kettle not react to the changed event????
-    changedEvent.fire(new TemperatureChangedEvent(newTemperature));
+    changedEvent.fire(new TemperatureReachedEvent(newTemperature));
   }
 
 

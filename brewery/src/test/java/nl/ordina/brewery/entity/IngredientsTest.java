@@ -1,11 +1,10 @@
 package nl.ordina.brewery.entity;
 
+import org.junit.Test;
+
 import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
-import nl.ordina.brewery.entity.*;
-import org.junit.Test;
 
 public class IngredientsTest {
     

@@ -1,4 +1,6 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.control;
+
+import nl.ordina.brewery.entity.Temperature;
 
 import java.util.Objects;
 

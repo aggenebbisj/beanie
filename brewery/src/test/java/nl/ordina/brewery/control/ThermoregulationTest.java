@@ -1,10 +1,9 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.control;
 
 import nl.ordina.brewery.entity.StandardKettle;
 import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.entity.event.TemperatureChangedEvent;
 import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
-import nl.ordina.brewery.control.Thermoregulation;
+import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,7 +25,7 @@ public class ThermoregulationTest {
 
   public static final Temperature DEGREES_30 = of(30, CELSIUS);
   @Mock
-  Event<TemperatureChangedEvent> changedEvent;
+  Event<TemperatureReachedEvent> changedEvent;
   @Mock TimerService timerService;
 
   @Mock

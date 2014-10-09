@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.time.Duration;
 import java.util.Arrays;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;

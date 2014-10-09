@@ -1,15 +1,15 @@
 package nl.ordina.brewery.entity.event;
 
-import nl.ordina.brewery.entity.KettleEvent;
+import nl.ordina.brewery.entity.ActionableEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class TimerExpiredEvent implements KettleEvent {
+public class TimerExpiredEvent implements ActionableEvent {
   @Override
   public JsonObject createJson() {
     return Json.createObjectBuilder()
-        .add("type", "TimerExpired")
+        .add("event", "kitchen timer rings")
         .build();
   }
   @Override

@@ -1,16 +1,16 @@
 package nl.ordina.brewery.entity.event;
 
-import nl.ordina.brewery.entity.KettleEvent;
+import nl.ordina.brewery.entity.ActionableEvent;
 import nl.ordina.brewery.entity.Temperature;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.io.Serializable;
 
-public class TemperatureChangedEvent implements KettleEvent, Serializable {
+public class TemperatureReachedEvent implements ActionableEvent, Serializable {
   private final Temperature goal;
 
-  public TemperatureChangedEvent(Temperature goal) {
+  public TemperatureReachedEvent(Temperature goal) {
     this.goal = goal;
   }
 
@@ -18,7 +18,7 @@ public class TemperatureChangedEvent implements KettleEvent, Serializable {
   public JsonObject createJson() {
     return
         Json.createObjectBuilder()
-            .add("type", "TemperatureChanged")
+            .add("event", "temperature reached goal")
             .add("temperature",
                 Json.createObjectBuilder()
                     .add("scale", goal.getUnit().name())
@@ -33,7 +33,7 @@ public class TemperatureChangedEvent implements KettleEvent, Serializable {
 
   @Override
   public String toString() {
-    return "TemperatureChangedEvent{" +
+    return "TemperatureReachedEvent{" +
         "goal reached=" + goal +
         '}';
   }

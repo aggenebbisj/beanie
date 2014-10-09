@@ -1,7 +1,6 @@
 package nl.ordina.brewery.monitor.boundary;
 
-import nl.ordina.brewery.entity.KettleEvent;
-import nl.ordina.brewery.entity.event.RecipeCompleteEvent;
+import nl.ordina.brewery.entity.MonitorableEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -16,11 +15,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import static java.util.Collections.synchronizedSet;
-import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.INFO;
-import static java.util.logging.Level.WARNING;
+import static java.util.logging.Level.*;
 import static java.util.stream.Collectors.toList;
-import static javax.json.Json.createObjectBuilder;
 
 @ServerEndpoint("/brewer")
 @ApplicationScoped
@@ -45,17 +41,12 @@ public class MonitorWebSocket {
     log.log(INFO, "Interesting, received message {0} from {1}, will do NOTHING!", new Object[]{msg, peer});
   }
 
-  public void receive(@Observes KettleEvent event) {
+  public void receive(@Observes MonitorableEvent event) {
     log.log(FINER, "Received event {0}", event);
     peers.stream().forEach(p -> send(p, event.createJson()));
 
     final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
     peers.removeAll(closed);
-  }
-
-  public void processComplete(@Observes RecipeCompleteEvent event) {
-    final JsonObject json = createObjectBuilder().add("status", "complete").build();
-    peers.stream().forEach(p -> send(p, json));
   }
 
   private void send(Session p, JsonObject json) {

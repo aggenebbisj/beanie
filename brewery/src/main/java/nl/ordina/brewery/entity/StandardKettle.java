@@ -9,7 +9,7 @@ import java.time.Duration;
 @Alternative
 public class StandardKettle implements Kettle {
 
-  private Event<KettleEvent> event;
+  private Event<MonitorableEvent> event;
   private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
   private final Volume capacity;
   private final Ingredients ingredients = new Ingredients();
@@ -24,7 +24,7 @@ public class StandardKettle implements Kettle {
 
   @Override
   public void changeTemperatureTo(Temperature goal) {
-    if(getTemperature().equals(goal)) event.fire(new TemperatureChangedEvent(goal));
+    if(getTemperature().equals(goal)) event.fire(new TemperatureReachedEvent(goal));
     else                              event.fire(new TemperatureChangingEvent(this, goal));
 
   }
@@ -49,7 +49,7 @@ public class StandardKettle implements Kettle {
   }
 
 
-  public void setEvent(Event<KettleEvent> event) {
+  public void setEvent(Event<MonitorableEvent> event) {
     this.event = event;
   }
 

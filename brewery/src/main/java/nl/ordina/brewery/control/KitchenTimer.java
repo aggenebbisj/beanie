@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.control;
 
 import nl.ordina.brewery.entity.event.KitchenTimerEvent;
 import nl.ordina.brewery.entity.event.TimerExpiredEvent;
