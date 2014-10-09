@@ -1,5 +1,6 @@
 package nl.ordina.brewery.recipe.boundary;
 
+import com.sun.messaging.jmq.jmsclient.JMSContextImpl;
 import nl.ordina.brewery.entity.RecipeBuilder;
 
 import javax.jms.*;
@@ -7,9 +8,11 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.StringWriter;
 import java.time.Duration;
 
+import static com.sun.messaging.jmq.jmsclient.ContainerType.JavaSE;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static javax.json.Json.createArrayBuilder;
 import static javax.json.Json.createObjectBuilder;
@@ -19,32 +22,24 @@ public class JMSClient implements MessageListener {
   public static void main(String[] args) {
     // Works because of dependency to gfclient (Glassfish client)
     //
+    final ConnectionFactory connectionFactory;
+    final Queue requestQueue;
     try {
       InitialContext jndiContext = new InitialContext();
 
-      ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup("jms/ConnectionFactory");
+      connectionFactory = (ConnectionFactory) jndiContext.lookup("jms/ConnectionFactory");
 
-      Queue requestQueue = (Queue) jndiContext.lookup("jms/RecipeQueue");
+      requestQueue = (Queue) jndiContext.lookup("jms/RecipeQueue");
       Queue replyQueue = (Queue) jndiContext.lookup("jms/RecipeReplyQueue");
+    } catch (NamingException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+    JMSContext context = new JMSContextImpl(connectionFactory, JavaSE);
 
-      Connection connection = connectionFactory.createConnection();
-      Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-
-      MessageConsumer consumer = session.createConsumer(replyQueue);
-
-      consumer.setMessageListener(new JMSClient());
-
-      connection.start();
-
-      final MessageProducer producer = session.createProducer(requestQueue);
       final StringWriter writer = new StringWriter();
       Json.createWriter(writer).write(createRecipe());
-
-      producer.send(session.createTextMessage(writer.getBuffer().toString()));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      context.createProducer().send(requestQueue, writer.getBuffer().toString());
   }
 
   private static JsonObject createRecipe() {
