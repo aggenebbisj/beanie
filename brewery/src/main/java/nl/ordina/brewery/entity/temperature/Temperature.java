@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.temperature;
 
 public class Temperature {
 

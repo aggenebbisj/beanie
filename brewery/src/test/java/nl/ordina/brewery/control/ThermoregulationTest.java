@@ -1,8 +1,8 @@
 package nl.ordina.brewery.control;
 
-import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
-import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
+import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,8 +13,8 @@ import javax.ejb.TimerService;
 import javax.enterprise.event.Event;
 import nl.ordina.brewery.entity.Kettle;
 
-import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
-import static nl.ordina.brewery.entity.Temperature.of;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.entity.temperature.Temperature.of;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.verify;

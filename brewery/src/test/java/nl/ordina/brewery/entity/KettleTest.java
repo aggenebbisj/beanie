@@ -1,12 +1,16 @@
 package nl.ordina.brewery.entity;
 
-import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
+import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.ingredient.Hop;
+import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
 import org.junit.Test;
 
 import javax.enterprise.event.Event;
 
-import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
-import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;

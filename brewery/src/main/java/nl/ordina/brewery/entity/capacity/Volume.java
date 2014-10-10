@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.capacity;
 
 public class Volume implements Comparable<Volume>{
 

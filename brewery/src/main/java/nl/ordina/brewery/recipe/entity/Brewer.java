@@ -2,7 +2,6 @@ package nl.ordina.brewery.recipe.entity;
 
 import nl.ordina.brewery.entity.ActionableEvent;
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.event.RecipeCompleteEvent;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Singleton;

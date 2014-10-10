@@ -1,9 +1,14 @@
-package nl.ordina.brewery.boundary;
+package nl.ordina.brewery.recipe.boundary;
 
+import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
+import nl.ordina.brewery.entity.ingredient.Malt;
 import nl.ordina.brewery.entity.*;
-import nl.ordina.brewery.entity.action.AddIngredient;
-import nl.ordina.brewery.entity.action.ChangeTemperature;
-import nl.ordina.brewery.entity.action.StableTemperature;
+import nl.ordina.brewery.entity.ingredient.AddIngredient;
+import nl.ordina.brewery.entity.temperature.ChangeTemperature;
+import nl.ordina.brewery.entity.temperature.StableTemperature;
 import nl.ordina.brewery.recipe.entity.Recipe;
 import nl.ordina.brewery.recipe.entity.Step;
 
@@ -16,7 +21,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static nl.ordina.brewery.entity.Volume.VolumeUnit.valueOf;
+import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.valueOf;
 
 public class RecipeParser {
   public Recipe parseRecipe(JsonObject obj) {

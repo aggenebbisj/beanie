@@ -1,6 +1,6 @@
-package nl.ordina.brewery.entity.action;
+package nl.ordina.brewery.entity.ingredient;
 
-import nl.ordina.brewery.entity.Ingredient;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.KettleAction;
 

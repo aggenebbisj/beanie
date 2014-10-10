@@ -1,8 +1,12 @@
 package nl.ordina.brewery.entity;
 
-import nl.ordina.brewery.entity.action.AddIngredient;
-import nl.ordina.brewery.entity.action.ChangeTemperature;
-import nl.ordina.brewery.entity.action.StableTemperature;
+import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.ingredient.Malt;
+import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.ingredient.AddIngredient;
+import nl.ordina.brewery.entity.temperature.ChangeTemperature;
+import nl.ordina.brewery.entity.temperature.StableTemperature;
 import nl.ordina.brewery.recipe.entity.Brewer;
 import nl.ordina.brewery.recipe.entity.Recipe;
 import org.junit.Test;
@@ -14,8 +18,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.time.Duration;
 import java.util.Arrays;
 
-import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
-import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)

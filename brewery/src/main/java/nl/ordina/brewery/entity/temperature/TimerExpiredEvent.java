@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity.event;
+package nl.ordina.brewery.entity.temperature;
 
 import nl.ordina.brewery.entity.ActionableEvent;
 

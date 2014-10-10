@@ -1,8 +1,8 @@
 package nl.ordina.brewery.control;
 
-import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
-import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
+import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 
 import javax.annotation.Resource;
 import javax.ejb.*;

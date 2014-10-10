@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity.action;
+package nl.ordina.brewery.entity.temperature;
 
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.KettleAction;

@@ -1,6 +1,5 @@
 package nl.ordina.brewery.recipe.boundary;
 
-import nl.ordina.brewery.boundary.RecipeParser;
 import nl.ordina.brewery.recipe.entity.Brewer;
 
 import javax.ejb.MessageDriven;

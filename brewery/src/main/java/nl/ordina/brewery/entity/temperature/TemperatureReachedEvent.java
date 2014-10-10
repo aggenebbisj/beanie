@@ -1,7 +1,7 @@
-package nl.ordina.brewery.entity.event;
+package nl.ordina.brewery.entity.temperature;
 
 import nl.ordina.brewery.entity.ActionableEvent;
-import nl.ordina.brewery.entity.Temperature;
+import nl.ordina.brewery.entity.temperature.Temperature;
 
 import javax.json.Json;
 import javax.json.JsonObject;

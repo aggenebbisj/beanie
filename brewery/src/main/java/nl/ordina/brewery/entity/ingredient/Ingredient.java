@@ -1,4 +1,6 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.ingredient;
+
+import nl.ordina.brewery.entity.capacity.Volume;
 
 public abstract class Ingredient<T extends Ingredient> {
 

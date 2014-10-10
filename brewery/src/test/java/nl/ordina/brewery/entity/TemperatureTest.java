@@ -1,8 +1,9 @@
 package nl.ordina.brewery.entity;
 
+import nl.ordina.brewery.entity.temperature.Temperature;
 import org.junit.Test;
 
-import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

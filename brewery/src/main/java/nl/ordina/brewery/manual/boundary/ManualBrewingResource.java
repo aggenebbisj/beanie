@@ -1,8 +1,8 @@
 package nl.ordina.brewery.manual.boundary;
 
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.Temperature;
-import nl.ordina.brewery.boundary.RecipeParser;
+import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.recipe.boundary.RecipeParser;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import javax.ws.rs.Path;
 
 import static java.time.Duration.parse;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.valueOf;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
 
 @Path("kettle")
 @ApplicationScoped
@@ -22,6 +22,8 @@ public class ManualBrewingResource {
 
   @Inject
   Kettle kettle;
+  // TODO kill dependency on recipe parser, manually interacting with kettle
+  // should not make use of recipes, but single ingredients
   @Inject
   RecipeParser parser;
 

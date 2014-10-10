@@ -1,8 +1,8 @@
 package nl.ordina.brewery.recipe.entity;
 
-import nl.ordina.brewery.entity.Ingredient;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.KettleAction;
-import nl.ordina.brewery.entity.action.AddIngredient;
+import nl.ordina.brewery.entity.ingredient.AddIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
