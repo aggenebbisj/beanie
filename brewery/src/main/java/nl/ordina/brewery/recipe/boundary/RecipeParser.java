@@ -1,10 +1,7 @@
 package nl.ordina.brewery.recipe.boundary;
 
-import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.boundary.IngredientParser;
 import nl.ordina.brewery.entity.temperature.Temperature;
-import nl.ordina.brewery.entity.ingredient.Water;
-import nl.ordina.brewery.entity.ingredient.Ingredient;
-import nl.ordina.brewery.entity.ingredient.Malt;
 import nl.ordina.brewery.entity.*;
 import nl.ordina.brewery.entity.ingredient.AddIngredient;
 import nl.ordina.brewery.entity.temperature.ChangeTemperature;
@@ -15,15 +12,18 @@ import nl.ordina.brewery.recipe.entity.Step;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.time.Duration;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import javax.inject.Inject;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.valueOf;
 
 public class RecipeParser {
+  
+  @Inject
+  private IngredientParser ingredientParser;  
+    
   public Recipe parseRecipe(JsonObject obj) {
     final List<Step> steps =
         obj.getJsonArray("steps").stream()
@@ -47,32 +47,10 @@ public class RecipeParser {
 
   private KettleAction mapAction(JsonObject j) {
     switch (j.getString("type")) {
-      case "AddIngredient" : return new AddIngredient(parseIngredient(j.getJsonObject("ingredient")));
+      case "AddIngredient" : return new AddIngredient(ingredientParser.parseIngredient(j.getJsonObject("ingredient")));
       case "ChangeTemperature" : return new ChangeTemperature(new Temperature(j.getInt("value"), Temperature.TemperatureUnit.valueOf(j.getString("unit"))));
       case "StableTemperature": return new StableTemperature(Duration.parse(j.getString("duration")));
       default : throw new WebApplicationException(NOT_FOUND);
     }
-  }
-
-  public Ingredient parseIngredient(JsonObject obj) {
-    Volume volume = parseVolume(obj.getJsonObject("volume"));
-
-    switch (obj.getString("type")) {
-      case "water": {
-        return new Water(volume);
-      }
-      case "malt": {
-        return new Malt(volume);
-      }
-      default:
-        System.out.println("Unknown ingredient: " + obj.getString("type"));
-        throw new WebApplicationException(Response.Status.BAD_REQUEST);
-    }
-  }
-
-  private static Volume parseVolume(JsonObject jsonVolume) {
-    final int amount = jsonVolume.getInt("amount");
-    final String unit = jsonVolume.getString("unit");
-    return new Volume(amount, valueOf(unit));
   }
 }
