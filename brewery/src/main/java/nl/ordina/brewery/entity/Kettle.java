@@ -1,17 +1,21 @@
 package nl.ordina.brewery.entity;
 
 import java.time.Duration;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
 import nl.ordina.brewery.entity.event.IngredientAddedEvent;
 import nl.ordina.brewery.entity.event.KitchenTimerEvent;
 import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
 import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.event.TemperatureReadingEvent;
 
-@Alternative
+@ApplicationScoped
 public class Kettle {
+  
+  @Inject
   private Event<MonitorableEvent> event;
+  
   private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
   private final Volume capacity;
   private final Ingredients ingredients = new Ingredients();

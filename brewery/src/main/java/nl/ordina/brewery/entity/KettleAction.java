@@ -6,7 +6,7 @@ package nl.ordina.brewery.entity;
 public interface KettleAction {
 
   /**
-   * Exectute the action on the kettle
+   * Execute the action on the kettle
    *
    * @param kettle the kettle
    */
