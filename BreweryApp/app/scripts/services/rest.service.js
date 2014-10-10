@@ -7,6 +7,12 @@ angular.module('breweryApp').factory('restService', function ($http) {
                 method: 'GET',
                 url: url
             });
+        },
+        post: function (url) {
+            return $http({
+                method: 'POST',
+                url: url
+            });
         }
     };
 });
