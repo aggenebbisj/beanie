@@ -35,7 +35,7 @@ public class BrewerResourceIT {
   @Test
   public void test() {
     final WebTarget target = client
-        .target("http://localhost:8080/brewery-1.0-SNAPSHOT/resources/brewer");
+        .target("http://localhost:8080/brewery/resources/brewer");
 
     final JsonArrayBuilder actions = createArrayBuilder()
         .add(createAddIngredientAction(createIngredient("water", 10)))
