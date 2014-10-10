@@ -1,6 +1,5 @@
 package nl.ordina.brewery.control;
 
-import nl.ordina.brewery.entity.StandardKettle;
 import nl.ordina.brewery.entity.Temperature;
 import nl.ordina.brewery.entity.event.TemperatureChangingEvent;
 import nl.ordina.brewery.entity.event.TemperatureReachedEvent;
@@ -12,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.ejb.TimerService;
 import javax.enterprise.event.Event;
+import nl.ordina.brewery.entity.Kettle;
 
 import static nl.ordina.brewery.entity.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.brewery.entity.Temperature.of;
@@ -29,7 +29,7 @@ public class ThermoregulationTest {
   @Mock TimerService timerService;
 
   @Mock
-  StandardKettle kettle;
+  Kettle kettle;
 
   @InjectMocks
   private Thermoregulation sut;

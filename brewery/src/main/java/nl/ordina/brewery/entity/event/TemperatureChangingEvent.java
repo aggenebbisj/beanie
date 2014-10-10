@@ -1,17 +1,17 @@
 package nl.ordina.brewery.entity.event;
 
 import nl.ordina.brewery.entity.MonitorableEvent;
-import nl.ordina.brewery.entity.StandardKettle;
 import nl.ordina.brewery.entity.Temperature;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import nl.ordina.brewery.entity.Kettle;
 
 public class TemperatureChangingEvent implements MonitorableEvent {
-  private final StandardKettle kettle;
+  private final Kettle kettle;
   private final Temperature goal;
 
-  public TemperatureChangingEvent(StandardKettle kettle, Temperature goal) {
+  public TemperatureChangingEvent(Kettle kettle, Temperature goal) {
     this.kettle = kettle;
     this.goal = goal;
   }
@@ -34,7 +34,7 @@ public class TemperatureChangingEvent implements MonitorableEvent {
             .build();
   }
 
-  public StandardKettle getKettle() {
+  public Kettle getKettle() {
     return kettle;
   }
 

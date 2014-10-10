@@ -18,19 +18,19 @@ public class KettleTest {
 
   @Test
   public void initiele_temperatuur_is_nul_graden_celsius() {
-    assertThat(new StandardKettle().getTemperature(), is(new Temperature(0, CELSIUS)));
+    assertThat(new Kettle().getTemperature(), is(new Temperature(0, CELSIUS)));
   }
 
   @Test
   public void standaard_capaciteit_is_500_liter() {
-    assertThat(new StandardKettle().getCapacity(), is(new Volume(500, LITER)));
+    assertThat(new Kettle().getCapacity(), is(new Volume(500, LITER)));
   }
 
   @Test
   public void temperatuur_verhogen_leidt_tot_hogere_temperatuur() {
     Event event = mock(Event.class);
 
-    StandardKettle sut = new StandardKettle();
+    Kettle sut = new Kettle();
     sut.setEvent(event);
     sut.changeTemperatureTo(new Temperature(10, CELSIUS));
 
@@ -40,7 +40,7 @@ public class KettleTest {
   @Test
   public void ingredient_toevoegen_zonder_overschrijden_maximum_capaciteit() {
     final Event event = mock(Event.class);
-    StandardKettle sut = new StandardKettle(new Volume(500, LITER));
+    Kettle sut = new Kettle(new Volume(500, LITER));
     sut.setEvent(event);
     try {
       sut.addIngredient(new Water(new Volume(100, LITER)));
@@ -52,7 +52,7 @@ public class KettleTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void teveel_ingredienten_toevoegen_geeft_exceptie() {
-    Kettle sut = new StandardKettle(new Volume(500, LITER));
+    Kettle sut = new Kettle(new Volume(500, LITER));
     sut.addIngredient(new Water(new Volume(600, LITER)));
   }
 }
