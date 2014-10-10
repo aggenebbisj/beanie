@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static nl.ordina.brewery.business.brewing.entity.Volume.VolumeEenheid.LITER;
 
-public class Ingredienten {
+public class Ingredients {
     
     private final List<Ingredient> ingredienten = new ArrayList<>();
     
@@ -14,7 +14,7 @@ public class Ingredienten {
                            .reduce(new Volume(0, LITER), (i1, i2) -> i1.plus(i2));
     }
 
-    public Ingredienten voegToe(Ingredient ingredient) {
+    public Ingredients add(Ingredient ingredient) {
         ingredienten.add(ingredient);
         return this;
     }
