@@ -8,11 +8,11 @@ angular.module('breweryApp')
         };
 
         $scope.readings = {
-            'gauge1': '50'
+            'gauge1': '50',
+            'gauge2': '30',
+            'gauge3': '100',
+            'gauge4': '0'
         };
-
-        $scope.gage = 40;
-
 
 
        /* var wsUri = 'ws://' + document.location.host
