@@ -1,5 +1,5 @@
 angular.module('breweryApp').factory('restService', function ($http) {
-    'use strict';
+'use strict';
     return {
 
         get: function (url) {
