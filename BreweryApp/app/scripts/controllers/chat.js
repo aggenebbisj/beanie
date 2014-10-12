@@ -8,8 +8,10 @@ angular.module('breweryApp')
         };
 
         $scope.readings = {
-            'gauge1': 40
+            'gauge1': '50'
         };
+
+        $scope.gage = 40;
 
 
 

@@ -1,11 +1,12 @@
 <div ng-controller="ChatCtrl">
 <h1>Chat function</h1>
+    This page demonstrates the possibilities of websockets
 <div id="error" class="jumbotron" style="background: red;" ng-show="'{{error.value}}'">Something went wrong:
     <p>{{error.text}}<p></p></div>
-
+    {{readings.gauge1}}
 
     <!--<just-gage id="test1" class="200x160px" min='0' max='100' value="{{readings.gauge1}}" title="Test 1"></just-gage>-->
-    <just-gage id="test1" min=0 max=100 value=78 title="Static Gage"></just-gage>
+    <just-gage id="testd1" width="200px" height="200px" min=0 max=100 value="readings.gauge1" title="Static Gage"></just-gage>
 
 
 </div>
