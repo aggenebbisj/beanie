@@ -1,5 +1,6 @@
 package nl.ordina.brewery.entity;
 
+import java.time.Duration;
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Hop;
@@ -14,6 +15,7 @@ import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import org.junit.Ignore;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -59,4 +61,13 @@ public class KettleTest {
     Kettle sut = new Kettle(new Volume(500, LITER));
     sut.addIngredient(new Water(new Volume(600, LITER)));
   }
+  
+  @Ignore
+  @Test(expected = IllegalStateException.class)
+  public void performing_action_on_kettle_while_kettle_is_locked_should_throw_exception() {
+      Kettle sut = new Kettle(new Volume(500, LITER));
+      sut.lock(Duration.ZERO);
+      sut.addIngredient(new Water(new Volume(300, LITER)));
+  }
+  
 }

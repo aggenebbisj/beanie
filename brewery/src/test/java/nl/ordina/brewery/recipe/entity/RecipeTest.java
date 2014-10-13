@@ -1,12 +1,12 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.recipe.entity;
 
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Malt;
 import nl.ordina.brewery.entity.ingredient.Water;
-import nl.ordina.brewery.entity.ingredient.AddIngredient;
-import nl.ordina.brewery.entity.temperature.ChangeTemperature;
-import nl.ordina.brewery.entity.temperature.StableTemperature;
+import nl.ordina.brewery.entity.ingredient.AddIngredientAction;
+import nl.ordina.brewery.entity.temperature.ChangeTemperatureAction;
+import nl.ordina.brewery.entity.waiting.WaitAction;
 import nl.ordina.brewery.recipe.entity.Recipe;
 import org.junit.Test;
 
@@ -30,12 +30,10 @@ public class RecipeTest {
   public void oneStep() {
     Recipe recipe = new Recipe();
     recipe.addStep("Mashing",
-        Arrays.asList(
-            new AddIngredient(new Water(new Volume(20, LITER))),
-            new ChangeTemperature(Temperature.of(65, CELSIUS)),
-            new AddIngredient(new Malt(new Volume(1, LITER))),
-            new StableTemperature(Duration.ofMinutes(30))
-
+        Arrays.asList(new AddIngredientAction(new Water(new Volume(20, LITER))),
+            new ChangeTemperatureAction(Temperature.of(65, CELSIUS)),
+            new AddIngredientAction(new Malt(new Volume(1, LITER))),
+            new WaitAction(Duration.ofMinutes(30))
         ));
     assertThat(recipe.getIngredients().size(), is(2));
   }

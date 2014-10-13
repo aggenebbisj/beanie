@@ -2,7 +2,7 @@ package nl.ordina.brewery.entity;
 
 import javax.json.JsonObject;
 
-public interface MonitorableEvent {
+public interface MonitoringEvent {
   JsonObject createJson();
 }
 

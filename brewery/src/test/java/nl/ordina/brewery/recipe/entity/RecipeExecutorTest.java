@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.recipe.entity;
 
 import nl.ordina.brewery.recipe.entity.Recipe;
 import nl.ordina.brewery.recipe.entity.RecipeExecutor;
@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import nl.ordina.brewery.entity.Kettle;
+import nl.ordina.brewery.entity.KettleAction;
 
 import static java.util.Collections.emptyList;
 import static junit.framework.TestCase.assertFalse;

@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.recipe.entity;
 
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;

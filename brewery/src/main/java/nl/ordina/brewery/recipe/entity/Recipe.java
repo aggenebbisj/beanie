@@ -2,7 +2,7 @@ package nl.ordina.brewery.recipe.entity;
 
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.KettleAction;
-import nl.ordina.brewery.entity.ingredient.AddIngredient;
+import nl.ordina.brewery.entity.ingredient.AddIngredientAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,8 @@ public class Recipe {
   public List<Ingredient> getIngredients() {
     return steps.stream()
         .flatMap(this::getActions)
-        .filter(a -> a instanceof AddIngredient)
-        .map(a -> ((AddIngredient) a).getIngredient())
+        .filter(a -> a instanceof AddIngredientAction)
+        .map(a -> ((AddIngredientAction) a).getIngredient())
         .collect(toList());
   }
 

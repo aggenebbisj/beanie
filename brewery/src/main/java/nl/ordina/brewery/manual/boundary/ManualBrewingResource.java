@@ -11,7 +11,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
-import static java.time.Duration.parse;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import nl.ordina.brewery.boundary.IngredientParser;
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
@@ -22,8 +21,6 @@ public class ManualBrewingResource {
 
   @Inject
   Kettle kettle;
-  // TODO kill dependency on recipe parser, manually interacting with kettle
-  // should not make use of recipes, but single ingredients
   @Inject
   IngredientParser parser;
  
@@ -37,11 +34,7 @@ public class ManualBrewingResource {
   @POST
   @Path("temperature")
   public void changeTemperature(JsonObject obj) {
-    if (obj.get("goal") == null) {
-      kettle.keepStableTemperature(parse(obj.getString("duration")));
-    } else {
-      JsonObject goal = obj.getJsonObject("goal");
-      kettle.changeTemperatureTo(new Temperature(goal.getInt("value"), valueOf(goal.getString("unit"))));
-    }
+    JsonObject goal = obj.getJsonObject("goal");
+    kettle.changeTemperatureTo(new Temperature(goal.getInt("value"), valueOf(goal.getString("unit"))));
   }
 }

@@ -1,6 +1,6 @@
 package nl.ordina.brewery.monitor.boundary;
 
-import nl.ordina.brewery.entity.MonitorableEvent;
+import nl.ordina.brewery.entity.MonitoringEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -41,7 +41,7 @@ public class MonitorWebSocket {
     log.log(INFO, "Interesting, received message {0} from {1}, will do NOTHING!", new Object[]{msg, peer});
   }
 
-  public void receive(@Observes MonitorableEvent event) {
+  public void receive(@Observes MonitoringEvent event) {
     log.log(FINER, "Received event {0}", event);
     peers.stream().forEach(p -> send(p, event.createJson()));
 

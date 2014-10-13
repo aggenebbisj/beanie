@@ -1,12 +1,11 @@
 package nl.ordina.brewery.entity.ingredient;
 
-import nl.ordina.brewery.entity.ActionableEvent;
-import nl.ordina.brewery.entity.ingredient.Ingredient;
+import nl.ordina.brewery.entity.ActionEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class IngredientAddedEvent implements ActionableEvent {
+public class IngredientAddedEvent implements ActionEvent {
   private final Ingredient ingredient;
 
   public IngredientAddedEvent(Ingredient ingredient) {

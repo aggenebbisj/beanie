@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.temperature;
 
 import nl.ordina.brewery.entity.temperature.Temperature;
 import org.junit.Test;

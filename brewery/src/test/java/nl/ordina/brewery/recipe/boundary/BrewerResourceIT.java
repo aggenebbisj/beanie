@@ -1,6 +1,6 @@
 package nl.ordina.brewery.recipe.boundary;
 
-import nl.ordina.brewery.entity.RecipeBuilder;
+import nl.ordina.brewery.recipe.entity.RecipeBuilder;
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 import static javax.json.Json.createArrayBuilder;
 import static javax.json.Json.createObjectBuilder;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
-import static nl.ordina.brewery.entity.RecipeBuilder.*;
+import static nl.ordina.brewery.recipe.entity.RecipeBuilder.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

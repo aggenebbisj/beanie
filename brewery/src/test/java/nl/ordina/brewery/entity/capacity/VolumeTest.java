@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.capacity;
 
 import nl.ordina.brewery.entity.capacity.Volume;
 import org.junit.Test;

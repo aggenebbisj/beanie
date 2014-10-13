@@ -1,13 +1,12 @@
 package nl.ordina.brewery.entity.ingredient;
 
-import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.KettleAction;
 
-public class AddIngredient implements KettleAction {
+public class AddIngredientAction implements KettleAction {
   private final Ingredient ingredient;
 
-  public AddIngredient(Ingredient ingredient) {
+  public AddIngredientAction(Ingredient ingredient) {
     this.ingredient = ingredient;
   }
 

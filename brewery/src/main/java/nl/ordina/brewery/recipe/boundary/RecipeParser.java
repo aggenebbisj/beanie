@@ -3,9 +3,9 @@ package nl.ordina.brewery.recipe.boundary;
 import nl.ordina.brewery.boundary.IngredientParser;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.*;
-import nl.ordina.brewery.entity.ingredient.AddIngredient;
-import nl.ordina.brewery.entity.temperature.ChangeTemperature;
-import nl.ordina.brewery.entity.temperature.StableTemperature;
+import nl.ordina.brewery.entity.ingredient.AddIngredientAction;
+import nl.ordina.brewery.entity.temperature.ChangeTemperatureAction;
+import nl.ordina.brewery.entity.waiting.WaitAction;
 import nl.ordina.brewery.recipe.entity.Recipe;
 import nl.ordina.brewery.recipe.entity.Step;
 
@@ -47,9 +47,9 @@ public class RecipeParser {
 
   private KettleAction mapAction(JsonObject j) {
     switch (j.getString("type")) {
-      case "AddIngredient" : return new AddIngredient(ingredientParser.parseIngredient(j.getJsonObject("ingredient")));
-      case "ChangeTemperature" : return new ChangeTemperature(new Temperature(j.getInt("value"), Temperature.TemperatureUnit.valueOf(j.getString("unit"))));
-      case "StableTemperature": return new StableTemperature(Duration.parse(j.getString("duration")));
+      case "AddIngredient" : return new AddIngredientAction(ingredientParser.parseIngredient(j.getJsonObject("ingredient")));
+      case "ChangeTemperature" : return new ChangeTemperatureAction(new Temperature(j.getInt("value"), Temperature.TemperatureUnit.valueOf(j.getString("unit"))));
+      case "StableTemperature": return new WaitAction(Duration.parse(j.getString("duration")));
       default : throw new WebApplicationException(NOT_FOUND);
     }
   }

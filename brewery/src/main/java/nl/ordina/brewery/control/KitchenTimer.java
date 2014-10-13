@@ -1,7 +1,7 @@
 package nl.ordina.brewery.control;
 
-import nl.ordina.brewery.entity.temperature.KitchenTimerEvent;
-import nl.ordina.brewery.entity.temperature.TimerExpiredEvent;
+import nl.ordina.brewery.entity.waiting.WaitEvent;
+import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -27,10 +27,11 @@ public class KitchenTimer {
   TimerService timerService;
 
   @Inject
-  Event<TimerExpiredEvent> bus;
+  Event<WaitCompletedEvent> temperatureStabilizedEvent;
+  
   private static final Duration REAL_DURATION = Duration.of(5, SECONDS);
 
-  public void keepStableTemperature(@Observes KitchenTimerEvent event) {
+  public void keepStableTemperature(@Observes WaitEvent event) {
     final Duration duration = event.getDuration();
     log.log(INFO, "Should wait for {0}, but will wait {1}", new Object[] {duration, REAL_DURATION});
     timerService.createSingleActionTimer(REAL_DURATION.getSeconds() * 1000, new TimerConfig());
@@ -39,7 +40,7 @@ public class KitchenTimer {
   @Timeout
   public void timeout() {
     log.log(FINEST, "Timeout reached");
-    bus.fire(new TimerExpiredEvent());
+    temperatureStabilizedEvent.fire(new WaitCompletedEvent());
   }
 
 

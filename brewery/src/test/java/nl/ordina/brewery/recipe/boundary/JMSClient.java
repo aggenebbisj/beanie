@@ -1,7 +1,7 @@
 package nl.ordina.brewery.recipe.boundary;
 
 import com.sun.messaging.jmq.jmsclient.JMSContextImpl;
-import nl.ordina.brewery.entity.RecipeBuilder;
+import nl.ordina.brewery.recipe.entity.RecipeBuilder;
 
 import javax.jms.*;
 import javax.json.Json;
@@ -16,7 +16,7 @@ import static com.sun.messaging.jmq.jmsclient.ContainerType.JavaSE;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static javax.json.Json.createArrayBuilder;
 import static javax.json.Json.createObjectBuilder;
-import static nl.ordina.brewery.entity.RecipeBuilder.*;
+import static nl.ordina.brewery.recipe.entity.RecipeBuilder.*;
 
 public class JMSClient implements MessageListener {
   public static void main(String[] args) {

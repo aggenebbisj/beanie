@@ -1,13 +1,12 @@
 package nl.ordina.brewery.entity.temperature;
 
-import nl.ordina.brewery.entity.ActionableEvent;
-import nl.ordina.brewery.entity.temperature.Temperature;
+import nl.ordina.brewery.entity.ActionEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.io.Serializable;
 
-public class TemperatureReachedEvent implements ActionableEvent, Serializable {
+public class TemperatureReachedEvent implements ActionEvent, Serializable {
   private final Temperature goal;
 
   public TemperatureReachedEvent(Temperature goal) {

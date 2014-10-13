@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity;
+package nl.ordina.brewery.entity.ingredient;
 
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.ingredient.Hop;
