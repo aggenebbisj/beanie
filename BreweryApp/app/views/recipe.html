@@ -1,7 +1,9 @@
 <div ng-controller="RestCtrl">
     <h1>Recipe creator</h1>
     Create your own recipe!
-
+    <div id="error" class="jumbotron" style="background: red;" ng-show="'{{error.value}}'">Something went wrong:
+        <p>{{error.text}}
+    </div>
     <form>Name your recipe:
         <input id="recipeName" ng-model="recipeName" type="text" required="true" ng-required="true">
         <!--<button>Update</button>-->

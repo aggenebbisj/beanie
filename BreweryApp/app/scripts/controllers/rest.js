@@ -68,12 +68,22 @@ angular.module('breweryApp')
         function sendAsPost(url, object) {
             restService.postWithData(url, object)
                 .success(function (response) {
+                    onSuccess(response);
                     if (angular.isObject(response)) {
                         console.log("success: " + response);
                     }
                 }).error(function (response) {
+                    onError(response);
                     console.log("failed:  " + response);
 
                 });
+        }
+        function onSuccess(evt) {
+            $scope.error.value = true;
+            $scope.error.text = evt;
+        }
+        function onError(evt) {
+            $scope.error.value = true;
+            $scope.error.text = evt;
         }
     });
