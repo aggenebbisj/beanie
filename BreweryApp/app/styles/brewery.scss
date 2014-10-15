@@ -1,5 +1,13 @@
 @import "ordina.css";
 
+.history-box {
+  width: 570px;
+  li{
+    list-style:none;
+    border-radius: 3px;
+    padding: 2px;
+  }
+}
 .background {
   background: url("../images/bg.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
