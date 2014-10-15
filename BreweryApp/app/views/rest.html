@@ -1,3 +1,17 @@
 <div ng-controller="RestCtrl">
-    Deze pagina demonstreert de mogelijkheden van jaxrs2 en json
+    <h1>Recipe creator</h1>
+    Use this to manipulate the recipe
+    <article class="not-too-big">
+        <section class="" title="Change recipe" ng-repeat="operation in operations">
+            <hr/>
+            <h4>{{operation.operation|uppercase}} {{operation.name|uppercase}}</h4>
+
+            <form name="form" class="col-md-12">
+                {{operation.operation}} {{operation.name}} <input name="input" type="number" ng-model="operation.value"
+                                                                  required> {{operation.unit}}.
+                <button title="add" ng-click="operation.activate(operation)">add</button>
+            </form>
+        </section>
+    </article>
+
 </div>

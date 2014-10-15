@@ -21,8 +21,7 @@
 <!-- Add your site or application content here -->
 <div class="fullheader"></div>
 <div class="container">
-    <header>
-        <div class="header" ng-controller="HeaderController">
+        <header class="header" ng-controller="HeaderController">
             <ul class="nav nav-pills pull-right">
                 <li ng-class="{active : isActive('/')}"><a ng-href="#">Home</a></li>
                 <li ng-class="{active : isActive('/chat')}"><a ng-href="#/chat">Chat</a></li>
@@ -30,18 +29,15 @@
                 <li ng-class="{active : isActive('/contact')}"><a ng-href="#">Contact</a></li>
             </ul>
             <h3>The <span class="orange">Ordina</span> Brewery</h3>
-        </div>
-    </header>
+        </header>
 
     <article>
         <div ng-view=""></div>
     </article>
 
-    <footer>
-        <div class="footer">
+        <footer class="footer">
             &copy; Copyright 2014 Ordina
-        </div>
-    </footer>
+        </footer>
 </div>
 
 <!-- build:js(.) scripts/oldieshim.js -->

@@ -14,7 +14,11 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
+.not-too-big {
+  max-width: 600px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
