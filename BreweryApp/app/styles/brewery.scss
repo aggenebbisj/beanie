@@ -2,12 +2,29 @@
 
 .history-box {
   width: 570px;
-  li{
-    list-style:none;
+  li {
+    list-style: none;
     border-radius: 3px;
     padding: 2px;
+    margin-bottom: 2px
   }
 }
+
+.img-glow {
+  -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -o-transition: all 0.5s ease;
+}
+
+.img-glow:hover {
+  border-color: rgba(230, 150, 0, 0.80);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(231, 147, 0, 0.07), 0 0 30px rgba(230, 150, 0, 0.60);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 30px rgba(230, 150, 0, 0.60);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 30px rgba(230, 150, 0, 0.60);
+}
+
 .background {
   background: url("../images/bg.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -33,10 +50,10 @@
   color: #ffffff;
 }
 
-
 .nav-pills > li > a {
   color: #ffffff;
 }
+
 //
 //.nav-pills > li.active > a {
 //  background-color: #ab6a00;
@@ -56,8 +73,7 @@
 //  background-color: #e69600;
 //}
 
-.orange
-{
+.orange {
   color: orange;
 }
 

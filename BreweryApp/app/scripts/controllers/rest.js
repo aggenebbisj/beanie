@@ -1,21 +1,12 @@
 'use strict';
 
 angular.module('breweryApp')
-    .controller('RestCtrl', function ($scope, restService) {
-        console.log($scope);
-        console.log(restService.fullName);
-        var serverUrl = 'http://localhost:9000';
+    .controller('RestCtrl', function ($scope, restService, $rootScope) {
 
-        $scope.messages = [];
+        $scope.recipeSteps = [];
 
-        function addToMessages(text, isSuccessful) {
-            var time = new Date();
-            var message ={
-                'time': time.toLocaleString(),
-                'message': text,
-                'success': isSuccessful
-            }
-            $scope.messages.push(message);
+        function addToRecipe(step) {
+            $scope.recipeSteps.push(step);
         }
 
         $scope.operations = {
@@ -25,11 +16,15 @@ angular.module('breweryApp')
                 'unit': 'liter',
                 'value': 0,
                 activate: function (object) {
-                    console.log(object);
-                    if (object.value !== 0) {
-                        sendUrlAsObject(serverUrl + '/' + 'ingredient/' + object.name + '/' + object.value + '/' + object.unit);
-                    }
-                    addToMessages("Succesfully added " + object.value + " " + object.unit + " of " + object.name, true);
+                    var step = {
+                        'type': 'addIngredient',
+                        'ingredient' : object.name,
+                        'volume': {
+                            'value': object.value,
+                            'unit': object.unit
+                        }
+                    };
+                    addToRecipe(step);
                 }},
             temperature: {
                 'operation': 'change',
@@ -37,11 +32,14 @@ angular.module('breweryApp')
                 'name': 'temperature',
                 'value': 0,
                 activate: function (object) {
-                    console.log(object);
-                    if (object.value !== 0) {
-                        sendUrlAsObject(serverUrl + '/' + object.name + '/' + object.value + '/' + object.unit);
-                    }
-                    addToMessages("Succesfully changed temperature to " + object.value + " " + object.unit, true);
+                    var step = {
+                        'type': 'changeTemperature',
+                        'temperature': {
+                            'value': object.value,
+                            'scale': object.unit
+                        }
+                    };
+                    addToRecipe(step);
 
                 }},
             waiting: {
@@ -50,30 +48,25 @@ angular.module('breweryApp')
                 'name': 'wait',
                 'value': 0,
                 activate: function (object) {
-                    console.log(object);
-                    if (object.value !== 0) {
-                        sendUrlAsObject(serverUrl + '/' + object.name + '/' + 'PT' + object.value + 'M'); //TODO fix to do this automatically
-                    }
-                    addToMessages("Succesfully waited " + object.value + " " + object.unit, true);
+                    var step = {
+                        'type': 'stableTemperature',
+                        'duration': 'PT'+ object.value+'M'
+                    };
+                    addToRecipe(step);
                 }}
         };
 
-
-        function getUrlAsObject(url) {
-            restService.get(url)
-                .success(function (response) {
-                    if (angular.isObject(response)) {
-                        console.log(response);
-                    }
-                });
-        }
-
-        function sendUrlAsObject(url) {
+        function sendAsPostAndReport(url) {
             restService.post(url)
                 .success(function (response) {
                     if (angular.isObject(response)) {
-                        console.log(response);
+                        addToRecipe(response, true);
+                        console.log("success: " + response);
                     }
+                }).error(function (response) {
+                    addToRecipe(response, false);
+                    console.log("failed:  " + response);
+
                 });
         }
 

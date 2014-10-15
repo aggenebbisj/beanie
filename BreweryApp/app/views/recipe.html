@@ -1,7 +1,8 @@
 <div ng-controller="RestCtrl">
     <h1>Recipe creator</h1>
-    Use this to manipulate the recipe
+    Create your own recipe and click submit once you are done
     <div class="row">
+
 
         <section class="not-too-big">
             <section class="" title="Change recipe" ng-repeat="operation in operations">
@@ -17,14 +18,14 @@
             </section>
         </section>
     </div>
-    <section class="history-box" ng-show='messages.length > 0'>
-        <h4>History</h4>
-        <ul>
-            <li ng-repeat="message in messages track by $index"
-                ng-class="{'alert-success' : message.success, 'alert-danger' : !message.success}">
-                {{message.time}} {{message.message}}
+    <section class="recipeSteps" >
+        <h4>Recipe</h4>
+        <ol>
+            <li ng-repeat="step in recipeSteps track by $index">
+                {{step.type}}: {{step.ingredient}} ({{step.duration}}{{step.temperature.value}}{{step.volume.value}} {{step.volume.unit}}{{step.temperature.scale}})
+
             </li>
-        </ul>
+        </ol>
     </section>
 
 </div>

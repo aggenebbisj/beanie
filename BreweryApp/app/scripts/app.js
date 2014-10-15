@@ -24,12 +24,12 @@ angular
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
-            .when('/chat', {
-                templateUrl: 'views/chat.html',
+            .when('/monitor', {
+                templateUrl: '../views/monitor.html',
                 controller: 'ChatCtrl'
             })
-            .when('/rest', {
-                templateUrl: 'views/rest.html',
+            .when('/recipe', {
+                templateUrl: '../views/recipe.html',
                 controller: 'RestCtrl'
             })
             .otherwise({

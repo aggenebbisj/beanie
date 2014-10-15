@@ -24,9 +24,8 @@
         <header class="header" ng-controller="HeaderController">
             <ul class="nav nav-pills pull-right">
                 <li ng-class="{active : isActive('/')}"><a ng-href="#">Home</a></li>
-                <li ng-class="{active : isActive('/chat')}"><a ng-href="#/chat">Chat</a></li>
-                <li ng-class="{active : isActive('/rest')}"><a ng-href="#/rest">Rest</a></li>
-                <li ng-class="{active : isActive('/contact')}"><a ng-href="#">Contact</a></li>
+                <li ng-class="{active : isActive('/monitor')}"><a ng-href="#/monitor">Monitor</a></li>
+                <li ng-class="{active : isActive('/recipe')}"><a ng-href="#/recipe">Create recipe</a></li>
             </ul>
             <h3>The <span class="orange">Ordina</span> Brewery</h3>
         </header>
@@ -37,6 +36,7 @@
 
         <footer class="footer">
             &copy; Copyright 2014 Ordina
+            <div style="float: right">Server configured at: {{serverUrl}}</div>
         </footer>
 </div>
 

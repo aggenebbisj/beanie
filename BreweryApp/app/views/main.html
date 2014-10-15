@@ -2,18 +2,27 @@
 This website will demonstrate the new Java EE 7 functionalities
 
 
-<div class="marketing ">
-    <h4>JAX-RS2 and JSON</h4>
+<div class="marketing row">
+    <div class="col-md-6">
+        <h4>Monitor</h4>
+        <a href="#/monitor">
+            <img src="images/monitor.png" class="img-responsive img-rounded img-glow"/>
+            <br/>
+            <span>Monitor the status of the system</span></a>
+    </div>
+    <div class="col-md-6">
+        <h4>Recipe</h4>
+        <a href="#/recipe">
+            <img src="images/recipe.png" class="img-glow img-responsive img-rounded"/>
+            <br/>
+            <span>Create your own recipe</span></a>
+    </div>
+</div>
 
-    <p>
-        <a href="#/rest">LINK</a>
-    </p>
 
-    <h4>Websockets</h4>
-
-    <p>
-        <a href="#/chat">LINK</a>
-    </p>
-
-
+<div>
+    <h4>Server settings</h4>
+    <form ng-submit="updateUrl(serverUrl)">Server located at:
+        <input id="serverUrl" ng-model="serverUrl" type="url" required="true" ng-required="true"> <button>Update</button>
+    </form>
 </div>
