@@ -14,7 +14,9 @@ angular.module('breweryApp')
                 'value': 0,
                 activate: function (object) {
                     console.log(object);
-                    sendUrlAsObject(serverUrl + "/" + "ingredient/" + object.name + "/" + object.value + "/" + object.unit);
+                    if (object.value !== 0) {
+                        sendUrlAsObject(serverUrl + '/' + 'ingredient/' + object.name + '/' + object.value + '/' + object.unit);
+                    }
                 }},
             temperature: {
                 'operation': 'change',
@@ -23,7 +25,9 @@ angular.module('breweryApp')
                 'value': 0,
                 activate: function (object) {
                     console.log(object);
-                    sendUrlAsObject(serverUrl + "/" + object.name + "/" + object.value + "/" + object.unit);
+                    if (object.value !== 0) {
+                        sendUrlAsObject(serverUrl + '/' + object.name + '/' + object.value + '/' + object.unit);
+                    }
                 }},
             waiting: {
                 'operation': '',
@@ -32,10 +36,11 @@ angular.module('breweryApp')
                 'value': 0,
                 activate: function (object) {
                     console.log(object);
-                    sendUrlAsObject(serverUrl + "/" + object.name + "/" + "PT" + object.value + "M"); //TODO fix to do this automatically
+                    if (object.value !== 0) {
+                        sendUrlAsObject(serverUrl + '/' + object.name + '/' + 'PT' + object.value + 'M'); //TODO fix to do this automatically
+                    }
                 }}
         };
-
 
 
         function getUrlAsObject(url) {
