@@ -1,5 +1,5 @@
 angular.module('breweryApp').factory('restService', function ($http) {
-'use strict';
+    'use strict';
     return {
 
         get: function (url) {
@@ -12,6 +12,14 @@ angular.module('breweryApp').factory('restService', function ($http) {
             return $http({
                 method: 'POST',
                 url: url
+            });
+        },
+        postWithData: function (url, object) {
+            return $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/json'},
+                data: object
             });
         }
     };

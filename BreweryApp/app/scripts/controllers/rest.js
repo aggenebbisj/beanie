@@ -4,6 +4,7 @@ angular.module('breweryApp')
     .controller('RestCtrl', function ($scope, restService, $rootScope) {
 
         $scope.recipeSteps = [];
+        $scope.recipeName = '';
 
         function addToRecipe(step) {
             $scope.recipeSteps.push(step);
@@ -56,22 +57,23 @@ angular.module('breweryApp')
                 }}
         };
 
-        function sendAsPostAndReport(url) {
-            restService.post(url)
+     $scope.submitRecipe = function(){
+         var recipe = {
+             'name': $scope.recipeName,
+             'steps': $scope.recipeSteps
+         };
+         sendAsPost($rootScope.serverUrl + "/recipe", recipe)
+     }
+
+        function sendAsPost(url, object) {
+            restService.postWithData(url, object)
                 .success(function (response) {
                     if (angular.isObject(response)) {
-                        addToRecipe(response, true);
                         console.log("success: " + response);
                     }
                 }).error(function (response) {
-                    addToRecipe(response, false);
                     console.log("failed:  " + response);
 
                 });
         }
-
-//        getUrlAsObject('http://localhost:9000');
-//        console.log($scope.test);
-
-
     });

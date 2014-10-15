@@ -1,31 +1,33 @@
 <div ng-controller="RestCtrl">
     <h1>Recipe creator</h1>
-    Create your own recipe and click submit once you are done
-    <div class="row">
+    Create your own recipe!
 
+    <form>Name your recipe:
+        <input id="recipeName" ng-model="recipeName" type="text" required="true" ng-required="true">
+        <!--<button>Update</button>-->
+    </form>
+    <section ng-hide="recipeName ===''">
+        <section class="" title="Change recipe" ng-repeat="operation in operations">
+            <hr/>
+            <h4>{{operation.operation|uppercase}} {{operation.name|uppercase}}</h4>
 
-        <section class="not-too-big">
-            <section class="" title="Change recipe" ng-repeat="operation in operations">
-                <hr/>
-                <h4>{{operation.operation|uppercase}} {{operation.name|uppercase}}</h4>
-
-                <form name="form" class="col-md-12">
-                    {{operation.operation}} {{operation.name}} <input name="input" type="number"
-                                                                      ng-model="operation.value"
-                                                                      required> {{operation.unit}}
-                    <button title="add" ng-click="operation.activate(operation)">add</button>
-                </form>
-            </section>
+            <form name="form" class="col-md-12">
+                {{operation.operation}} {{operation.name}} <input name="input" type="number"
+                                                                  ng-model="operation.value"
+                                                                  required> {{operation.unit}}
+                <button title="add" ng-click="operation.activate(operation)">add</button>
+            </form>
         </section>
-    </div>
-    <section class="recipeSteps" >
+    </section>
+    <section class="recipeSteps" ng-hide="recipeSteps.length ===0">
         <h4>Recipe</h4>
         <ol>
             <li ng-repeat="step in recipeSteps track by $index">
-                {{step.type}}: {{step.ingredient}} ({{step.duration}}{{step.temperature.value}}{{step.volume.value}} {{step.volume.unit}}{{step.temperature.scale}})
-
+                {{step.type}}: {{step.ingredient}} ({{step.duration}}{{step.temperature.value}}{{step.volume.value}}
+                {{step.volume.unit}}{{step.temperature.scale}})
             </li>
         </ol>
+        <button ng-click="submitRecipe()">Submit recipe</button>
     </section>
 
 </div>
