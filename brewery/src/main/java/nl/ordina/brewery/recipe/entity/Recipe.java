@@ -5,6 +5,7 @@ import nl.ordina.brewery.entity.KettleAction;
 import nl.ordina.brewery.entity.ingredient.AddIngredientAction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -20,6 +21,10 @@ public class Recipe {
     this.steps = steps;
   }
 
+  public Recipe(String name, List<KettleAction> actions) {
+    this.steps = Arrays.asList(new Step(name, actions));
+  }
+  
   public List<Ingredient> getIngredients() {
     return steps.stream()
         .flatMap(this::getActions)
@@ -40,5 +45,10 @@ public class Recipe {
     steps.add(new Step(name, actions));
   }
 
+    @Override
+    public String toString() {
+        return "Recipe{" + "steps=" + steps + '}';
+    }
+  
 }
 
