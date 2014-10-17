@@ -15,7 +15,7 @@ public class RecipeBuilder {
             .add("unit", "LITER"));
   }
 
-  public static JsonObjectBuilder createAddIngredientAction(JsonObjectBuilder ingredient) {
+  public static JsonObjectBuilder createAddIngredient(JsonObjectBuilder ingredient) {
     return createObjectBuilder()
         .add("type", "AddIngredient")
         .add("ingredient", ingredient);
@@ -24,8 +24,11 @@ public class RecipeBuilder {
   public static JsonObjectBuilder createChangeTemperature(int inCelsius) {
     return createObjectBuilder()
         .add("type", "ChangeTemperature")
-        .add("value", inCelsius)
-        .add("unit", "CELSIUS");
+        .add("temperature", createObjectBuilder()
+            .add("value", inCelsius)
+            .add("unit", "CELSIUS")
+            .build()
+        );
   }
 
   public static JsonObjectBuilder createStableTemperature(Duration duration) {
@@ -34,9 +37,9 @@ public class RecipeBuilder {
         .add("duration", duration.toString());
   }
 
-  public static JsonObjectBuilder createStep(String name, JsonArrayBuilder actions) {
+  public static JsonObjectBuilder createStep(String name, JsonArrayBuilder steps) {
     return createObjectBuilder()
         .add("name", name)
-        .add("actions", actions);
+        .add("steps", steps);
   }
 }

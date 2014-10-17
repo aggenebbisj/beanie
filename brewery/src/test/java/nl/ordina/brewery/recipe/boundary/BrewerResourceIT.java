@@ -36,17 +36,18 @@ public class BrewerResourceIT {
   public void test() {
     final WebTarget target = client
         .target("http://localhost:8080/brewery/resources/brewer");
-
-    final JsonArrayBuilder actions = createArrayBuilder()
-        .add(createAddIngredientAction(createIngredient("water", 10)))
+    
+    final JsonArrayBuilder steps = createArrayBuilder()
+        .add(createAddIngredient(createIngredient("water", 10)))
         .add(RecipeBuilder.createChangeTemperature(65))
-        .add(createAddIngredientAction(createIngredient("malt", 1)))
+        .add(createAddIngredient(createIngredient("malt", 1)))
         .add(RecipeBuilder.createStableTemperature(Duration.of(30, MINUTES)));
 
     final JsonObject recipe = createObjectBuilder()
-        .add("steps", createArrayBuilder().add(createStep("Mashing", actions)))
+        .add("name", "KoenBier")
+        .add("steps", steps)
         .build();
-
+    
     Response changeTemperatureResponse = target.path("recipe").request()
         .post(Entity.entity(recipe, APPLICATION_JSON_TYPE));
     assertThat(changeTemperatureResponse.getStatus(), is(204));

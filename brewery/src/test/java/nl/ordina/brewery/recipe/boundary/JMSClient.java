@@ -43,14 +43,15 @@ public class JMSClient implements MessageListener {
   }
 
   private static JsonObject createRecipe() {
-    final JsonArrayBuilder actions = createArrayBuilder()
-        .add(createAddIngredientAction(createIngredient("water", 10)))
+    final JsonArrayBuilder steps = createArrayBuilder()
+        .add(createAddIngredient(createIngredient("water", 10)))
         .add(RecipeBuilder.createChangeTemperature(65))
-        .add(createAddIngredientAction(createIngredient("malt", 1)))
+        .add(createAddIngredient(createIngredient("malt", 1)))
         .add(RecipeBuilder.createStableTemperature(Duration.of(30, MINUTES)));
 
     return createObjectBuilder()
-        .add("steps", createArrayBuilder().add(createStep("Mashing", actions)))
+        .add("name", "KoenBier")
+        .add("steps", steps)
         .build();
   }
 
