@@ -1,4 +1,4 @@
 package nl.ordina.brewery.entity;
 
-public interface ActionEvent extends MonitoringEvent {
+public interface ActionEvent extends MonitoredEvent {
 }

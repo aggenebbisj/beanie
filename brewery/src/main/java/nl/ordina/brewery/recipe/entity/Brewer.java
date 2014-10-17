@@ -1,7 +1,6 @@
 package nl.ordina.brewery.recipe.entity;
 
 import nl.ordina.brewery.entity.producer.Automatic;
-import nl.ordina.brewery.entity.ActionEvent;
 import nl.ordina.brewery.entity.Kettle;
 
 import javax.ejb.Asynchronous;
@@ -12,9 +11,8 @@ import javax.inject.Inject;
 import java.util.logging.Logger;
 
 import static java.lang.invoke.MethodHandles.lookup;
-import static java.util.logging.Level.FINEST;
+import static java.util.logging.Level.INFO;
 import static java.util.logging.Logger.getLogger;
-import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;
 
 @Singleton
 public class Brewer {
@@ -36,8 +34,8 @@ public class Brewer {
     }
 
     @Asynchronous
-    public void changing(@Observes @Automatic ActionEvent event) {
-        log.log(FINEST, "Received event {0}", event);
+    public void changing(@Observes RecipeStepCompletedEvent event) {
+        log.log(INFO, "Brewer received event {0}", event);
 
         if (executor.isDone()) {
             recipeCompleted.fire(new RecipeCompletedEvent());
@@ -46,9 +44,4 @@ public class Brewer {
         }
     }
 
-    @Asynchronous
-    public void waitCompleted(@Observes @Automatic WaitCompletedEvent event) {
-        kettle.unlock();
-        changing(event);
-    }
 }

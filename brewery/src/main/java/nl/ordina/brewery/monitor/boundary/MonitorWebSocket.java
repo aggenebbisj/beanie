@@ -1,6 +1,6 @@
 package nl.ordina.brewery.monitor.boundary;
 
-import nl.ordina.brewery.entity.MonitoringEvent;
+import nl.ordina.brewery.entity.MonitoredEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -21,43 +21,45 @@ import static java.util.stream.Collectors.toList;
 @ServerEndpoint("/brewer")
 @ApplicationScoped
 public class MonitorWebSocket {
-  private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
-  private static final Set<Session> peers = synchronizedSet(new HashSet<>());
 
-  @OnOpen
-  public void open(Session client) {
-    log.log(INFO, "CONNECTED: {0}", client);
-    peers.add(client);
-  }
+    private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Set<Session> peers = synchronizedSet(new HashSet<>());
 
-  @OnClose
-  public void close(Session client) {
-    log.log(INFO, "CLOSED: {0}", client);
-    peers.remove(client);
-  }
+    @OnOpen
+    public void open(Session client) {
+        log.log(INFO, "CONNECTED: {0}", client);
+        peers.add(client);
+    }
 
-  @OnMessage
-  public void message(String msg, Session peer) throws IOException {
-    log.log(INFO, "Interesting, received message {0} from {1}, will do NOTHING!", new Object[]{msg, peer});
-  }
+    @OnClose
+    public void close(Session client) {
+        log.log(INFO, "CLOSED: {0}", client);
+        peers.remove(client);
+    }
 
-  public void receive(@Observes MonitoringEvent event) {
-    log.log(FINER, "Received event {0}", event);
-    peers.stream().forEach(p -> send(p, event.createJson()));
+    @OnMessage
+    public void message(String msg, Session peer) throws IOException {
+        log.log(INFO, "Interesting, received message {0} from {1}, will do NOTHING!", new Object[]{msg, peer});
+    }
 
-    final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
-    peers.removeAll(closed);
-  }
+    public void receive(@Observes MonitoredEvent event) {
+        log.log(INFO, "Monitor received event {0}", event);
+        peers.stream().forEach(p -> send(p, event.createJson()));
 
-  private void send(Session p, JsonObject json) {
-    if (p.isOpen())
-      try {
-        p.getBasicRemote().sendObject(json);
-      } catch (IOException e) {
-        log.log(WARNING, "Error writing to peer " + p, e);
-      } catch (EncodeException e) {
-        throw new IllegalStateException(e);
-      }
-  }
+        final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
+        peers.removeAll(closed);
+    }
+
+    private void send(Session p, JsonObject json) {
+        if (p.isOpen()) {
+            try {
+                p.getBasicRemote().sendObject(json);
+            } catch (IOException e) {
+                log.log(WARNING, "Error writing to peer " + p, e);
+            } catch (EncodeException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+    }
 
 }

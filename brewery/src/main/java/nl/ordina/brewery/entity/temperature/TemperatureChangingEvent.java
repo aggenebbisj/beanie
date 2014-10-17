@@ -1,12 +1,12 @@
 package nl.ordina.brewery.entity.temperature;
 
-import nl.ordina.brewery.entity.MonitoringEvent;
+import nl.ordina.brewery.entity.MonitoredEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import nl.ordina.brewery.entity.Kettle;
 
-public class TemperatureChangingEvent implements MonitoringEvent {
+public class TemperatureChangingEvent implements MonitoredEvent {
   private final Kettle kettle;
   private final Temperature goal;
 

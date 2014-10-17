@@ -3,7 +3,7 @@ package nl.ordina.brewery.entity.temperature;
 
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import nl.ordina.brewery.entity.Kettle;
+import nl.ordina.brewery.entity.YeOldeKettle;
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.ingredient.Hop;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
@@ -19,7 +19,7 @@ public class TemperatureChangingEventTest {
     @Test
     public void should_render_json() {
         TemperatureChangingEvent sut = new TemperatureChangingEvent(
-                new Kettle(), 
+                new YeOldeKettle(), 
                 new Temperature(65, CELSIUS)
         );
         
@@ -63,7 +63,8 @@ public class TemperatureChangingEventTest {
     @Test
     public void wait_event() {
         WaitEvent sut = new WaitEvent(
-                Duration.of(30, MINUTES)
+                Duration.of(30, MINUTES),
+                new YeOldeKettle()
         );
         
         System.out.println(sut.createJson());

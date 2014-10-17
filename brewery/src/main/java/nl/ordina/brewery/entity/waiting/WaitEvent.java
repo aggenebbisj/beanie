@@ -1,34 +1,41 @@
 package nl.ordina.brewery.entity.waiting;
 
-import nl.ordina.brewery.entity.MonitoringEvent;
+import nl.ordina.brewery.entity.MonitoredEvent;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.time.Duration;
+import nl.ordina.brewery.entity.Kettle;
 
-public class WaitEvent implements MonitoringEvent {
-  private final Duration duration;
+public class WaitEvent implements MonitoredEvent {
 
-  public WaitEvent(Duration duration) {
-    this.duration = duration;
-  }
+    private final Duration duration;
+    private final Kettle kettle;
 
-  @Override
-  public JsonObject createJson() {
-    return Json.createObjectBuilder()
-        .add("event", "kitchen timer started")
-        .add("duration", duration.toString())
-        .build();
-  }
+    public WaitEvent(Duration duration, Kettle kettle) {
+        this.duration = duration;
+        this.kettle = kettle;
+    }
 
-  public Duration getDuration() {
-    return duration;
-  }
+    public Duration getDuration() {
+        return duration;
+    }
+    
+    public Kettle getKettle() {
+        return kettle;
+    }
 
-  @Override
-  public String toString() {
-    return "KitchenTimerEvent{" +
-        "duration=" + duration +
-        '}';
-  }
+    @Override
+    public JsonObject createJson() {
+        return Json.createObjectBuilder()
+                .add("event", "kitchen timer started")
+                .add("duration", duration.toString())
+                .build();
+    }
+
+    @Override
+    public String toString() {
+        return "WaitEvent{" + "duration=" + duration + ", kettle=" + kettle + '}';
+    }
+
 }

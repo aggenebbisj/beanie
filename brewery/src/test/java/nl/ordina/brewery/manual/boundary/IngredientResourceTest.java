@@ -1,10 +1,14 @@
 
 package nl.ordina.brewery.manual.boundary;
 
+import java.time.Duration;
 import javax.enterprise.event.Event;
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.MonitoringEvent;
+import nl.ordina.brewery.entity.MonitoredEvent;
+import nl.ordina.brewery.entity.YeOldeKettle;
 import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
+import nl.ordina.brewery.entity.temperature.Temperature;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -18,15 +22,34 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class IngredientResourceTest {
 
     @Mock
-    private Event<MonitoringEvent> event;
+    private Event<MonitoredEvent> event;
     
     private IngredientResource sut;
     
     @Before
     public void setup() {
         sut = new IngredientResource();
-        sut.kettle = new Kettle();
-        sut.kettle.setEvent(event);
+        sut.kettle = new Kettle("TestKettle") {
+
+            @Override
+            public void fireTemperatureReachedEvent(Temperature goal) {}
+
+            @Override
+            public void fireTemperatureChangingEvent(Temperature goal) {}
+
+            @Override
+            public void fireIngredientAddedEvent(Ingredient ingredient) {}
+
+            @Override
+            public void fireTemperatureReadingEvent(Temperature temperature) {}
+
+            @Override
+            public void fireWaitEvent(Duration duration) {}
+
+            @Override
+            public void fireWaitCompletedEvent() {}
+            
+        };
     }
     
     @Test 

@@ -54,12 +54,12 @@ public class BrewerTest {
     //verify(kettle).changeInternalTemperature(temperature);
   }
   
-  @Test
-  public void when_recipe_is_finished_kettle_should_be_unlocked() {
-    Recipe recipe = new Recipe();
-    recipe.addStep("DoNothing", Arrays.asList(new ChangeTemperatureAction(Temperature.of(65, CELSIUS))));
-    sut.brew(recipe);
-    sut.waitCompleted(null);
-    verify(kettle).unlock();
-  }
+//  @Test
+//  public void when_recipe_is_finished_kettle_should_be_unlocked() {
+//    Recipe recipe = new Recipe();
+//    recipe.addStep("DoNothing", Arrays.asList(new ChangeTemperatureAction(Temperature.of(65, CELSIUS))));
+//    sut.brew(recipe);
+//    sut.waitCompleted(null);
+//    verify(kettle).unlock();
+//  }
 }

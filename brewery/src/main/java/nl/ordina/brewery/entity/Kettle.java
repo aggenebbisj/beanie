@@ -5,54 +5,31 @@ import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Ingredients;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
-import nl.ordina.brewery.entity.producer.Automatic;
-import nl.ordina.brewery.entity.producer.Manual;
-import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
-import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
-import nl.ordina.brewery.entity.temperature.TemperatureReadingEvent;
-import nl.ordina.brewery.entity.waiting.WaitEvent;
 
- @Manual @Automatic
-public class Kettle {
+public abstract class Kettle {
 
-    @Inject
-    private Event<MonitoringEvent> event;
-
-    private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     private final Volume capacity;
     private final Ingredients ingredients = new Ingredients();
+    private final String name;
+    
+    private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     private boolean isLocked = false;
-    private String name;
 
-    public Kettle() {
-        this(new Volume(500, Volume.VolumeUnit.LITER));
-    }
-
-    public Kettle(Volume capacity) {
-        this.capacity = capacity;
-    }
-
-    public Kettle(String name, Event<MonitoringEvent> event) {
-        this();
-        this.name = name;
-        this.event = event;
+    public Kettle(String name) {
+        this(name, new Volume(500, Volume.VolumeUnit.LITER));
     }
     
-    public Kettle(Event<MonitoringEvent> event) {
-        this();
-        this.event = event;
+    public Kettle(String name, Volume capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
 
     public void changeTemperatureTo(Temperature goal) {
         verifyKettleIsNotLocked();
         if (getTemperature().equals(goal)) {
-            event.fire(new TemperatureReachedEvent(goal));
+            fireTemperatureReachedEvent(goal);
         } else {
-            event.fire(new TemperatureChangingEvent(this, goal));
+            fireTemperatureChangingEvent(goal);
         }
 
     }
@@ -71,7 +48,7 @@ public class Kettle {
             throw new IllegalArgumentException("Maximum capacity of kettle reached. Boooom ...");
         }
         ingredients.add(ingredient);
-        event.fire(new IngredientAddedEvent(ingredient));
+        fireIngredientAddedEvent(ingredient);
     }
 
     public Ingredients getIngredients() {
@@ -82,19 +59,15 @@ public class Kettle {
         return capacity.compareTo(ingredients.getVolume().plus(addedVolume)) < 0;
     }
 
-    public void setEvent(Event<MonitoringEvent> event) {
-        this.event = event;
-    }
-
     public void changeInternalTemperature(Temperature newTemperature) {
         verifyKettleIsNotLocked();
         temperature = newTemperature;
-        event.fire(new TemperatureReadingEvent(temperature));
+        fireTemperatureReadingEvent(temperature);
     }
 
     public void lock(Duration duration) {
-        this.isLocked = true;
-        event.fire(new WaitEvent(duration));
+//        this.isLocked = true;
+        fireWaitEvent(duration);
     }
 
     private void verifyKettleIsNotLocked() {
@@ -111,5 +84,16 @@ public class Kettle {
         return name;
     }
 
-    
+    public abstract void fireTemperatureReachedEvent(Temperature goal);
+
+    public abstract void fireTemperatureChangingEvent(Temperature goal);
+
+    public abstract void fireIngredientAddedEvent(Ingredient ingredient);
+
+    public abstract void fireTemperatureReadingEvent(Temperature temperature);
+
+    public abstract void fireWaitEvent(Duration duration);
+
+    public abstract void fireWaitCompletedEvent();
+
 }

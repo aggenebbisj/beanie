@@ -6,12 +6,12 @@ import nl.ordina.brewery.entity.KettleAction;
 import java.time.Duration;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import nl.ordina.brewery.entity.MonitoringEvent;
+import nl.ordina.brewery.entity.MonitoredEvent;
 
 public class WaitAction implements KettleAction {
 
     @Inject
-    private Event<MonitoringEvent> event;
+    private Event<MonitoredEvent> event;
 
     private final Duration duration;
 
