@@ -5,6 +5,9 @@ angular.module('breweryApp')
 
         $scope.recipeSteps = [];
         $scope.recipeName = '';
+        if (typeof $rootScope.serverUrl === 'undefined') {
+            $rootScope.serverUrl = 'http://localhost:8080'
+        }
 
         function addToRecipe(step) {
             $scope.recipeSteps.push(step);
@@ -62,7 +65,7 @@ angular.module('breweryApp')
              'name': $scope.recipeName,
              'steps': $scope.recipeSteps
          };
-         sendAsPost($rootScope.serverUrl + "/recipe", recipe)
+         sendAsPost($rootScope.serverUrl + '/recipe', recipe)
      }
 
         function sendAsPost(url, object) {
@@ -70,11 +73,11 @@ angular.module('breweryApp')
                 .success(function (response) {
                     onSuccess(response);
                     if (angular.isObject(response)) {
-                        console.log("success: " + response);
+                        console.log('success: ' + response);
                     }
                 }).error(function (response) {
                     onError(response);
-                    console.log("failed:  " + response);
+                    console.log('failed:  ' + response);
 
                 });
         }
