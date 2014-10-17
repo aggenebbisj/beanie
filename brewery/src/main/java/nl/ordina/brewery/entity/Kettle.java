@@ -9,12 +9,14 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
+import nl.ordina.brewery.entity.producer.Automatic;
+import nl.ordina.brewery.entity.producer.Manual;
 import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReadingEvent;
 import nl.ordina.brewery.entity.waiting.WaitEvent;
 
-@ApplicationScoped
+ @Manual @Automatic
 public class Kettle {
 
     @Inject
@@ -24,6 +26,7 @@ public class Kettle {
     private final Volume capacity;
     private final Ingredients ingredients = new Ingredients();
     private boolean isLocked = false;
+    private String name;
 
     public Kettle() {
         this(new Volume(500, Volume.VolumeUnit.LITER));
@@ -31,6 +34,17 @@ public class Kettle {
 
     public Kettle(Volume capacity) {
         this.capacity = capacity;
+    }
+
+    public Kettle(String name, Event<MonitoringEvent> event) {
+        this();
+        this.name = name;
+        this.event = event;
+    }
+    
+    public Kettle(Event<MonitoringEvent> event) {
+        this();
+        this.event = event;
     }
 
     public void changeTemperatureTo(Temperature goal) {
@@ -93,4 +107,9 @@ public class Kettle {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public String getName() {
+        return name;
+    }
+
+    
 }

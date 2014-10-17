@@ -13,13 +13,14 @@ import javax.ws.rs.Path;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import nl.ordina.brewery.boundary.IngredientParser;
+import nl.ordina.brewery.entity.producer.Manual;
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
 
 @Path("kettle")
 @ApplicationScoped
 public class ManualBrewingResource {
 
-  @Inject
+  @Inject @Manual
   Kettle kettle;
   @Inject
   IngredientParser parser;

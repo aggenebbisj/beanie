@@ -7,7 +7,7 @@ angular.module('breweryApp')
             text: ''
         };
         if (typeof $rootScope.serverUrl === 'undefined') {
-            $rootScope.serverUrl = 'http://localhost:8080' //TODO: has to be in a factory
+            $rootScope.serverUrl = 'http://localhost:8080'; //TODO: has to be in a factory
             $rootScope.resourcePath = '/brewery/resources/kettle/';
         }
 
@@ -33,14 +33,19 @@ angular.module('breweryApp')
                     console.log(object);
                     if (object.value !== 0) {
                         var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
-                        var objectToPost = {
-                            'ingredient': object.name,
-                            'volume': {
-                                'value': object.value,
-                                'unit': object.unit
-                            }
-                        };
-                        sendAsPostAndReport(url, objectToPost);
+                        sendAsPostAndReport(url, restService.createIngredient(object));
+                    }
+                }},
+            water: {
+                'operation': 'add',
+                'name': 'water',
+                'unit': 'liter',
+                'value': 0,
+                activate: function (object) {
+                    console.log(object);
+                    if (object.value !== 0) {
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
+                        sendAsPostAndReport(url, restService.createIngredient(object));
                     }
                 }},
             temperature: {
@@ -52,11 +57,7 @@ angular.module('breweryApp')
                     console.log(object);
                     if (object.value !== 0) {
                         var url = $rootScope.serverUrl + $rootScope.resourcePath + 'temperature';
-                        var objectToPost = {
-                            'value': object.value,
-                            'unit': object.unit
-                        };
-                        sendAsPutAndReport(url, objectToPost);
+                        sendAsPutAndReport(url, restService.createTemperature(object));
                     }
                 }},
             waiting: {
@@ -67,15 +68,8 @@ angular.module('breweryApp')
                 activate: function (object) {
                     console.log(object);
                     if (object.value !== 0) {
-                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients/';
-                        var objectToPost = {
-                            'ingredient': object.name,
-                            'volume': {
-                                'value': object.value,
-                                'unit': object.unit
-                            }
-                        };
-                        sendAsPostAndReport(url, objectToPost);
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath;
+                        sendAsPostAndReport(url, restService.createWaitingMessage(object));
                     }
                 }}
         };
@@ -83,13 +77,11 @@ angular.module('breweryApp')
         function sendAsPostAndReport(url, object) {
             restService.postWithData(url, object)
                 .success(function (response) {
-                    if (angular.isObject(response)) {
-                        addToMessages(response, true);
-                        console.log("success: " + response);
-                    }
+                    addToMessages(response, true);
+                    console.log('success: ' + response);
                 }).error(function (response) {
                     addToMessages(response, false);
-                    console.log("failed:  " + response);
+                    console.log('failed:  ' + response);
 
                 });
         }
@@ -99,11 +91,11 @@ angular.module('breweryApp')
                 .success(function (response) {
                     if (angular.isObject(response)) {
                         addToMessages(response, true);
-                        console.log("success: " + response);
+                        console.log('success: ' + response);
                     }
                 }).error(function (response) {
                     addToMessages(response, false);
-                    console.log("failed:  " + response);
+                    console.log('failed:  ' + response);
 
                 });
         }

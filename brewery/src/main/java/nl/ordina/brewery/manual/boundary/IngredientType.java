@@ -5,19 +5,24 @@
  */
 package nl.ordina.brewery.manual.boundary;
 
-/**
- *
- * @author kol20242
- */
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(name = "ingredient")
+@XmlEnum
 public enum IngredientType {
     
-    water("water");
+    @XmlEnumValue("water")
+    WATER("water");
+    
     private final String type;
 
     private IngredientType(final String type) {
         this.type = type;
     }
     
+    @Override
     public String toString(){
         return type;
     }

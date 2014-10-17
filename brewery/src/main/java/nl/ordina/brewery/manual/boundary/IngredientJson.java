@@ -1,8 +1,5 @@
 package nl.ordina.brewery.manual.boundary;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.ingredient.Water;
@@ -40,7 +37,7 @@ public class IngredientJson {
 
     public Ingredient toDomain(){
         switch(ingredient){
-            case water: return new Water(volume.toDomain());
+            case WATER: return new Water(volume.toDomain());
             default: throw new IllegalStateException("Type Undefined");
         }
     }

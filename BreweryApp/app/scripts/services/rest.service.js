@@ -29,6 +29,27 @@ angular.module('breweryApp').factory('restService', function ($http) {
                 headers: {'Content-Type': 'application/json'},
                 data: object
             });
+        },
+        createIngredient: function(object){
+           return {
+                'ingredient': object.name,
+                'volume': {
+                    'value': object.value,
+                    'unit': object.unit
+                }
+            };
+        },
+        createTemperature: function(object) {
+            return {
+                'value': object.value,
+                'unit': object.unit
+            }
+        },
+        createWaitingMessage: function(object) {
+            return {
+                'value': object.value,
+                'unit': object.unit
+            }
         }
     };
 });

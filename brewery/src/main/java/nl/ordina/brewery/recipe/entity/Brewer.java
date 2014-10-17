@@ -1,5 +1,6 @@
 package nl.ordina.brewery.recipe.entity;
 
+import nl.ordina.brewery.entity.producer.Automatic;
 import nl.ordina.brewery.entity.ActionEvent;
 import nl.ordina.brewery.entity.Kettle;
 
@@ -17,34 +18,37 @@ import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;
 
 @Singleton
 public class Brewer {
-  private static final Logger log = getLogger(lookup().lookupClass().getName());
 
-  @Inject
-  private Kettle kettle;
-  @Inject
-  private Event<RecipeCompletedEvent> recipeCompleted;
+    private static final Logger log = getLogger(lookup().lookupClass().getName());
 
-  private RecipeExecutor executor;
+    @Inject
+    @Automatic
+    private Kettle kettle;
+    @Inject
+    private Event<RecipeCompletedEvent> recipeCompleted;
 
-  public void brew(Recipe recipe) {
-    executor = new RecipeExecutor(recipe);
-    executor.nextAction(kettle);
-  }
+    private RecipeExecutor executor;
 
-  @Asynchronous
-  public void changing(@Observes ActionEvent event) {
-    log.log(FINEST, "Received event {0}", event);
-
-    if (executor.isDone()) {
-      recipeCompleted.fire(new RecipeCompletedEvent());
-    } else {
-      executor.nextAction(kettle);
+    public void brew(Recipe recipe) {
+        System.out.println("---- Brewing for kettle: " + kettle.getName());
+        executor = new RecipeExecutor(recipe);
+        executor.nextAction(kettle);
     }
-  }
-  
-  @Asynchronous
-  public void waitCompleted(@Observes WaitCompletedEvent event){
-    kettle.unlock();
-    changing(event);
-  }
+
+    @Asynchronous
+    public void changing(@Observes @Automatic ActionEvent event) {
+        log.log(FINEST, "Received event {0}", event);
+
+        if (executor.isDone()) {
+            recipeCompleted.fire(new RecipeCompletedEvent());
+        } else {
+            executor.nextAction(kettle);
+        }
+    }
+
+    @Asynchronous
+    public void waitCompleted(@Observes @Automatic WaitCompletedEvent event) {
+        kettle.unlock();
+        changing(event);
+    }
 }

@@ -12,6 +12,11 @@ Het project is gescaffold mbv yeoman en draait tools via NodeJs.
 
 **Om aan het project te kunnen werken voer de comando's uit:**
 
+npm install -g bower
+npm install -g grunt
+npm install -g grunt-cli
+
+
 * npm install
 * grunt serve
 

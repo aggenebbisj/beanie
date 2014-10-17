@@ -20,7 +20,7 @@
         <section class="history-box" ng-show='messages.length > 0'>
             <h4>History</h4>
             <ul>
-                <li ng-repeat="message in messages track by $index"
+                <li ng-repeat="message in messages track by $index "
                     ng-class="{'alert-success' : message.success, 'alert-danger' : !message.success}">
                     {{message.time}} - {{message.message}}
                 </li>

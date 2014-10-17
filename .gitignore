@@ -2,3 +2,10 @@
 /brewery/target/
 nb-configuration.xml
 /BinaryWebSocketServer/build/
+target/
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
