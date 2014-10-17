@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('breweryApp')
-    .controller('RestCtrl', function ($scope, restService, $rootScope) {
+    .controller('RecipeCtrl', function ($scope, restService, $rootScope) {
 
         $scope.recipeSteps = [];
         $scope.recipeName = '';
         if (typeof $rootScope.serverUrl === 'undefined') {
             $rootScope.serverUrl = 'http://localhost:8080'
+            $rootScope.resourcePath = '/brewery/resources/kettle/';
         }
 
         function addToRecipe(step) {

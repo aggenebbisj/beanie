@@ -21,6 +21,14 @@ angular.module('breweryApp').factory('restService', function ($http) {
                 headers: {'Content-Type': 'application/json'},
                 data: object
             });
+        },
+        putWithData: function (url, object) {
+            return $http({
+                method: 'PUT',
+                url: url,
+                headers: {'Content-Type': 'application/json'},
+                data: object
+            });
         }
     };
 });

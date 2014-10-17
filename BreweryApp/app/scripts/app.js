@@ -24,13 +24,13 @@ angular
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
-            .when('/monitor', {
-                templateUrl: '../views/live.html',
-                controller: 'ChatCtrl'
+            .when('/live', {
+                templateUrl: 'views/live.html',
+                controller: 'LiveCtrl'
             })
             .when('/recipe', {
-                templateUrl: '../views/recipe.html',
-                controller: 'RestCtrl'
+                templateUrl: 'views/recipe.html',
+                controller: 'RecipeCtrl'
             })
             .otherwise({
                 redirectTo: '/'
