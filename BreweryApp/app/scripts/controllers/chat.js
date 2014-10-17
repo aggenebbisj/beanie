@@ -6,6 +6,9 @@ angular.module('breweryApp')
             value: false,
             text: ''
         };
+        if (typeof $rootScope.serverUrl === 'undefined') {
+            $rootScope.serverUrl = 'http://localhost:8080'
+        }
 
         $scope.readings = {
             'gauge1': '50',

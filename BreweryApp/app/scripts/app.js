@@ -25,7 +25,7 @@ angular
                 controller: 'MainCtrl'
             })
             .when('/monitor', {
-                templateUrl: '../views/monitor.html',
+                templateUrl: '../views/live.html',
                 controller: 'ChatCtrl'
             })
             .when('/recipe', {
