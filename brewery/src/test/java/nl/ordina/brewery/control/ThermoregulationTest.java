@@ -49,7 +49,7 @@ public class ThermoregulationTest {
 
     sut.changeTemperature(createEvent(DEGREES_30));
 
-    verify(changedEvent).fire(anyObject());
+    verify(kettle).fireTemperatureReachedEvent(anyObject());
   }
 
   private TemperatureChangingEvent createEvent(Temperature temperature) {

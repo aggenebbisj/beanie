@@ -1,12 +1,23 @@
 package nl.ordina.brewery.entity;
 
 import java.time.Duration;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Ingredients;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
+import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
+import nl.ordina.brewery.entity.producer.Manual;
+import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
+import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
+import nl.ordina.brewery.entity.temperature.TemperatureReadingEvent;
+import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;
+import nl.ordina.brewery.entity.waiting.WaitEvent;
 
-public abstract class Kettle {
+@ApplicationScoped @Manual
+public class Kettle {
 
     private final Volume capacity;
     private final Ingredients ingredients = new Ingredients();
@@ -15,6 +26,13 @@ public abstract class Kettle {
     private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     private boolean isLocked = false;
 
+    @Inject
+    private Event<MonitoredEvent> event;
+    
+    public Kettle() {
+        this("Ye Olde Kettle");
+    }
+    
     public Kettle(String name) {
         this(name, new Volume(500, Volume.VolumeUnit.LITER));
     }
@@ -84,16 +102,28 @@ public abstract class Kettle {
         return name;
     }
 
-    public abstract void fireTemperatureReachedEvent(Temperature goal);
+    public void fireTemperatureReachedEvent(Temperature goal) {
+        event.fire(new TemperatureReachedEvent(goal));
+    }
 
-    public abstract void fireTemperatureChangingEvent(Temperature goal);
+    public void fireTemperatureChangingEvent(Temperature goal) {
+        event.fire(new TemperatureChangingEvent(this, goal));
+    }
 
-    public abstract void fireIngredientAddedEvent(Ingredient ingredient);
+    public void fireIngredientAddedEvent(Ingredient ingredient) {
+        event.fire(new IngredientAddedEvent(ingredient));
+    }
 
-    public abstract void fireTemperatureReadingEvent(Temperature temperature);
+    public void fireTemperatureReadingEvent(Temperature temperature) {
+        event.fire(new TemperatureReadingEvent(temperature));
+    }
 
-    public abstract void fireWaitEvent(Duration duration);
+    public void fireWaitEvent(Duration duration) {
+        event.fire(new WaitEvent(duration, this));
+    }
 
-    public abstract void fireWaitCompletedEvent();
+    public void fireWaitCompletedEvent() {
+        event.fire(new WaitCompletedEvent());
+    }
 
 }

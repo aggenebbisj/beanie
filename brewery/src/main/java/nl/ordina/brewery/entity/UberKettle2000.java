@@ -4,6 +4,7 @@ package nl.ordina.brewery.entity;
 import java.lang.invoke.MethodHandles;
 import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
@@ -14,8 +15,8 @@ import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;
 import nl.ordina.brewery.recipe.entity.RecipeStepCompletedEvent;
 
-@Automatic
-public class UberKettle2000 extends YeOldeKettle {
+@ApplicationScoped @Automatic
+public class UberKettle2000 extends Kettle {
 
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     

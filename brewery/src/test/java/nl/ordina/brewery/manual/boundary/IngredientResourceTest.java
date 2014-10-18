@@ -3,9 +3,8 @@ package nl.ordina.brewery.manual.boundary;
 
 import java.time.Duration;
 import javax.enterprise.event.Event;
-import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.MonitoredEvent;
-import nl.ordina.brewery.entity.YeOldeKettle;
+import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.temperature.Temperature;
