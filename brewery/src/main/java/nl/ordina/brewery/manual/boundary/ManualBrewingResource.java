@@ -13,7 +13,7 @@ import javax.ws.rs.Path;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import nl.ordina.brewery.boundary.IngredientParser;
-import nl.ordina.brewery.entity.producer.Manual;
+import nl.ordina.brewery.entity.Manual;
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
 
 @Path("kettle")

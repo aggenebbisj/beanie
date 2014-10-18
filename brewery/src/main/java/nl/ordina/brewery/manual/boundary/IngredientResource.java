@@ -9,7 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.producer.Manual;
+import nl.ordina.brewery.entity.Manual;
 
 @Path("kettle/ingredients")
 public class IngredientResource {

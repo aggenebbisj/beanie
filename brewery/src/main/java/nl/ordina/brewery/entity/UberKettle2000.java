@@ -9,7 +9,6 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
-import nl.ordina.brewery.entity.producer.Automatic;
 import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.waiting.WaitCompletedEvent;

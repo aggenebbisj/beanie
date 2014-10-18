@@ -1,6 +1,6 @@
 package nl.ordina.brewery.recipe.entity;
 
-import nl.ordina.brewery.entity.producer.Automatic;
+import nl.ordina.brewery.entity.Automatic;
 import nl.ordina.brewery.entity.Kettle;
 
 import javax.ejb.Asynchronous;

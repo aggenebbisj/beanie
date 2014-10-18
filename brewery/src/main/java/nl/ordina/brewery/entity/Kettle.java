@@ -9,7 +9,6 @@ import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Ingredients;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
-import nl.ordina.brewery.entity.producer.Manual;
 import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReadingEvent;

@@ -1,4 +1,4 @@
-package nl.ordina.brewery.entity.producer;
+package nl.ordina.brewery.entity;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
