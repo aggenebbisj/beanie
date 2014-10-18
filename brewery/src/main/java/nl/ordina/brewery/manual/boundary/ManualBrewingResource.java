@@ -9,11 +9,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import java.time.Duration;
 
+import static javax.json.Json.createObjectBuilder;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
 
@@ -21,13 +22,14 @@ import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.v
 @ApplicationScoped
 public class ManualBrewingResource {
 
-  @Inject @Manual
+  @Inject
+  @Manual
   Kettle kettle;
   @Inject
   IngredientParser parser;
- 
-  @PUT
-  @Path("ingredient")
+
+  @POST
+  @Path("ingredients")
   @Consumes(APPLICATION_JSON)
   public void post(JsonObject obj) {
     kettle.addIngredient(parser.parseIngredient(obj));
@@ -40,6 +42,18 @@ public class ManualBrewingResource {
     final Temperature newTemperature = new Temperature(goal.getInt("value"), valueOf(goal.getString("unit")));
     kettle.changeTemperatureTo(newTemperature);
   }
+
+  @GET
+  @Path("temperature")
+  public JsonObject getTemperature() {
+    final Temperature current = kettle.getTemperature();
+    return createObjectBuilder().add(
+        "temperature", createObjectBuilder()
+            .add("value", current.getValue())
+            .add("unit", current.getUnit().name()).build()
+    ).build();
+  }
+
 
   @POST
   @Path("steady")

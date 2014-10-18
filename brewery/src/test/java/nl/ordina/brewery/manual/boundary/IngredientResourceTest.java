@@ -1,18 +1,19 @@
 
 package nl.ordina.brewery.manual.boundary;
 
-import javax.enterprise.event.Event;
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.MonitoringEvent;
 import nl.ordina.brewery.entity.capacity.Volume;
-import org.junit.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.enterprise.event.Event;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IngredientResourceTest {
@@ -43,7 +44,6 @@ public class IngredientResourceTest {
         assertThat(sut.kettle.getIngredients().getVolume(), is(new Volume(300, Volume.VolumeUnit.LITER)));
     }
     
-    @Ignore
     @Test
     public void delete_should_empty_kettle() {
         sut.delete();

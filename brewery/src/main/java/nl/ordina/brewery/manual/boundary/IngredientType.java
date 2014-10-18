@@ -14,8 +14,10 @@ import javax.xml.bind.annotation.XmlType;
 public enum IngredientType {
     
     @XmlEnumValue("water")
-    WATER("water");
-    
+    WATER("water"),
+    @XmlEnumValue("malt")
+    MALT("malt");
+
     private final String type;
 
     private IngredientType(final String type) {

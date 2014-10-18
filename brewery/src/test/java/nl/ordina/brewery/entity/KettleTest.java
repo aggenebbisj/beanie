@@ -1,21 +1,20 @@
 package nl.ordina.brewery.entity;
 
-import java.time.Duration;
 import nl.ordina.brewery.entity.capacity.Volume;
-import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.ingredient.Hop;
 import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
 import org.junit.Test;
 
 import javax.enterprise.event.Event;
+import java.time.Duration;
 
-import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
+import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import org.junit.Ignore;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -62,11 +61,14 @@ public class KettleTest {
     sut.addIngredient(new Water(new Volume(600, LITER)));
   }
   
-  @Ignore
   @Test(expected = IllegalStateException.class)
   public void performing_action_on_kettle_while_kettle_is_locked_should_throw_exception() {
+      final Event event = mock(Event.class);
       Kettle sut = new Kettle(new Volume(500, LITER));
+      sut.setEvent(event);
+
       sut.lock(Duration.ZERO);
+
       sut.addIngredient(new Water(new Volume(300, LITER)));
   }
   

@@ -30,7 +30,7 @@ public class KettleResourceIT {
   @Test
   public void test() {
     final WebTarget target = client
-        .target("http://localhost:8080/brewery-1.0-SNAPSHOT/resources/kettle");
+        .target("http://localhost:8080/brewery/resources/kettle");
 
     final JsonObject goal = Json.createObjectBuilder()
         .add("goal", Json.createObjectBuilder()
@@ -44,12 +44,12 @@ public class KettleResourceIT {
     assertThat(changeTemperatureResponse.getStatus(), is(204));
 
 
-    Response waterResponse = target.path("ingredient").request()
-        .put(Entity.entity(create("water", 20), APPLICATION_JSON_TYPE));
+    Response waterResponse = target.path("ingredients").request()
+        .post(Entity.entity(create("water", 20), APPLICATION_JSON_TYPE));
     assertThat(waterResponse.getStatus(), is(204));
 
-    Response maltResponse = target.path("ingredient").request()
-        .put(Entity.entity(create("malt", 1), APPLICATION_JSON_TYPE));
+    Response maltResponse = target.path("ingredients").request()
+        .post(Entity.entity(create("malt", 1), APPLICATION_JSON_TYPE));
     assertThat(maltResponse.getStatus(), is(204));
 
     final JsonObject steadyTemperature = Json.createObjectBuilder()
@@ -64,7 +64,7 @@ public class KettleResourceIT {
 
   private JsonObject create(String type, int amount) {
     return Json.createObjectBuilder()
-          .add("type", type)
+          .add("ingredient", type)
           .add("volume",
               Json.createObjectBuilder()
                   .add("amount", amount)

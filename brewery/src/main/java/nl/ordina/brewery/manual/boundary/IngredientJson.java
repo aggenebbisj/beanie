@@ -2,6 +2,7 @@ package nl.ordina.brewery.manual.boundary;
 
 import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
+import nl.ordina.brewery.entity.ingredient.Malt;
 import nl.ordina.brewery.entity.ingredient.Water;
 
 public class IngredientJson {
@@ -38,6 +39,7 @@ public class IngredientJson {
     public Ingredient toDomain(){
         switch(ingredient){
             case WATER: return new Water(volume.toDomain());
+            case MALT: return new Malt(volume.toDomain());
             default: throw new IllegalStateException("Type Undefined");
         }
     }
