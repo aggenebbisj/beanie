@@ -55,7 +55,7 @@ public class KettleResourceIT {
     final JsonObject steadyTemperature = Json.createObjectBuilder()
         .add("duration", Duration.ofMinutes(30).toString())
         .build();
-    Response steadyTemperatureResponse = target.path("temperature").request()
+    Response steadyTemperatureResponse = target.path("steady").request()
         .post(Entity.entity(steadyTemperature, APPLICATION_JSON_TYPE));
     assertThat(steadyTemperatureResponse.getStatus(), is(204));
 

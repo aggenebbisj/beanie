@@ -1,10 +1,11 @@
 package nl.ordina.brewery.entity.producer;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.ws.rs.Produces;
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.MonitoringEvent;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
 
 public class KettleFactory {
 

@@ -1,22 +1,21 @@
 package nl.ordina.brewery.entity;
 
-import java.time.Duration;
 import nl.ordina.brewery.entity.capacity.Volume;
-import nl.ordina.brewery.entity.temperature.Temperature;
-import nl.ordina.brewery.entity.ingredient.Ingredients;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
-import nl.ordina.brewery.entity.producer.Automatic;
-import nl.ordina.brewery.entity.producer.Manual;
+import nl.ordina.brewery.entity.ingredient.Ingredients;
+import nl.ordina.brewery.entity.temperature.Temperature;
 import nl.ordina.brewery.entity.temperature.TemperatureChangingEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReachedEvent;
 import nl.ordina.brewery.entity.temperature.TemperatureReadingEvent;
 import nl.ordina.brewery.entity.waiting.WaitEvent;
 
- @Manual @Automatic
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import java.time.Duration;
+
+ @Alternative
 public class Kettle {
 
     @Inject
