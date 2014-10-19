@@ -1,44 +1,44 @@
 <!doctype html>
 <html>
-<head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <script language="javascript" type="text/javascript">
-        var contextRoot = window.location.pathname.split('/')[1];
-        var wsUri = "ws://" + document.location.host + "/" + contextRoot + "/brewer";
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+        <script language="javascript" type="text/javascript">
+            var contextRoot = window.location.pathname.split('/')[1];
+            var wsUri = "ws://" + document.location.host + "/" + contextRoot + "/brewer";
 
-        function init() {
-            output = document.getElementById("output");
-            connect();
-        }
+            function init() {
+                output = document.getElementById("output");
+                connect();
+            }
 
-        function connect() {
-            var websocket = new WebSocket(wsUri);
-            websocket.onopen = function (evt) {
-                writeToScreen("CONNECTED to " + wsUri);
-            };
+            function connect() {
+                var websocket = new WebSocket(wsUri);
+                websocket.onopen = function (evt) {
+                    writeToScreen("CONNECTED to " + wsUri);
+                };
 
-            websocket.onmessage = function (evt) {
-                writeToScreen("RECEIVED: " + evt.data);
-            };
+                websocket.onmessage = function (evt) {
+                    writeToScreen("RECEIVED: " + evt.data);
+                };
 
-            websocket.onerror = function (evt) {
-                writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-            };
-        }
+                websocket.onerror = function (evt) {
+                    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+                };
+            }
 
 
-        function writeToScreen(message) {
-            var pre = document.createElement("p");
-            pre.style.wordWrap = "break-word";
-            pre.innerHTML = new Date().toJSON() + " " + message;
-            output.appendChild(pre);
-        }
+            function writeToScreen(message) {
+                var pre = document.createElement("p");
+                pre.style.wordWrap = "break-word";
+                pre.innerHTML = new Date().toJSON() + " " + message;
+                output.appendChild(pre);
+            }
 
-        window.addEventListener("load", init, false);
-    </script>
-</head>
-<body>
-<H1>Websocket output</H1>
-<div id="output"></div>
-</body>
+            window.addEventListener("load", init, false);
+        </script>
+    </head>
+    <body>
+        <H1>Websocket output</H1>
+        <div id="output"></div>
+    </body>
 </html>
