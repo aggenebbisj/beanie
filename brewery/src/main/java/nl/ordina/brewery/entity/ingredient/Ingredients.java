@@ -6,16 +6,16 @@ import nl.ordina.brewery.entity.capacity.Volume;
 
 public class Ingredients {
     
-    private final List<Ingredient> ingredienten = new ArrayList<>();
+    private final List<Ingredient> ingredients = new ArrayList<>();
     
     public Volume getVolume() {
-        return ingredienten.stream()
+        return ingredients.stream()
                            .map(Ingredient::getVolume)
                            .reduce(new Volume(0, Volume.VolumeUnit.LITER), Volume::plus);
     }
 
     public Ingredients add(Ingredient ingredient) {
-        ingredienten.add(ingredient);
+        ingredients.add(ingredient);
         return this;
     }
     

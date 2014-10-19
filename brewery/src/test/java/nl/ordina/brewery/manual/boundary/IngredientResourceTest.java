@@ -12,10 +12,12 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
+import nl.ordina.brewery.entity.ingredient.Ingredients;
+import nl.ordina.brewery.entity.ingredient.Water;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IngredientResourceTest {
@@ -53,22 +55,24 @@ public class IngredientResourceTest {
     
     @Test 
     public void add_ingredient_to_kettle() {
+        sut.add(someIngredientWithVolume(300, LITER));
+        assertThat(sut.kettle.getIngredients().getVolume(), is(new Volume(300, LITER)));
+    }
+
+    @Test
+    public void delete_should_empty_kettle() {
+        sut.add(someIngredientWithVolume(300, LITER));
+        sut.delete();
+        assertThat(sut.kettle.getIngredients().getVolume(), is(new Volume(0, LITER)));
+    }
+    
+    private IngredientJson someIngredientWithVolume(int value, Volume.VolumeUnit unit) {
         IngredientJson.VolumeJson volume = new IngredientJson.VolumeJson();
-        volume.value = 300;
-        volume.unit = Volume.VolumeUnit.LITER.name();
-        
+        volume.value = value;
+        volume.unit = unit.name();
         IngredientJson ingredient = new IngredientJson();
         ingredient.ingredient = IngredientType.WATER;
         ingredient.volume = volume;
-        
-        sut.add(ingredient);
-        assertThat(sut.kettle.getIngredients().getVolume(), is(new Volume(300, Volume.VolumeUnit.LITER)));
-    }
-    
-    @Ignore
-    @Test
-    public void delete_should_empty_kettle() {
-        sut.delete();
-        assertThat(sut.kettle.getIngredients().getVolume(), is(new Volume(0, Volume.VolumeUnit.LITER)));
+        return ingredient;
     }
 }

@@ -19,7 +19,7 @@ import nl.ordina.brewery.entity.waiting.WaitEvent;
 public class Kettle {
 
     private final Volume capacity;
-    private final Ingredients ingredients = new Ingredients();
+    private Ingredients ingredients = new Ingredients();
     private final String name;
     
     private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
@@ -39,6 +39,10 @@ public class Kettle {
     public Kettle(String name, Volume capacity) {
         this.name = name;
         this.capacity = capacity;
+    }
+
+    public void flush() {
+        ingredients = new Ingredients();
     }
 
     public void changeTemperatureTo(Temperature goal) {

@@ -4,7 +4,7 @@ import nl.ordina.brewery.entity.capacity.Volume;
 
 public abstract class Ingredient<T extends Ingredient> {
 
-    private Volume volume;
+    private final Volume volume;
 
     public Ingredient(Volume volume) {
         this.volume = volume;
