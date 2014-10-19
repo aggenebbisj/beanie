@@ -32,7 +32,7 @@ angular.module('breweryApp').factory('restService', function ($http) {
         },
         createIngredient: function(object){
            return {
-                'ingredient': object.name,
+                'name': object.name,
                 'volume': {
                     'value': object.value,
                     'unit': object.unit

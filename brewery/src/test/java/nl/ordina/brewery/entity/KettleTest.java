@@ -1,15 +1,13 @@
 package nl.ordina.brewery.entity;
 
 import java.time.Duration;
-import nl.ordina.brewery.entity.capacity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
-import nl.ordina.brewery.entity.ingredient.Hop;
-import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import org.junit.Test;
 
 
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
-import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
+import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -59,8 +57,8 @@ public class KettleTest {
     @Test
     public void ingredient_toevoegen_zonder_overschrijden_maximum_capaciteit() {
         try {
-            sut.addIngredient(new Water(new Volume(100, LITER)));
-            sut.addIngredient(new Hop(new Volume(400, LITER)));
+            sut.addIngredient(new Ingredient("Water", new Volume(100, LITER)));
+            sut.addIngredient(new Ingredient("Hops", new Volume(400, LITER)));
         } catch (IllegalArgumentException e) {
             fail("Capaciteit zou niet mogen zijn overschreden");
         }
@@ -68,14 +66,14 @@ public class KettleTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void teveel_ingredienten_toevoegen_geeft_exceptie() {
-        sut.addIngredient(new Water(new Volume(600, LITER)));
+        sut.addIngredient(new Ingredient("Water", new Volume(600, LITER)));
     }
 
     @Ignore
     @Test(expected = IllegalStateException.class)
     public void performing_action_on_kettle_while_kettle_is_locked_should_throw_exception() {
         sut.lock(Duration.ZERO);
-        sut.addIngredient(new Water(new Volume(300, LITER)));
+        sut.addIngredient(new Ingredient("Water", new Volume(300, LITER)));
     }
 
 }

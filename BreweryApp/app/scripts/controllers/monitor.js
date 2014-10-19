@@ -41,7 +41,7 @@ angular.module('breweryApp')
                 console.log('remko');
                 console.log(message);
                 $scope.readings = {
-                    'capacity': $scope.readings['capacity'] + message.ingredient.volume.value || 0,
+                    'capacity': $scope.readings['capacity'] + message.name.volume.value || 0,
                     'gauge2': '30',
                     'gauge3': '100',
                     'gauge4': '0'

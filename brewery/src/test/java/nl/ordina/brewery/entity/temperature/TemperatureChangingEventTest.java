@@ -4,8 +4,8 @@ package nl.ordina.brewery.entity.temperature;
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import nl.ordina.brewery.entity.Kettle;
-import nl.ordina.brewery.entity.capacity.Volume;
-import nl.ordina.brewery.entity.ingredient.Hop;
+import nl.ordina.brewery.entity.Volume;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.ingredient.IngredientAddedEvent;
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class TemperatureChangingEventTest {
     @Test
     public void ingredient_added_event() {
         IngredientAddedEvent sut = new IngredientAddedEvent(
-                new Hop(new Volume(300, Volume.VolumeUnit.LITER))
+                new Ingredient("Hops", new Volume(300, Volume.VolumeUnit.LITER))
         );
         
         System.out.println(sut.createJson());

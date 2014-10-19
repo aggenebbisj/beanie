@@ -1,9 +1,8 @@
 package nl.ordina.brewery.recipe.entity;
 
-import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.Volume;
 import nl.ordina.brewery.entity.temperature.Temperature;
-import nl.ordina.brewery.entity.ingredient.Malt;
-import nl.ordina.brewery.entity.ingredient.Water;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import nl.ordina.brewery.entity.ingredient.AddIngredientAction;
 import nl.ordina.brewery.entity.temperature.ChangeTemperatureAction;
 import nl.ordina.brewery.entity.waiting.WaitAction;
@@ -19,7 +18,7 @@ import javax.enterprise.event.Event;
 import nl.ordina.brewery.entity.Kettle;
 
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.CELSIUS;
-import static nl.ordina.brewery.entity.capacity.Volume.VolumeUnit.LITER;
+import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,15 +34,15 @@ public class BrewerTest {
   @Test
   public void brewer_should_brew_recipe() {
     Recipe recipe = new Recipe();
-    Water water = new Water(new Volume(20, LITER));
-    Malt malt = new Malt(new Volume(1, LITER));
+    Ingredient water = new Ingredient("Water", new Volume(20, LITER));
+    Ingredient barley = new Ingredient("Barley", new Volume(1, LITER));
     Temperature temperature = Temperature.of(65, CELSIUS);
     Duration duration = Duration.ofMinutes(30);
 
     recipe.addStep("Mashing",
         Arrays.asList(new AddIngredientAction(water),
             new ChangeTemperatureAction(temperature),
-            new AddIngredientAction(malt),
+            new AddIngredientAction(barley),
             new WaitAction(duration)
         ));
 

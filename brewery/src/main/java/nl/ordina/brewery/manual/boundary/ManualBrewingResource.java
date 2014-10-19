@@ -12,8 +12,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import nl.ordina.brewery.boundary.IngredientParser;
 import nl.ordina.brewery.entity.Manual;
+import nl.ordina.brewery.entity.ingredient.Ingredient;
 import static nl.ordina.brewery.entity.temperature.Temperature.TemperatureUnit.valueOf;
 
 @Path("kettle")
@@ -22,14 +22,12 @@ public class ManualBrewingResource {
 
   @Inject @Manual
   Kettle kettle;
-  @Inject
-  IngredientParser parser;
  
   @PUT
   @Path("ingredient")
   @Consumes(APPLICATION_JSON)
-  public void post(JsonObject obj) {
-    kettle.addIngredient(parser.parseIngredient(obj));
+  public void post(Ingredient ingredient) {
+    kettle.addIngredient(ingredient);
   }
 
   @POST

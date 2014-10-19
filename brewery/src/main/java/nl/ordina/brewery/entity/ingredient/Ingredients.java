@@ -2,7 +2,7 @@ package nl.ordina.brewery.entity.ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
-import nl.ordina.brewery.entity.capacity.Volume;
+import nl.ordina.brewery.entity.Volume;
 
 public class Ingredients {
     
