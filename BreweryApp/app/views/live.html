@@ -5,7 +5,7 @@
     Modify the brewing process
     <div class="row">
         <section class="not-too-big">
-            <section class="" title="Change recipe" ng-repeat="operation in operations">
+            <section class="" title="Change recipe" ng-repeat="operation in operations | orderBy:operation.index">
                 <hr/>
                 <h4>{{operation.operation|uppercase}} {{operation.name|uppercase}}</h4>
 

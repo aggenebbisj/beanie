@@ -24,19 +24,8 @@ angular.module('breweryApp')
         }
 
         $scope.operations = {
-            yeast: {
-                'operation': 'add',
-                'name': 'yeast',
-                'unit': 'liter',
-                'value': 0,
-                activate: function (object) {
-                    console.log(object);
-                    if (object.value !== 0) {
-                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
-                        sendAsPostAndReport(url, restService.createIngredient(object));
-                    }
-                }},
             water: {
+                'index': 0,
                 'operation': 'add',
                 'name': 'water',
                 'unit': 'liter',
@@ -48,7 +37,47 @@ angular.module('breweryApp')
                         sendAsPostAndReport(url, restService.createIngredient(object));
                     }
                 }},
+            barley: {
+                'index': 1,
+                'operation': 'add',
+                'name': 'barley',
+                'unit': 'liter',
+                'value': 0,
+                activate: function (object) {
+                    console.log(object);
+                    if (object.value !== 0) {
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
+                        sendAsPostAndReport(url, restService.createIngredient(object));
+                    }
+                }},
+            hops: {
+                'index': 2,
+                'operation': 'add',
+                'name': 'hops',
+                'unit': 'liter',
+                'value': 0,
+                activate: function (object) {
+                    console.log(object);
+                    if (object.value !== 0) {
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
+                        sendAsPostAndReport(url, restService.createIngredient(object));
+                    }
+                }},
+            yeast: {
+                'index': 3,
+                'operation': 'add',
+                'name': 'yeast',
+                'unit': 'liter',
+                'value': 0,
+                activate: function (object) {
+                    console.log(object);
+                    if (object.value !== 0) {
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'ingredients';
+                        sendAsPostAndReport(url, restService.createIngredient(object));
+                    }
+                }},
             temperature: {
+                'index': 4,
                 'operation': 'change',
                 'unit': 'celsius',
                 'name': 'temperature',
@@ -61,6 +90,7 @@ angular.module('breweryApp')
                     }
                 }},
             waiting: {
+                'index': 5,
                 'operation': '',
                 'unit': 'minutes',
                 'name': 'wait',
