@@ -2,8 +2,6 @@
 package nl.ordina.brewery.manual.boundary;
 
 import java.time.Duration;
-import javax.enterprise.event.Event;
-import nl.ordina.brewery.entity.MonitoredEvent;
 import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.Volume;
 import nl.ordina.brewery.entity.ingredient.Ingredient;
@@ -13,16 +11,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static nl.ordina.brewery.entity.Volume.VolumeUnit.LITER;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IngredientResourceTest {
 
-    @Mock
-    private Event<MonitoredEvent> event;
-    
     private IngredientResource sut;
     
     @Before
@@ -34,7 +28,9 @@ public class IngredientResourceTest {
             public void fireTemperatureReachedEvent(Temperature goal) {}
 
             @Override
-            public void fireTemperatureChangingEvent(Temperature goal) {}
+            public void fireTemperatureChangingEvent(Temperature goal) {
+                
+            }
 
             @Override
             public void fireIngredientAddedEvent(Ingredient ingredient) {}

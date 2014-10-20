@@ -10,6 +10,7 @@ import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class IngredientResourceIT {
@@ -35,6 +36,7 @@ public class IngredientResourceIT {
         assertThat(response.getStatus(), is(Response.Status.NO_CONTENT.getStatusCode()));
     }
     
+    @Ignore
     @Test
     public void getting_ingredients_should_yield_200() {
         target = client.target(INGREDIENT_RESOURCE_ENDPOINT);

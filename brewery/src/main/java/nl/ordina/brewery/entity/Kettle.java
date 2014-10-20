@@ -54,6 +54,12 @@ public class Kettle {
 
     }
 
+    public void changeInternalTemperature(Temperature newTemperature) {
+        verifyKettleIsNotLocked();
+        temperature = newTemperature;
+        fireTemperatureReadingEvent(temperature);
+    }
+    
     public Temperature getTemperature() {
         return temperature;
     }
@@ -77,12 +83,6 @@ public class Kettle {
 
     private boolean isMaximumCapacityReached(Volume addedVolume) {
         return capacity.compareTo(ingredients.getVolume().plus(addedVolume)) < 0;
-    }
-
-    public void changeInternalTemperature(Temperature newTemperature) {
-        verifyKettleIsNotLocked();
-        temperature = newTemperature;
-        fireTemperatureReadingEvent(temperature);
     }
 
     public void lock(Duration duration) {
