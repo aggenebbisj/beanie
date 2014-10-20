@@ -8,7 +8,7 @@ angular.module('breweryApp')
         if (typeof $rootScope.serverUrl === 'undefined') {
             $rootScope.serverUrl = 'http://localhost:8080';
             $rootScope.resourcePath = '/brewery/resources/kettle/';
-            $rootScope.recipePath = '/brewery/resources/recipe';
+            $rootScope.recipePath = '/brewery/resources/brewer/recipe';
         }
 
         function addToRecipe(step) {
@@ -38,12 +38,13 @@ angular.module('breweryApp')
                 'unit': 'liter',
                 'value': 0,
                 activate: function (object) {
-                    var step = {
-                        'type': 'addIngredient',
-                        'ingredient': object.name,
-                        'volume': {
-                            'value': object.value,
-                            'unit': object.unit
+                    var step = { 
+                        'ingredient' : {
+                            'name': object.name,
+                            'volume': {
+                                'value': object.value,
+                                'unit': object.unit
+                            } 
                         }
                     };
                     addToRecipe(step);

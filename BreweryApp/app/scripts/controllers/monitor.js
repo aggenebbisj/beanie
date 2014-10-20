@@ -1,5 +1,5 @@
 'use strict';
-
+var test;
 angular.module('breweryApp')
     .controller('MonitorCtrl', function ($scope, $rootScope) {
         $scope.reading = {
@@ -40,8 +40,11 @@ angular.module('breweryApp')
                 var message = JSON.parse(evt.data);
                 console.log('remko');
                 console.log(message);
+                test = message;
+                console.log('pim');
+                console.log(message.ingredient.volume);
                 $scope.readings = {
-                    'capacity': $scope.readings['capacity'] + message.name.volume.value || 0,
+                    'capacity': $scope.readings['capacity'] + message.ingredient.volume.value || 0,
                     'gauge2': '30',
                     'gauge3': '100',
                     'gauge4': '0'
