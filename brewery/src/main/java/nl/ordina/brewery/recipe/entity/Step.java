@@ -6,11 +6,13 @@ import java.util.List;
 
 public class Step {
 
-    private final String name;
-    private final List<KettleAction> actions;
+    private List<KettleAction> actions;
 
-    public Step(String name, List<KettleAction> actions) {
-        this.name = name;
+    public Step() {
+        // Required by JAXB
+    }
+
+    public Step(List<KettleAction> actions) {
         this.actions = actions;
     }
 
@@ -20,7 +22,7 @@ public class Step {
 
     @Override
     public String toString() {
-        return "Step{" + "name=" + name + ", actions=" + actions + '}';
+        return "Step{" + "actions=" + actions + '}';
     }
 
 }

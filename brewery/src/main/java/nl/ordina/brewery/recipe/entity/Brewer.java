@@ -30,7 +30,7 @@ public class Brewer {
     public void brew(Recipe recipe) {
         System.out.println("---- Brewing for kettle: " + kettle.getName());
         executor = new RecipeExecutor(recipe);
-        executor.nextAction(kettle);
+        executor.nextStep(kettle);
     }
 
     @Asynchronous
@@ -40,7 +40,7 @@ public class Brewer {
         if (executor.isDone()) {
             recipeCompleted.fire(new RecipeCompletedEvent());
         } else {
-            executor.nextAction(kettle);
+            executor.nextStep(kettle);
         }
     }
 

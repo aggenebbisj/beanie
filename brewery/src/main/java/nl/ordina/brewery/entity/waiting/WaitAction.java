@@ -4,17 +4,15 @@ import nl.ordina.brewery.entity.Kettle;
 import nl.ordina.brewery.entity.KettleAction;
 
 import java.time.Duration;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import nl.ordina.brewery.entity.MonitoredEvent;
 
 public class WaitAction implements KettleAction {
+    
+    private Duration duration;
 
-    @Inject
-    private Event<MonitoredEvent> event;
-
-    private final Duration duration;
-
+    public WaitAction() {
+        // Required by JAXB
+    }
+    
     public WaitAction(Duration duration) {
         this.duration = duration;
     }
@@ -26,7 +24,7 @@ public class WaitAction implements KettleAction {
 
     @Override
     public String toString() {
-        return "WaitAction{" + "event=" + event + ", duration=" + duration + '}';
+        return "WaitAction{" + "duration=" + duration + '}';
     }
     
 }

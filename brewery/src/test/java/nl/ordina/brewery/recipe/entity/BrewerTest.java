@@ -39,12 +39,10 @@ public class BrewerTest {
     Temperature temperature = Temperature.of(65, CELSIUS);
     Duration duration = Duration.ofMinutes(30);
 
-    recipe.addStep("Mashing",
-        Arrays.asList(new AddIngredientAction(water),
-            new ChangeTemperatureAction(temperature),
-            new AddIngredientAction(barley),
-            new WaitAction(duration)
-        ));
+    recipe.addStep(new AddIngredientAction(water));
+    recipe.addStep(new ChangeTemperatureAction(temperature));
+    recipe.addStep(new AddIngredientAction(barley));
+    recipe.addStep(new WaitAction(duration));
 
     sut.brew(recipe);
 

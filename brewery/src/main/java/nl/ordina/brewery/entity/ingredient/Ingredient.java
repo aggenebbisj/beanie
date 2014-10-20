@@ -36,12 +36,10 @@ public class Ingredient {
     public void setVolume(Volume volume) {
         this.volume = volume;
     }
-    
+
     @Override
     public String toString() {
-        return "Ingredient{"
-                + "name=" + getName()
-                + "volume=" + volume
-                + '}';
+        return "Ingredient{" + "name=" + name + ", volume=" + volume + '}';
     }
+    
 }

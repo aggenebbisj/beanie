@@ -25,8 +25,6 @@ public class RecipeMessageDrivenBean implements MessageListener {
 
     @Inject
     Brewer brewer;
-    @Inject
-    RecipeParser parser;
 
     @Override
     public void onMessage(Message message) {
@@ -35,7 +33,7 @@ public class RecipeMessageDrivenBean implements MessageListener {
             try {
                 String s = ((TextMessage) message).getText();
                 final JsonReader reader = Json.createReader(new StringReader(s));
-                brewer.brew(parser.parseRecipe(reader.readObject()));
+//                brewer.brew(parser.parseRecipe(reader.readObject()));
             } catch (JMSException e) {
                 e.printStackTrace();
             }

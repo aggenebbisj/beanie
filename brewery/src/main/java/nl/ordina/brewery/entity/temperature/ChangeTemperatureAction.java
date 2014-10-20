@@ -5,7 +5,11 @@ import nl.ordina.brewery.entity.KettleAction;
 
 public class ChangeTemperatureAction implements KettleAction {
 
-    private final Temperature temperature;
+    private Temperature temperature;
+
+    public ChangeTemperatureAction() {
+        // Required by JAXB
+    }
 
     public ChangeTemperatureAction(Temperature temperature) {
         this.temperature = temperature;
