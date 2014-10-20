@@ -1,8 +1,8 @@
 'use strict';
-var test;
+var test = [];
 angular.module('breweryApp')
     .controller('MonitorCtrl', function ($scope, $rootScope) {
-        $scope.reading = {
+        $scope.readings = {
             'capacity': 0,
             'temperature': 0
         }
@@ -23,24 +23,21 @@ angular.module('breweryApp')
 
         function connect() {
             var websocket = new WebSocket(wsUri);
-            websocket.onopen = function (evt) {
-                $scope.readings = {
-                    'capacity': 0,
-                    'temperature': 0
-                };
-            };
+            websocket.onopen = function (evt) {};
 
             websocket.onmessage = function (evt) {
+                console.log("evt" + evt);
                 var message = JSON.parse(evt.data);
-                console.log('remko');
-                console.log(message);
-                test = message;
-                console.log('pim2');
-                console.log(message.ingredient.volume);
-                $scope.readings = {
-                    'capacity': $scope.readings['capacity'] + (message.ingredient.volume.value || 0),
-                    'temperature': (message.kettle && message.kettle.value) || $scope.readings['temperature']
-                };
+                console.log("message: " + message);
+                test.push(message);
+
+                if (message.temperature) {
+                    console.log('pim: ' + message.temperature.value);
+                    $scope.readings['temperature'] = message.temperature.value;
+                    $scope.$apply();
+                } else if (message.ingredient) {
+                    $scope.readings['capacity'] += message.ingredient.volume.value;
+                }
             };
 
             websocket.onerror = function (evt) {

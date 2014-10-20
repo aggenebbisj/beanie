@@ -5,28 +5,29 @@ import nl.ordina.brewery.entity.temperature.Temperature;
 import java.util.Objects;
 
 public class TemperatureChangeCalculator {
-  static final int MAXIMUM_TEMPERATURE_CHANGE = 25;
-  private final Temperature current;
-  private final Temperature goal;
 
-  public TemperatureChangeCalculator(Temperature current, Temperature goal) {
-    Objects.requireNonNull(current);
-    Objects.requireNonNull(goal);
+    static final int MAXIMUM_TEMPERATURE_CHANGE = 25;
+    private final Temperature current;
+    private final Temperature goal;
 
-    this.current = current;
-    this.goal = goal;
-  }
+    public TemperatureChangeCalculator(Temperature current, Temperature goal) {
+        Objects.requireNonNull(current);
+        Objects.requireNonNull(goal);
 
-  private Temperature calculateChangePerTimeslot(Temperature difference) {
-    final boolean maximum = difference.getValue() > MAXIMUM_TEMPERATURE_CHANGE;
-    return maximum ? new Temperature(MAXIMUM_TEMPERATURE_CHANGE, difference.getUnit()) : difference;
-  }
+        this.current = current;
+        this.goal = goal;
+    }
 
-  public boolean isEqual() {
-    return current.equals(goal);
-  }
+    private Temperature calculateChangePerTimeslot(Temperature difference) {
+        final boolean maximum = difference.getValue() > MAXIMUM_TEMPERATURE_CHANGE;
+        return maximum ? new Temperature(MAXIMUM_TEMPERATURE_CHANGE, difference.getUnit()) : difference;
+    }
 
-  public Temperature calculateNewTemperature() {
-    return current.plus(calculateChangePerTimeslot(current.difference(goal)));
-  }
+    public boolean isEqual() {
+        return current.equals(goal);
+    }
+
+    public Temperature calculateNewTemperature() {
+        return current.plus(calculateChangePerTimeslot(current.difference(goal)));
+    }
 }

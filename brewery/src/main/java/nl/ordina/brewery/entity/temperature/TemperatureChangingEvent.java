@@ -7,45 +7,45 @@ import javax.json.JsonObject;
 import nl.ordina.brewery.entity.Kettle;
 
 public class TemperatureChangingEvent implements MonitoredEvent {
-  private final Kettle kettle;
-  private final Temperature goal;
 
-  public TemperatureChangingEvent(Kettle kettle, Temperature goal) {
-    this.kettle = kettle;
-    this.goal = goal;
-  }
+    private final Kettle kettle;
+    private final Temperature goal;
 
-  @Override
-  public JsonObject createJson() {
-    return
-        Json.createObjectBuilder()
-            .add("event", "temperature changing")
-            .add("kettle",
-                Json.createObjectBuilder()
-                    .add("scale", kettle.getTemperature().getUnit().name())
-                    .add("value", kettle.getTemperature().getValue())
-                    .build())
-            .add("goal",
-                Json.createObjectBuilder()
-                    .add("scale", goal.getUnit().name())
-                    .add("value", goal.getValue())
-                    .build())
-            .build();
-  }
+    public TemperatureChangingEvent(Kettle kettle, Temperature goal) {
+        this.kettle = kettle;
+        this.goal = goal;
+    }
 
-  public Kettle getKettle() {
-    return kettle;
-  }
+    @Override
+    public JsonObject createJson() {
+        return Json.createObjectBuilder()
+                .add("event", "temperature changing")
+                .add("kettle",
+                        Json.createObjectBuilder()
+                        .add("scale", kettle.getTemperature().getUnit().name())
+                        .add("value", kettle.getTemperature().getValue())
+                        .build())
+                .add("goal",
+                        Json.createObjectBuilder()
+                        .add("scale", goal.getUnit().name())
+                        .add("value", goal.getValue())
+                        .build())
+                .build();
+    }
 
-  public Temperature getGoal() {
-    return goal;
-  }
+    public Kettle getKettle() {
+        return kettle;
+    }
 
-  @Override
-  public String toString() {
-    return "TemperatureChangingEvent{" +
-        "current=" + kettle.getTemperature() +
-        ", goal=" + goal +
-        '}';
-  }
+    public Temperature getGoal() {
+        return goal;
+    }
+
+    @Override
+    public String toString() {
+        return "TemperatureChangingEvent{"
+                + "current=" + kettle.getTemperature()
+                + ", goal=" + goal
+                + '}';
+    }
 }

@@ -31,7 +31,7 @@ public class TemperatureResourceIT {
         
         Response response = target
                 .request()
-                .post(Entity.entity(json, APPLICATION_JSON_TYPE));
+                .put(Entity.entity(json, APPLICATION_JSON_TYPE));
         assertThat(response.getStatus(), is(Response.Status.NO_CONTENT.getStatusCode()));
     }
     

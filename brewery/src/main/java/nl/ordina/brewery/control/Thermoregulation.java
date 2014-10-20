@@ -37,11 +37,10 @@ public class Thermoregulation {
         final Holder holder = (Holder) timer.getInfo();
         TemperatureChangingEvent event = holder.getEvent();
         
-        log.log(Level.FINEST, "Timeout for event {0}  with new temperature {1}", new Object[]{event, holder.getNewTemperature()});
+        log.log(Level.INFO, "Timeout for event {0}  with new temperature {1}", new Object[]{event, holder.getNewTemperature()});
         
         event.getKettle().changeInternalTemperature(holder.getNewTemperature());
 
-//    handleChange(event);
         TemperatureChangeCalculator calculator = createCalculator(event);
         
         if (calculator.isEqual()) {

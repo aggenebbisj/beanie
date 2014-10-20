@@ -85,7 +85,7 @@ angular.module('breweryApp')
                 activate: function (object) {
                     console.log(object);
                     if (object.value !== 0) {
-                        var url = $rootScope.serverUrl + $rootScope.resourcePath + 'temperature';
+                        var url = $rootScope.serverUrl + $rootScope.resourcePath;
                         sendAsPutAndReport(url, restService.createTemperature(object));
                     }
                 }},
