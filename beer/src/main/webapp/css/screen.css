@@ -1,0 +1,22 @@
+#operations {
+    //border: 1px solid red;
+    clear: both;
+}
+
+#operations li {
+    //border: 1px solid green;
+    padding: 5px; 
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+#operations input {
+    display: block;
+    width: 50px; 
+    margin: 5px auto;
+}
+
+.clear {
+    clear: both;
+}

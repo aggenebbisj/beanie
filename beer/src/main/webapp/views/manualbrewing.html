@@ -1,0 +1,44 @@
+<div id="manualbrewing" >
+    <h1>Manual brewing</h1>
+    <div id="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
+        Used volume: {{ brewer.readings.capacity }}<br />
+        Temperature: {{ brewer.readings.temperature }}
+    </div>
+    <div id="operations" ng-controller="ManualBrewingCtrl">
+        <button title="add" ng-click="operations.flush.activate()">Empty kettle</button>        
+        <ul>
+            <li>
+                <h2>Water</h2>
+                <input name="water" type="number" ng-model="waterValue" />
+                <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>        
+            </li>
+            <li>
+                <h2>Barley</h2>
+                <input name="barley" type="number" ng-model="barleyValue" />
+                <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>        
+            </li>
+            <li>
+                <h2>Hops</h2>
+                <input name="hops" type="number" ng-model="hopsValue" />
+                <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>        
+            </li>
+            <li>
+                <h2>Yeast</h2>
+                <input name="yeast" type="number" ng-model="yeastValue" />
+                <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
+            </li>
+            <li>
+                <h2>Temperature</h2>
+                <input name="temperature" type="number" ng-model="temperatureValue" />
+                <button title="change" ng-click="operations.temperature.activate(temperatureValue)">Change</button>        
+            </li>
+            <li>
+                <h2>Wait</h2>
+                <input name="wait" type="number" ng-model="waitValue" />
+                <button title="wait" ng-click="operations.wait.activate(waitValue)">Wait</button>        
+            </li>  
+        </ul>
+        <div class='clear'></div>
+    </div>
+    <div id="messages"></div>
+</div>
