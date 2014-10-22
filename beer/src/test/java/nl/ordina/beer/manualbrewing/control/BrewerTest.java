@@ -1,11 +1,13 @@
 
 package nl.ordina.beer.manualbrewing.control;
 
+import java.time.Duration;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.enterprise.event.Event;
-import nl.ordina.beer.control.TemperatureChangedEvent;
 import nl.ordina.beer.control.IngredientAddedEvent;
+import nl.ordina.beer.control.KitchenTimer;
 import nl.ordina.beer.control.TemperatureController;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
@@ -15,6 +17,7 @@ import nl.ordina.beer.entity.Volume;
 import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +39,9 @@ public class BrewerTest {
     
     @Mock 
     private TemperatureController thermostat;
+    
+    @Mock
+    private KitchenTimer kitchenTimer;
     
     @Before
     public void setup() {
@@ -79,9 +85,28 @@ public class BrewerTest {
     }
     
     @Test
-    public void changing_temperature_should_fire_event() {
+    public void should_change_the_temperature_via_the_thermostat() {
         Temperature goal = new Temperature(50, CELSIUS);
         sut.changeTemperatureTo(goal);
         Mockito.verify(thermostat).changeTemperature(goal, kettle);
+    }
+    
+    @Test
+    public void should_be_able_to_lock_the_kettle() {
+        sut.lockKettle(Duration.of(30, MINUTES));
+        assertTrue(sut.kettle.isLocked());
+    }
+    
+    @Test
+    public void locking_the_kettle_should_be_done_via_kitchentimer() {
+        sut.lockKettle(Duration.of(30, MINUTES));
+        Mockito.verify(kitchenTimer).setFor(Duration.of(30, MINUTES), kettle);
+    }
+    
+    @Test(expected = IllegalStateException.class)
+    public void should_not_be_able_to_add_ingredient_if_kettle_is_locked() {
+        final Ingredient ingredient = new Ingredient("Water", new Volume(300, LITER));
+        sut.kettle.lock();
+        sut.addIngredient(ingredient);
     }
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -14,7 +13,8 @@ public class Kettle {
     private Volume capacity = new Volume(500, Volume.VolumeUnit.LITER);
     private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     private String name = "Nameless kettle";
-
+    private boolean isLocked = false;
+    
     public Kettle() {
     }
 
@@ -75,6 +75,18 @@ public class Kettle {
         ingredients.clear();
     }
 
+    public boolean isLocked() {
+        return isLocked;
+    }
+    
+    public void lock() {
+        isLocked = true;
+    }
+    
+    public void unlock() {
+        isLocked = false;
+    }
+    
     @Override
     public String toString() {
         return "Kettle{" + "name=" + name + '}';

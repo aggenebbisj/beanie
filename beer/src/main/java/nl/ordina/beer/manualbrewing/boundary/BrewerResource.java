@@ -4,6 +4,7 @@ package nl.ordina.beer.manualbrewing.boundary;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import nl.ordina.beer.boundary.DurationXmlAdapter;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
@@ -25,6 +27,9 @@ public class BrewerResource {
     @EJB
     private Brewer brewer;
 
+    @Inject
+    DurationXmlAdapter durationAdapter;
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("ingredients")
@@ -63,4 +68,14 @@ public class BrewerResource {
         log.info(() -> "Manual Brewer: Changing temperature to " + goal);
         brewer.changeTemperatureTo(goal);
     }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("kettle/temperature/stable")
+    public void lock(String minutes) {
+        log.info(() -> "Manual Brewer: Keeping temperature stable for " + minutes);
+        brewer.lockKettle(durationAdapter.unmarshal(minutes));
+    }
+    
+    
 }

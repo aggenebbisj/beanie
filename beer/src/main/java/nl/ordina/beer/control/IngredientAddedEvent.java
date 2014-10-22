@@ -1,7 +1,6 @@
 
 package nl.ordina.beer.control;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonObject;

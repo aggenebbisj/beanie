@@ -1,7 +1,10 @@
 package nl.ordina.beer.manualbrewing.boundary;
 
+import java.time.Duration;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.Arrays;
 import java.util.List;
+import nl.ordina.beer.boundary.DurationXmlAdapter;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
@@ -52,5 +55,12 @@ public class BrewerResourceTest {
         Temperature goal = new Temperature(50, CELSIUS);
         sut.putTemperature(goal);
         Mockito.verify(brewer).changeTemperatureTo(goal);
+    }
+    
+    @Test
+    public void put_should_trigger_brewer_to_lock_kettle() {
+        sut.durationAdapter = new DurationXmlAdapter();
+        sut.lock("{ \"duration\":\"PT30M\" }");
+        Mockito.verify(brewer).lockKettle(Duration.of(30, MINUTES));
     }
 }
