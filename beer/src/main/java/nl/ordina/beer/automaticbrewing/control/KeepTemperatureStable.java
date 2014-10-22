@@ -14,7 +14,7 @@ public class KeepTemperatureStable implements RecipeStep<Duration>{
 
     @Override
     public void executeStep(Brewer brewer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        brewer.lockKettle(duration);
     }
 
     @Override

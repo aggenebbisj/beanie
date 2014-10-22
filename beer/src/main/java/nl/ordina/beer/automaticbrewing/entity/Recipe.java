@@ -2,6 +2,7 @@
 package nl.ordina.beer.automaticbrewing.entity;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import nl.ordina.beer.automaticbrewing.control.RecipeStep;
@@ -9,23 +10,24 @@ import nl.ordina.beer.automaticbrewing.control.RecipeStep;
 public class Recipe {
     private String name;
     private List<RecipeStep> steps;
-    
+    private final Iterator<RecipeStep> iterator;
+
     public Recipe(String name, List<RecipeStep> steps) {
         this.name = name;
         this.steps = steps;
+        this.iterator = steps.iterator();
     }
     
     public Recipe(String name, RecipeStep... steps) {
-        this.name = name;
-        this.steps = Arrays.asList(steps);
+        this(name, Arrays.asList(steps));
     }
     
     public boolean hasNextStep() {
-        return steps.iterator().hasNext();
+        return iterator.hasNext();
     }
     
     public RecipeStep nextStep() {
-         return steps.iterator().next();
+         return iterator.next();
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package nl.ordina.beer.automaticbrewing.boundary;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;

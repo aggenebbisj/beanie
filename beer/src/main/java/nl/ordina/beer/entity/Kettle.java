@@ -32,7 +32,7 @@ public class Kettle {
 
     public void addIngredient(Ingredient ingredient) {
         if (isMaximumCapacityReached(ingredient.getVolume())) {
-            throw new IllegalArgumentException("Maximum capacity of kettle reached. Boooom ...");
+            throw new IllegalArgumentException("Maximum capacity of " + name + " reached. Boooom ...");
         }
         this.ingredients.add(ingredient);
     }

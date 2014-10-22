@@ -2,6 +2,7 @@ package nl.ordina.beer.automaticbrewing.control;
 
 import javax.enterprise.event.Event;
 import nl.ordina.beer.automaticbrewing.boundary.RecipeBuilder;
+import nl.ordina.beer.automaticbrewing.entity.Recipe;
 import nl.ordina.beer.control.IngredientAddedEvent;
 import nl.ordina.beer.control.TemperatureChangedEvent;
 import nl.ordina.beer.entity.Kettle;
@@ -37,10 +38,18 @@ public class RecipeBrewerTest {
     }
 
     @Test
-    public void should_trigger_next_step_on_event() {
-        sut.setRecipe(RecipeBuilder.aRecipe());
-        sut.onStepCompleted(new IngredientAddedEvent(RecipeBuilder.defaultIngredient(), kettle));
+    public void should_begin_with_first_step() {
+        sut.brew(RecipeBuilder.aRecipe());
         Mockito.verify(brewer).addIngredient(RecipeBuilder.defaultIngredient());
+    }
+    
+    @Test
+    public void should_trigger_next_step_on_event() {
+        Recipe recipe = RecipeBuilder.aRecipe();
+        sut.setRecipe(recipe);
+        recipe.nextStep();
+        sut.onStepCompleted(new IngredientAddedEvent(RecipeBuilder.defaultIngredient(), kettle));
+        Mockito.verify(brewer).changeTemperatureTo(RecipeBuilder.defaultTemperature());
     }
 
     @Test

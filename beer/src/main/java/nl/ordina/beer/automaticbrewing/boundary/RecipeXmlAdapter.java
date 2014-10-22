@@ -10,7 +10,6 @@ import nl.ordina.beer.automaticbrewing.control.AddIngredient;
 import nl.ordina.beer.automaticbrewing.control.ChangeTemperature;
 import nl.ordina.beer.automaticbrewing.control.KeepTemperatureStable;
 import nl.ordina.beer.automaticbrewing.control.RecipeStep;
-import nl.ordina.beer.automaticbrewing.control.RecipeBrewer;
 import nl.ordina.beer.automaticbrewing.entity.Recipe;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Temperature;
