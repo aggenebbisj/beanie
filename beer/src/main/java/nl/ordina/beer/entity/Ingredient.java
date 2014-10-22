@@ -1,5 +1,7 @@
 package nl.ordina.beer.entity;
 
+import java.util.Objects;
+
 public class Ingredient {
 
     private String name;
@@ -38,6 +40,30 @@ public class Ingredient {
     @Override
     public String toString() {
         return "Ingredient{" + "name=" + name + ", volume=" + volume + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ingredient other = (Ingredient) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.volume, other.volume)) {
+            return false;
+        }
+        return true;
     }
     
 }

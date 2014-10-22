@@ -3,7 +3,6 @@ package nl.ordina.beer.manualbrewing.boundary;
 
 import java.util.List;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,13 +17,14 @@ import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.brewery.entity.Manual;
 
 @Path("brewer")
 public class BrewerResource {
     
     private static final Logger log = Logger.getLogger(BrewerResource.class.getName());
     
-    @EJB
+    @Inject @Manual
     private Brewer brewer;
 
     @Inject

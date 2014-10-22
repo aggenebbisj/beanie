@@ -18,6 +18,10 @@ public class Kettle {
     public Kettle() {
     }
 
+    public Kettle(String name) {
+        this.name = name;
+    }
+    
     public Kettle(Volume volume) {
         this.capacity = volume;
     }

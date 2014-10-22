@@ -52,10 +52,10 @@ restService.factory('restService', function ($http) {
                 'unit': unit
             };
         },
-        createWaitingMessage: function (object) {
+        createDuration: function (value, unit) {
             return {
-                'value': object.value,
-                'unit': object.unit
+                'value': value,
+                'unit': unit
             };
         }
     };

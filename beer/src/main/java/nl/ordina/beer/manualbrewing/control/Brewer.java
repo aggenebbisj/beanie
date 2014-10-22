@@ -3,7 +3,7 @@ package nl.ordina.beer.manualbrewing.control;
 
 import java.time.Duration;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import nl.ordina.beer.control.IngredientAddedEvent;
@@ -13,7 +13,6 @@ import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 
-@Stateless
 public class Brewer {
     
     @Inject
@@ -25,7 +24,7 @@ public class Brewer {
     @Inject
     KitchenTimer kitchenTimer;
     
-    @Inject
+    @Inject @ApplicationScoped
     Kettle kettle;
     
     public void addIngredient(Ingredient ingredient) {

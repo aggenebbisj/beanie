@@ -21,9 +21,15 @@ manualBrewing.controller('ManualBrewingCtrl', function ($scope, $rootScope, rest
             }
         },
         temperature: {
-            activate: function (newValue) {
-                var temperature = restService.createTemperature(newValue, 'celsius');
+            activate: function (value) {
+                var temperature = restService.createTemperature(value, 'celsius');
                 restService.putWithData(kettleResourceUrl + '/temperature', temperature);
+            }
+        },
+        wait: {
+            activate: function (value) {
+                var duration = restService.createDuration(value, 'minutes');
+                restService.putWithData(kettleResourceUrl + '/temperature/stable', duration);
             }
         }
     };
