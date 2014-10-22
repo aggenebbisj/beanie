@@ -20,7 +20,7 @@ public class TemperatureController {
 
     private static final Logger log = Logger.getLogger(TemperatureController.class.getName());
     private static final Temperature INCREMENT = new Temperature(5, CELSIUS);
-    
+
     @Resource
     TimerService timerService;
 
@@ -30,11 +30,11 @@ public class TemperatureController {
     public void changeTemperature(Temperature goal, Kettle kettle) {
         log.info(() -> "Changing temperature to " + goal);
         final TemperatureChangedEvent tcEvent = new TemperatureChangedEvent(goal, kettle);
-        
+
         kettle.changeTemperatureToWithSteps(goal, INCREMENT);
-        
+
         event.fire(tcEvent);
-        
+
         if (!kettle.getTemperature().equals(goal)) {
             final TimerConfig timerConfig = new TimerConfig(
                     new Holder(tcEvent),
@@ -43,7 +43,7 @@ public class TemperatureController {
             timerService.createSingleActionTimer(1000, timerConfig);
         }
     }
-    
+
     @Timeout
     public void timeout(Timer timer) {
         final Holder holder = (Holder) timer.getInfo();
@@ -51,23 +51,23 @@ public class TemperatureController {
         changeTemperature(holder.getEvent().getGoal(), holder.getEvent().getKettle());
     }
 
-}
+    static class Holder implements Serializable {
 
-class Holder implements Serializable {
+        private final TemperatureChangedEvent event;
 
-    private final TemperatureChangedEvent event;
+        Holder(TemperatureChangedEvent event) {
+            this.event = event;
+        }
 
-    Holder(TemperatureChangedEvent event) {
-        this.event = event;
-    }
+        public TemperatureChangedEvent getEvent() {
+            return event;
+        }
 
-    public TemperatureChangedEvent getEvent() {
-        return event;
-    }
+        @Override
+        public String toString() {
+            return "Holder{" + "event=" + event + '}';
+        }
 
-    @Override
-    public String toString() {
-        return "Holder{" + "event=" + event + '}';
     }
 
 }

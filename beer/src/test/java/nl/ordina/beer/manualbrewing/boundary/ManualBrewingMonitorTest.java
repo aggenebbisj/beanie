@@ -2,17 +2,11 @@
 package nl.ordina.beer.manualbrewing.boundary;
 
 import javax.websocket.Session;
-import nl.ordina.beer.control.IngredientAddedEvent;
-import nl.ordina.beer.entity.Ingredient;
-import nl.ordina.beer.entity.Kettle;
-import nl.ordina.beer.entity.Volume;
-import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
