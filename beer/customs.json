@@ -1,6 +1,10 @@
 {
     "elements": {
-        "gauge": {}
+        "gauge": {
+            "attributes": {
+                "data": {}
+            }
+        }
     },
     "attributes": {}
 }
