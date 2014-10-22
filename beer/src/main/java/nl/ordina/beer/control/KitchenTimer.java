@@ -2,7 +2,7 @@ package nl.ordina.beer.control;
 
 import java.io.Serializable;
 import java.time.Duration;
-import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -26,13 +26,15 @@ public class KitchenTimer {
     private Event<KitchenTimerExpiredEvent> event;
     
     public void setFor(Duration of, Kettle kettle) {
+        log.info(() -> "Waiting 5 seconds before removing lock...");
         // Always wait for 5 seconds
-        timerService.createSingleActionTimer(Duration.of(5, MINUTES).getSeconds() * 1000, new TimerConfig(new Holder(kettle), false));
+        timerService.createSingleActionTimer(Duration.of(5, SECONDS).getSeconds() * 1000, new TimerConfig(new Holder(kettle), false));
     }
 
     @Timeout
     public void timeout(Timer timer) {
         final Holder holder = (Holder) timer.getInfo();
+        log.info(() -> "Unlocking kettle " + holder.getKettle());
         holder.getKettle().unlock();
         event.fire(new KitchenTimerExpiredEvent(holder.getKettle()));
     }

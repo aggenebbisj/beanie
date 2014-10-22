@@ -4,24 +4,12 @@ import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonObject;
 import nl.ordina.beer.control.NotificationEvent;
-import nl.ordina.beer.entity.Kettle;
 
 public class RecipeCompletedEvent implements NotificationEvent {
     private final String name;
 
     public RecipeCompletedEvent(String recipeName) {
         this.name = recipeName;
-    }
-    
-    @Override
-    public boolean isCompleted() {
-        return true;
-    }
-    
-    @Override
-    public Kettle getKettle() {
-        // Not relevant here
-        return null;
     }
     
     @Override

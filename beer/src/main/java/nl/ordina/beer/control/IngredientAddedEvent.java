@@ -6,7 +6,7 @@ import javax.json.JsonObject;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 
-public class IngredientAddedEvent implements NotificationEvent {
+public class IngredientAddedEvent implements NotificationEvent, KettleActionEvent {
 
     private final Ingredient ingredient;
     private final Kettle kettle;

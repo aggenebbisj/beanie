@@ -6,7 +6,7 @@ import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 
-public class TemperatureChangedEvent implements NotificationEvent {
+public class TemperatureChangedEvent implements NotificationEvent, KettleActionEvent {
 
     private final Temperature goal;
     private final Kettle kettle;

@@ -3,6 +3,7 @@ package nl.ordina.beer.manualbrewing.control;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -14,6 +15,8 @@ import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 
 public class Brewer {
+    
+    private static final Logger log = Logger.getLogger(Brewer.class.getName());
     
     @Inject
     Event<IngredientAddedEvent> ingredientAddedEvent;
@@ -53,6 +56,7 @@ public class Brewer {
     }
 
     public void lockKettle(Duration minutes) {
+        log.info(() -> String.format("Locking kettle %s for duration %s", kettle, minutes));
         kettle.lock();
         kitchenTimer.setFor(minutes, kettle);
     }

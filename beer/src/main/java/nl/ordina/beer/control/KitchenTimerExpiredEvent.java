@@ -6,7 +6,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
 
-public class KitchenTimerExpiredEvent implements NotificationEvent {
+public class KitchenTimerExpiredEvent implements NotificationEvent, KettleActionEvent {
     private final Kettle kettle;
 
     public KitchenTimerExpiredEvent(Kettle kettle) {

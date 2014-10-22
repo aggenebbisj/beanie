@@ -6,7 +6,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import nl.ordina.beer.automaticbrewing.entity.Recipe;
-import nl.ordina.beer.control.NotificationEvent;
+import nl.ordina.beer.control.KettleActionEvent;
 import nl.ordina.beer.manualbrewing.control.Brewer;
 import nl.ordina.brewery.entity.Automatic;
 
@@ -27,12 +27,11 @@ public class RecipeBrewer {
     }
     
     public void doNextStep() {
-        System.out.println("--- recipeBrewer hash: " + hashCode());
         if (recipe.hasNextStep()) recipe.nextStep().executeStep(brewer);
         else recipeCompletedEvent.fire(new RecipeCompletedEvent(recipe.getName()));
     }
     
-    public void onStepCompleted(@Observes NotificationEvent recipeStepEvent) {
+    public void onStepCompleted(@Observes KettleActionEvent recipeStepEvent) {
         if (recipeStepEvent.getKettle().isAutomatic() && recipeStepEvent.isCompleted())
             doNextStep();
     }

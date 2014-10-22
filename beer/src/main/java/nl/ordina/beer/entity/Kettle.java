@@ -97,7 +97,7 @@ public class Kettle {
 
     @Override
     public String toString() {
-        return "Kettle{" + "name=" + name + '}';
+        return "Kettle{" + "temperature=" + temperature + ", name=" + name + '}';
     }
 
 }
