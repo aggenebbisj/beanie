@@ -1,37 +1,37 @@
-<div id="manualbrewing" >
     <h1>Manual brewing</h1>
-    <div id="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
+    <section class="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
         Used volume: {{ brewer.readings.capacity }}<br />
-        <gauge data='readings' ng-model='readings'></gauge>
-        Koen temp: {{readings}} 
+        <gauge data='manualKettleReadings'></gauge>
         Temperature: {{ brewer.readings.temperature }}
-    </div>
-    <div id="operations" ng-controller="ManualBrewingCtrl">
+    </section>
+    
+    
+    <section class="operations" ng-controller="ManualBrewingCtrl">
         <button title="add" ng-click="operations.flush.activate()">Empty kettle</button>        
         <ul>
             <li>
                 <h2>Water</h2>
-                <input name="water" type="number" ng-model="waterValue" />
+                <input name="water" type="number" ng-model="waterValue" min="1" max="100"/>
                 <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>        
             </li>
             <li>
                 <h2>Barley</h2>
-                <input name="barley" type="number" ng-model="barleyValue" />
+                <input name="barley" type="number" ng-model="barleyValue" min="1" max="100"/>
                 <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>        
             </li>
             <li>
                 <h2>Hops</h2>
-                <input name="hops" type="number" ng-model="hopsValue" />
+                <input name="hops" type="number" ng-model="hopsValue" min="1" max="100"/>
                 <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>        
             </li>
             <li>
                 <h2>Yeast</h2>
-                <input name="yeast" type="number" ng-model="yeastValue" />
+                <input name="yeast" type="number" ng-model="yeastValue" min="1" max="100" />
                 <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
             </li>
             <li>
                 <h2>Temperature</h2>
-                <input name="temperature" type="number" ng-model="temperatureValue" />
+                <input name="temperature" type="number" ng-model="temperatureValue" min="1" max="100"/>
                 <button title="change" ng-click="operations.temperature.activate(temperatureValue)">Change</button>        
             </li>
             <li>
@@ -41,6 +41,5 @@
             </li>  
         </ul>
         <div class='clear'></div>
-    </div>
     <div id="messages"></div>
-</div>
+    </section>
