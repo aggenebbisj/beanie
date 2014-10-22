@@ -21,6 +21,8 @@ angular.module('breweryApp', ['ngRoute'])
             $rootScope.brewer = { readings: [] };
             $rootScope.brewer.readings = { temperature: 0, capacity:0 };
         });
-
+        
+        
+google.load('visualization', '1', {packages: ['gauge']});
 
 
