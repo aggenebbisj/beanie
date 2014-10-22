@@ -1,4 +1,3 @@
-
 package nl.ordina.beer.control;
 
 import java.util.Objects;
@@ -8,8 +7,9 @@ import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 
 public class IngredientAddedEvent implements NotificationEvent {
-    private Ingredient ingredient;
-    private Kettle kettle;
+
+    private final Ingredient ingredient;
+    private final Kettle kettle;
 
     public IngredientAddedEvent(Ingredient ingredient, Kettle kettle) {
         this.ingredient = ingredient;
@@ -17,22 +17,32 @@ public class IngredientAddedEvent implements NotificationEvent {
     }
 
     @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-        .add("event", "ingredient added")
-        .add("ingredient",
-            Json.createObjectBuilder()
-              .add("name", ingredient.getName())
-              .add("volume",
-                  Json.createObjectBuilder()
-                      .add("value", ingredient.getVolume().getValue())
-                      .add("unit", ingredient.getVolume().getUnit().name())
-                      .build())
-              .build())
-        .add("kettle", kettle.getName())
-        .build();
+    public boolean isCompleted() {
+        return true;
     }
     
+    @Override
+    public Kettle getKettle() {
+        return kettle;
+    }
+    
+    @Override
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("event", "ingredient added")
+                .add("ingredient",
+                        Json.createObjectBuilder()
+                        .add("name", ingredient.getName())
+                        .add("volume",
+                                Json.createObjectBuilder()
+                                .add("value", ingredient.getVolume().getValue())
+                                .add("unit", ingredient.getVolume().getUnit().name())
+                                .build())
+                        .build())
+                .add("kettle", kettle.getName())
+                .build();
+    }
+
     @Override
     public String toString() {
         return "IngredientAddedEvent{" + "ingredient=" + ingredient + ", kettle=" + kettle + '}';
@@ -63,4 +73,3 @@ public class IngredientAddedEvent implements NotificationEvent {
     }
 
 }
-

@@ -6,22 +6,21 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import nl.ordina.beer.manualbrewing.control.Brewer;
-import nl.ordina.brewery.entity.Automatic;
+import nl.ordina.beer.automaticbrewing.control.RecipeBrewer;
 
 @Path("recipe")
 public class RecipeResource {
 
-    @Inject @Automatic
-    private Brewer brewer;
-
     @Inject
     RecipeXmlAdapter recipeAdapter;
 
+    @Inject
+    RecipeBrewer brewer;
+            
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void post(JsonObject recipe) {
-        recipeAdapter.unmarshal(recipe).brew(brewer);
+        brewer.brew(recipeAdapter.unmarshal(recipe));
     }
 
 }

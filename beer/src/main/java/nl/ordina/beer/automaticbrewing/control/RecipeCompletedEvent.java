@@ -1,18 +1,18 @@
-
-package nl.ordina.beer.control;
+package nl.ordina.beer.automaticbrewing.control;
 
 import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonObject;
+import nl.ordina.beer.control.NotificationEvent;
 import nl.ordina.beer.entity.Kettle;
 
-public class KitchenTimerExpiredEvent implements NotificationEvent {
-    private final Kettle kettle;
+public class RecipeCompletedEvent implements NotificationEvent {
+    private final String name;
 
-    public KitchenTimerExpiredEvent(Kettle kettle) {
-        this.kettle = kettle;
+    public RecipeCompletedEvent(String recipeName) {
+        this.name = recipeName;
     }
-
+    
     @Override
     public boolean isCompleted() {
         return true;
@@ -20,25 +20,26 @@ public class KitchenTimerExpiredEvent implements NotificationEvent {
     
     @Override
     public Kettle getKettle() {
-        return kettle;
+        // Not relevant here
+        return null;
     }
     
     @Override
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-        .add("event", "kitchentimer expired")
-        .add("kettle", kettle.getName())
-        .build();
+                .add("event", "recipe completed")
+                .add("name", name)
+                .build();
     }
 
     @Override
     public String toString() {
-        return "KitchenTimerExpiredEvent{" + "kettle=" + kettle + '}';
+        return "RecipeCompletedEvent{" + "name=" + name + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         return hash;
     }
 
@@ -50,11 +51,11 @@ public class KitchenTimerExpiredEvent implements NotificationEvent {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final KitchenTimerExpiredEvent other = (KitchenTimerExpiredEvent) obj;
-        if (!Objects.equals(this.kettle, other.kettle)) {
+        final RecipeCompletedEvent other = (RecipeCompletedEvent) obj;
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
     }
-    
+
 }

@@ -1,6 +1,6 @@
 package nl.ordina.beer.automaticbrewing.boundary;
 
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.automaticbrewing.control.RecipeBrewer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,13 +15,13 @@ public class RecipeResourceTest {
     private RecipeResource sut;
 
     @Mock
-    private Brewer brewer;
+    private RecipeBrewer brewer;
 
     @Test
     public void post_should_trigger_brewer_to_brew_recipe() {
         sut.recipeAdapter = new RecipeXmlAdapter();
         sut.post(RecipeBuilder.aRecipeJson());
-        Mockito.verify(brewer).addIngredient(RecipeBuilder.defaultIngredient());
+        Mockito.verify(brewer).brew(RecipeBuilder.aRecipe());
     }
 
 }

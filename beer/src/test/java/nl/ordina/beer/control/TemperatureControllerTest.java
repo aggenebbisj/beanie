@@ -22,7 +22,7 @@ public class TemperatureControllerTest {
     private TemperatureController sut;
 
     @Mock
-    private Event<TemperatureChangedEvent> event;
+    private Event<TemperatureChangedEvent> temperatureChangedEvent;
 
     @Mock 
     private TimerService timerService;
@@ -46,18 +46,7 @@ public class TemperatureControllerTest {
     public void should_fire_event_after_temperature_is_changed() {
         final Temperature goal = new Temperature(50, CELSIUS);
         sut.changeTemperature(goal, kettle);
-        Mockito.verify(event).fire(new TemperatureChangedEvent(goal, kettle));
+        Mockito.verify(temperatureChangedEvent).fire(new TemperatureChangedEvent(goal, kettle));
     }
 
-    @Test
-    public void should_set_timer_for_another_event_if_goal_is_not_reached_in_one_turn() {
-        final Temperature goal = new Temperature(50, CELSIUS);
-        sut.changeTemperature(goal, kettle);
-//        Mockito.verify(timerService).createSingleActionTimer(Mockito.anyLong(), Mockito.anyObject());
-    }
-
-    @Test
-    public void timeout_should_trigger_another_change_of_temperature() {
-        // TODO -> difficult with mocking
-    }
 }

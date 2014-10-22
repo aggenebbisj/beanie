@@ -5,15 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import nl.ordina.beer.automaticbrewing.control.RecipeStep;
-import nl.ordina.beer.manualbrewing.control.Brewer;
 
 public class Recipe {
-
     private String name;
     private List<RecipeStep> steps;
-
-    public Recipe() {
-    }
     
     public Recipe(String name, List<RecipeStep> steps) {
         this.name = name;
@@ -25,19 +20,23 @@ public class Recipe {
         this.steps = Arrays.asList(steps);
     }
     
-    public void brew(Brewer brewer) {
-        if (steps.iterator().hasNext()) steps.iterator().next().executeStep(brewer);
+    public boolean hasNextStep() {
+        return steps.iterator().hasNext();
     }
     
-    public List<RecipeStep> getSteps() {
-        return steps;
+    public RecipeStep nextStep() {
+         return steps.iterator().next();
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" + "name=" + name + ", steps=" + steps + '}';
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -61,5 +60,5 @@ public class Recipe {
         }
         return true;
     }
-
+    
 }

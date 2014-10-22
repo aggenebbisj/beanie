@@ -20,6 +20,12 @@ public class TemperatureChangedEvent implements NotificationEvent {
         return goal;
     }
 
+    @Override
+    public boolean isCompleted() {
+        return kettle.getTemperature().equals(goal);
+    }
+
+    @Override
     public Kettle getKettle() {
         return kettle;
     }

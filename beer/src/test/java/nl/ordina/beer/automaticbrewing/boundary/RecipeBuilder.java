@@ -2,6 +2,7 @@ package nl.ordina.beer.automaticbrewing.boundary;
 
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import java.util.Collections;
 import javax.json.Json;
 import javax.json.JsonObject;
 import nl.ordina.beer.automaticbrewing.control.AddIngredient;
@@ -26,6 +27,14 @@ public class RecipeBuilder {
     
     public static Duration defaultDuration() {
         return Duration.of(30, MINUTES);
+    }
+    
+    public static AddIngredient defaultAddIngredientStep() {
+        return new AddIngredient(defaultIngredient());
+    }
+    
+    public static Recipe anEmptyRecipe() {
+        return new Recipe("TestRecipe", Collections.emptyList());
     }
     
     public static Recipe aRecipe() {

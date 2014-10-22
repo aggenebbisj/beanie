@@ -14,14 +14,14 @@ public class Kettle {
     private Temperature temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     private String name = "Nameless kettle";
     private boolean isLocked = false;
-    
+
     public Kettle() {
     }
 
     public Kettle(String name) {
         this.name = name;
     }
-    
+
     public Kettle(Volume volume) {
         this.capacity = volume;
     }
@@ -62,7 +62,7 @@ public class Kettle {
             temperature = temperature.minus(step).max(goal);
         }
     }
-    
+
     public Volume getCapacity() {
         return capacity;
     }
@@ -82,15 +82,19 @@ public class Kettle {
     public boolean isLocked() {
         return isLocked;
     }
-    
+
     public void lock() {
         isLocked = true;
     }
-    
+
     public void unlock() {
         isLocked = false;
     }
-    
+
+    public boolean isAutomatic() {
+        return "UberKettle 2000".equals(name);
+    }
+
     @Override
     public String toString() {
         return "Kettle{" + "name=" + name + '}';
