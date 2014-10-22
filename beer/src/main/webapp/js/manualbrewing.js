@@ -4,7 +4,7 @@ manualBrewing.controller('ManualBrewingCtrl', function ($scope, $rootScope, rest
     'use strict';
     var ingredientsResourceUrl = $rootScope.resourcePath + 'brewer/ingredients';
     var kettleResourceUrl = $rootScope.resourcePath + 'brewer/kettle';
-    
+
     $scope.operations = {
         flush: {
             activate: function () {
@@ -31,6 +31,12 @@ manualBrewing.controller('ManualBrewingCtrl', function ($scope, $rootScope, rest
 });
 
 manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService) {
+    $scope.readings = [
+        ['Label', 'Value'],
+        ['Temperature', 0],
+        ['Capacity', 0]
+    ];
+
     refreshService.refreshReadings($rootScope.resourcePath + 'brewer/kettle');
 
     connect();
@@ -43,24 +49,28 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
             switch (evt.event) {
                 case 'ingredient added':
                     $rootScope.brewer.readings.capacity += evt.ingredient.volume.value;
+                    $scope.readings.capacity = $rootScope.brewer.readings.capacity;
                     break;
                 case 'temperature changed':
                     $rootScope.brewer.readings.temperature = evt.temperature.value;
+                    $scope.readings[1][1] = $rootScope.brewer.readings.temperature;
                     break;
                 default:
                     console.log('default' + evt);
-                    
+
             }
             $rootScope.$apply();
+            $scope.$apply();
 
             $('#messages').append("RECEIVED: " + evtJson.data + '<br/>');
         };
     }
+
 });
 
 manualBrewing.factory("refreshService", function ($rootScope, restService) {
     $rootScope.brewer = {};
-    
+
     return {
         refreshReadings: function (resourcePath) {
             restService.get(resourcePath)
@@ -83,3 +93,35 @@ manualBrewing.factory("refreshService", function ($rootScope, restService) {
         }
     };
 });
+
+manualBrewing.directive('gauge', function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        scope: {data: '='
+        },
+        template: '<div class="gauge"></div>',
+        link: function (scope, element, attrs) {
+            var chart = new google.visualization.Gauge(element[0]);
+            var options = {
+                width: 400, height: 200,
+                redFrom: 90, redTo: 100,
+                yellowFrom: 75, yellowTo: 90,
+                minorTicks: 5
+            };
+            scope.$watch('data', function (v) {
+                console.log('Data inside gauge1: '+ v);
+                var data = google.visualization.arrayToDataTable(v);
+                chart.draw(data, options);
+
+            }, true);
+        }}
+});
+
+
+
+google.setOnLoadCallback(function () {
+    angular.bootstrap(document.body, ['breweryApp']);
+});
+google.load('visualization', '1', {packages: ['gauge']});

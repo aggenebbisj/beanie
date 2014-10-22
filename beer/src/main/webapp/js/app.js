@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('breweryApp', ['ngRoute'])
         .config(function ($routeProvider) {
             $routeProvider
@@ -19,6 +18,8 @@ angular.module('breweryApp', ['ngRoute'])
             $rootScope.serverUrl = 'localhost:8080/beer/';
             $rootScope.resourcePath = 'http://' + $rootScope.serverUrl + 'resources/';
             $rootScope.wsUri = 'ws://' + $rootScope.serverUrl + 'sockets/';
+            $rootScope.brewer = { readings: [] };
+            $rootScope.brewer.readings = { temperature: 0, capacity:0 };
         });
 
 

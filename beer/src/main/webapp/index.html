@@ -8,10 +8,19 @@
     </head>
     <body>
         <h1>Welcome to the Ordina Brewery</h1>
+        <nav>
+            Browse to:
+            <a ng-href="#/manualbrewing">Manual brewing</a>
+        </nav>
+
         <article>
             <div ng-view=""></div>
         </article>
-      <script src="js/vendor/angular.min.js"></script>
+
+        <footer class="footer">
+            &copy; Copyright 2014 Ordina
+        </footer>
+        <script src="js/vendor/angular.min.js"></script>
         <script src="js/vendor/angular-route.min.js"></script>
         <script src="js/vendor/jsapi.js"></script>
         <script src="js/vendor/jquery.min.js"></script>

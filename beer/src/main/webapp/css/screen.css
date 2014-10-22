@@ -20,3 +20,8 @@
 .clear {
     clear: both;
 }
+
+div.gauge {
+    width: 700px;
+    height: 300px;
+}

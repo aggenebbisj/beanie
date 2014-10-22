@@ -2,6 +2,8 @@
     <h1>Manual brewing</h1>
     <div id="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
         Used volume: {{ brewer.readings.capacity }}<br />
+        <gauge data='readings' ng-model='readings'></gauge>
+        Koen temp: {{readings}} 
         Temperature: {{ brewer.readings.temperature }}
     </div>
     <div id="operations" ng-controller="ManualBrewingCtrl">
