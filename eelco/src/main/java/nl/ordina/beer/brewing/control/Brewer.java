@@ -7,6 +7,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ public class Brewer {
     
     private final Queue<BrewAction> queue = new ConcurrentLinkedQueue<>();
 
-    @Inject
+    @Inject @Dependent
     private Kettle kettle;
 
     @Inject

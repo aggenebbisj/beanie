@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import nl.ordina.beer.brewing.control.Brewer;
 
-@Path("recipe")
+@Path("brewer/recipe")
 public class RecipeResource {
 
     @Inject

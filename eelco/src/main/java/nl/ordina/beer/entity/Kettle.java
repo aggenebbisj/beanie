@@ -2,7 +2,10 @@ package nl.ordina.beer.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Kettle {
 
     private final List<Ingredient> ingredients = new ArrayList<>();
@@ -38,6 +41,11 @@ public class Kettle {
         } else if (!temperature.equals(goal)) { // cool down
             temperature = temperature.minus(increment).max(goal);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Kettle{" + "ingredients=" + ingredients + ", temperature=" + temperature + '}';
     }
     
 }

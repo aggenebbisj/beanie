@@ -57,7 +57,7 @@ public class BrewerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("kettle")
     public Kettle getKettle() {
-        logger.info(() -> "Manual: Getting kettle");
+        logger.info(() -> format("Manual: Getting kettle %s", brewer.getKettle()));
         return brewer.getKettle();
     }
     
