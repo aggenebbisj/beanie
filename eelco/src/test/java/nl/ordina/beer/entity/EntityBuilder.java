@@ -3,7 +3,6 @@ package nl.ordina.beer.entity;
 
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import nl.ordina.beer.brewing.boundary.DurationXmlAdapter;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
 
@@ -24,5 +23,9 @@ public class EntityBuilder {
     public static Duration defaultDuration() {
         return Duration.of(30, MINUTES);
     }
+    
+    public static Volume defaultVolume() {
+        return new Volume(300, LITER);
+    }    
     
 }

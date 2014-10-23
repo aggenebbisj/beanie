@@ -24,14 +24,14 @@ public class ChangeTemperature extends BrewAction {
 
     @Override
     public void executeFor(Kettle kettle) {
-        try {
+//        try {
             while (!kettle.isOnTemperature(goal)) {
-                Thread.sleep(delay.getSeconds() * 1000); // Fake slow heating process
+                //Thread.sleep(delay.getSeconds() * 1000); // Fake slow heating process
                 kettle.changeTemperature(new Temperature(DEGREES_INCREMENT, CELSIUS), goal);
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override

@@ -15,12 +15,12 @@ public class KeepTemperatureStable extends BrewAction {
 
     @Override
     public void executeFor(Kettle kettle) {
-        try {
+//        try {
             // Does nothing, like in real life brewing :)
-            Thread.sleep(duration.get(MINUTES) * 1000); // Speed up minutes to seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//            Thread.sleep(duration.get(MINUTES) * 1000); // Speed up minutes to seconds
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
