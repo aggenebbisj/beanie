@@ -21,7 +21,7 @@ public class Brewer {
     
     private final Queue<BrewAction> queue = new ConcurrentLinkedQueue<>();
 
-    @Inject @Dependent
+    @Inject
     private Kettle kettle;
 
     @Inject
