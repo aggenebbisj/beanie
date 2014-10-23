@@ -4,10 +4,11 @@ import java.util.List;
 import nl.ordina.beer.brewing.entity.BrewAction;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import nl.ordina.beer.brewing.entity.BrewActionAdded;
 import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
 import nl.ordina.beer.entity.Kettle;
 
@@ -20,14 +21,17 @@ public class Brewer {
     private Kettle kettle;
 
     @Inject
-    Event<BrewActionCompletedEvent> event;
+    Event<BrewActionCompletedEvent> actionCompleted;
 
-    @PostConstruct
-    public void init() {
-        while (true) {
-            executeNextAction();
-        }
-    }
+    @Inject
+    Event<BrewActionAdded> actionAdded;
+    
+//    @PostConstruct
+//    public void init() {
+//        while (true) {
+//            executeNextAction();
+//        }
+//    }
 
     public void addActions(List<BrewAction> steps) {
         queue.addAll(steps);
@@ -35,17 +39,22 @@ public class Brewer {
     
     public void addAction(BrewAction action) {
         queue.add(action);
+        actionAdded.fire(new BrewActionAdded());
     }
 
+    public void onActionAdded(@Observes BrewActionAdded actionAdded) {
+        executeNextAction();
+    }
+    
     public BrewAction nextAction() {
         return queue.remove();
     }
-
+    
     public void executeNextAction() {
         if (!queue.isEmpty()) {
             final BrewAction nextAction = nextAction();
             nextAction.brew(kettle);
-            event.fire(new BrewActionCompletedEvent(nextAction));
+            actionCompleted.fire(new BrewActionCompletedEvent(nextAction));
         }
     }
 

@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import nl.ordina.beer.brewing.entity.AddIngredient;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.brewing.control.Brewer;
-import nl.ordina.beer.brewing.control.Manual;
 import nl.ordina.beer.brewing.entity.ChangeTemperature;
 import nl.ordina.beer.brewing.entity.EmptyKettle;
 import nl.ordina.beer.brewing.entity.KeepTemperatureStable;
@@ -33,7 +32,7 @@ public class BrewerResource {
     
     private transient Logger logger = Logger.getLogger(getClass().getName());
     
-    @Inject @Manual
+    @Inject 
     private Brewer brewer;
 
     @Inject
