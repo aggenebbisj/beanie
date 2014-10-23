@@ -26,15 +26,9 @@ public class Brewer {
     @Inject
     Event<BrewActionAdded> actionAdded;
     
-//    @PostConstruct
-//    public void init() {
-//        while (true) {
-//            executeNextAction();
-//        }
-//    }
-
     public void addActions(List<BrewAction> steps) {
         queue.addAll(steps);
+        actionAdded.fire(new BrewActionAdded());
     }
     
     public void addAction(BrewAction action) {

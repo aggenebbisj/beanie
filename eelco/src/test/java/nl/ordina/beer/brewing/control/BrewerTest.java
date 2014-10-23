@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -45,6 +46,18 @@ public class BrewerTest {
         sut.addActions(asList(defaultAddIngredientAction(), defaultChangeTemperatureAction()));
         assertThat(sut.nextAction(), is(defaultAddIngredientAction()));
         assertThat(sut.nextAction(), is(defaultChangeTemperatureAction()));
+    }
+    
+    @Test
+    public void adding_an_action_should_fire_an_event() {
+        sut.addAction(defaultAddIngredientAction());
+        verify(actionAdded).fire(any(BrewActionAdded.class));
+    }
+    
+    @Test
+    public void adding_multiple_actions_should_fire_an_event() {
+        sut.addActions(asList(defaultAddIngredientAction()));
+        verify(actionAdded).fire(any(BrewActionAdded.class));
     }
     
     @Test 
