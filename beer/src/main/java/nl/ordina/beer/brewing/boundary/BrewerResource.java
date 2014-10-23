@@ -3,7 +3,6 @@ package nl.ordina.beer.brewing.boundary;
 
 import java.util.List;
 import java.util.logging.Logger;
-import javax.enterprise.inject.New;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

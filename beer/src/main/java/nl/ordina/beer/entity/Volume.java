@@ -1,7 +1,10 @@
 package nl.ordina.beer.entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnumValue;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Volume implements Comparable<Volume> {
 
     public enum VolumeUnit {
@@ -29,16 +32,8 @@ public class Volume implements Comparable<Volume> {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public VolumeUnit getUnit() {
         return unit;
-    }
-
-    public void setUnit(VolumeUnit unit) {
-        this.unit = unit;
     }
 
     @Override
