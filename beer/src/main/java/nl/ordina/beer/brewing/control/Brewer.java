@@ -1,5 +1,5 @@
 
-package nl.ordina.beer.manualbrewing.control;
+package nl.ordina.beer.brewing.control;
 
 import java.time.Duration;
 import java.util.List;

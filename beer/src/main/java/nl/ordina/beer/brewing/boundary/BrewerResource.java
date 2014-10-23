@@ -1,8 +1,9 @@
 
-package nl.ordina.beer.manualbrewing.boundary;
+package nl.ordina.beer.brewing.boundary;
 
 import java.util.List;
 import java.util.logging.Logger;
+import javax.enterprise.inject.New;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,13 +17,13 @@ import nl.ordina.beer.boundary.DurationXmlAdapter;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 import nl.ordina.brewery.entity.Manual;
 
 @Path("brewer")
 public class BrewerResource {
     
-    private static final Logger log = Logger.getLogger(BrewerResource.class.getName());
+    private transient Logger log = Logger.getLogger(getClass().getName());
     
     @Inject @Manual
     private Brewer brewer;

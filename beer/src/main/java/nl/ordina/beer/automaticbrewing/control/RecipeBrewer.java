@@ -7,7 +7,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import nl.ordina.beer.automaticbrewing.entity.Recipe;
 import nl.ordina.beer.control.KettleActionEvent;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 import nl.ordina.brewery.entity.Automatic;
 
 @ApplicationScoped

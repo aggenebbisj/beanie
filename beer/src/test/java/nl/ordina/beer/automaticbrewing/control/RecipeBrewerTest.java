@@ -8,7 +8,7 @@ import nl.ordina.beer.control.TemperatureChangedEvent;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

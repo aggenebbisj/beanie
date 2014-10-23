@@ -1,6 +1,7 @@
 
-package nl.ordina.beer.manualbrewing.control;
+package nl.ordina.beer.brewing.control;
 
+import nl.ordina.beer.brewing.control.Brewer;
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.Arrays;

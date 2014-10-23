@@ -1,7 +1,7 @@
 
 package nl.ordina.beer.automaticbrewing.control;
 
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 
 public interface RecipeStep<T> {
     

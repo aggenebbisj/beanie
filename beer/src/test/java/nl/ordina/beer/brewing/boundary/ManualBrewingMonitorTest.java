@@ -1,6 +1,7 @@
 
-package nl.ordina.beer.manualbrewing.boundary;
+package nl.ordina.beer.brewing.boundary;
 
+import nl.ordina.beer.brewing.boundary.ManualBrewingMonitor;
 import javax.websocket.Session;
 import org.junit.After;
 import static org.junit.Assert.assertTrue;

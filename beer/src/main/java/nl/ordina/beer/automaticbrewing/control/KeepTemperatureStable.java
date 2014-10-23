@@ -3,7 +3,7 @@ package nl.ordina.beer.automaticbrewing.control;
 
 import java.time.Duration;
 import java.util.Objects;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 
 public class KeepTemperatureStable implements RecipeStep<Duration>{
     private final Duration duration;

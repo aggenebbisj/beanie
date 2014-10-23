@@ -3,7 +3,7 @@ package nl.ordina.beer.automaticbrewing.control;
 
 import java.util.Objects;
 import nl.ordina.beer.entity.Ingredient;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 
 public class AddIngredient implements RecipeStep<Ingredient> {
     private final Ingredient ingredient;

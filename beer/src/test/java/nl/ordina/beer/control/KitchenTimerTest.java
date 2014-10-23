@@ -2,6 +2,7 @@ package nl.ordina.beer.control;
 
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import java.util.logging.Logger;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
 import javax.enterprise.event.Event;
@@ -29,6 +30,9 @@ public class KitchenTimerTest {
 
     @Mock
     private Event<KitchenTimerExpiredEvent> event;
+    
+    @Mock
+    private Logger logger;
     
     private Kettle kettle = new Kettle();
 

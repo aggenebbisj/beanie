@@ -31,12 +31,12 @@ public class RecipeXmlAdapter extends XmlAdapter<JsonObject, Recipe> {
     }
 
     private RecipeStep mapStep(JsonObject step) {
-        switch (step.getString("type")) {
-            case "addIngredient":
+        switch (step.getString("type").toLowerCase()) {
+            case "addingredient":
                 return new AddIngredient(unmarshalIngredient(step.getJsonObject("ingredient")));
-            case "changeTemperature":
+            case "changetemperature":
                 return new ChangeTemperature(unmarshalTemperature(step.getJsonObject("temperature")));
-            case "keepTemperatureStable":
+            case "keeptemperaturestable":
                 return new KeepTemperatureStable(unmarshalDuration(step.getJsonObject("duration")));
             default:
                 throw new IllegalArgumentException(step.getString("type") + " is not a valid recipe step");

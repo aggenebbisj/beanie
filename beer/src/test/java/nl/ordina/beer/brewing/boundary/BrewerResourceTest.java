@@ -1,18 +1,21 @@
-package nl.ordina.beer.manualbrewing.boundary;
+package nl.ordina.beer.brewing.boundary;
 
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.logging.Logger;
 import nl.ordina.beer.boundary.DurationXmlAdapter;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import nl.ordina.beer.entity.Volume;
 import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
-import nl.ordina.beer.manualbrewing.control.Brewer;
+import nl.ordina.beer.brewing.control.Brewer;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,6 +31,9 @@ public class BrewerResourceTest {
     
     @Mock
     private Brewer brewer;
+    
+    @Mock
+    private Logger logger;
     
     @Test
     public void post_should_trigger_brewer_to_add_to_kettle() {

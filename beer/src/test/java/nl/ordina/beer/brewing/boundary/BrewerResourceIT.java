@@ -1,5 +1,6 @@
-package nl.ordina.beer.manualbrewing.boundary;
+package nl.ordina.beer.brewing.boundary;
 
+import nl.ordina.beer.brewing.boundary.BrewerResource;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;

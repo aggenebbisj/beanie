@@ -17,7 +17,7 @@ import nl.ordina.beer.entity.Kettle;
 @Stateless
 public class KitchenTimer {
 
-    private static final Logger log = Logger.getLogger(TemperatureController.class.getName());
+    private transient Logger log = Logger.getLogger(getClass().getName());
 
     @Resource
     TimerService timerService;

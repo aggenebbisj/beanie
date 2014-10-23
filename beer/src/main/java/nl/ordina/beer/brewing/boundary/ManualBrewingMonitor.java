@@ -1,4 +1,4 @@
-package nl.ordina.beer.manualbrewing.boundary;
+package nl.ordina.beer.brewing.boundary;
 
 import java.io.IOException;
 import static java.util.Collections.synchronizedSet;

@@ -1,12 +1,12 @@
 
-package nl.ordina.beer.manualbrewing.control;
+package nl.ordina.beer.brewing.control;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import nl.ordina.brewery.entity.Automatic;
 import nl.ordina.brewery.entity.Manual;
 
-public class BrewerFactory {
+public class BrewerProducer {
 
     @Produces 
     @Automatic
