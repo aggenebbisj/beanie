@@ -77,5 +77,4 @@ public class BrewerResource {
         brewer.lockKettle(durationAdapter.unmarshal(minutes));
     }
     
-    
 }

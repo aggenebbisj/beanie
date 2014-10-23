@@ -5,6 +5,7 @@ angular.module('breweryApp')
         $scope.readings = {
             'capacity': 0,
             'temperature': 0
+            'locked': 0;
         }
 
         $scope.error = {
@@ -28,11 +29,9 @@ angular.module('breweryApp')
             websocket.onmessage = function (evt) {
                 console.log("evt" + evt);
                 var message = JSON.parse(evt.data);
-                console.log("message: " + message);
                 test.push(message);
 
                 if (message.temperature) {
-                    console.log('pim: ' + message.temperature.value);
                     $scope.readings['temperature'] = message.temperature.value;
                     $scope.$apply();
                 } else if (message.ingredient) {

@@ -5,7 +5,25 @@
         <p>{{error.text}}
     </div>
     <div class="row">
-        <just-gage id="capacity" class="col-sm-6" min=0 max=500 value="readings.capacity" title="Capacity"></just-gage>
-        <just-gage id="temperature" class="col-sm-6" min=0 max=1000 value="readings.temperature" title="Temperature"></just-gage>
+        <just-gage id="capacity" 
+                   class="col-sm-6" 
+                   min=0 max=500 
+                   value="readings.capacity" 
+                   title="Capacity">
+        </just-gage>
+        <just-gage id="temperature" 
+                   class="col-sm-6" 
+                   min=0 
+                   max=1000 
+                   value="readings.temperature" 
+                   title="Temperature">
+        </just-gage>
+        <just-gage id="locked" 
+                   class="col-sm-6" 
+                   min=0 
+                   max=1 
+                   value="readings.locked" 
+                   title="Locked">
+       </just-gage>
     </div>
 </div>

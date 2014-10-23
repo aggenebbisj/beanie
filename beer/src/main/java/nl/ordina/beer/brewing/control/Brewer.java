@@ -3,11 +3,14 @@ package nl.ordina.beer.brewing.control;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import nl.ordina.beer.control.IngredientAddedEvent;
+import nl.ordina.beer.control.KettleActionEvent;
 import nl.ordina.beer.control.KitchenTimer;
 import nl.ordina.beer.control.TemperatureController;
 import nl.ordina.beer.entity.Ingredient;
@@ -16,7 +19,7 @@ import nl.ordina.beer.entity.Temperature;
 
 public class Brewer {
     
-    private static final Logger log = Logger.getLogger(Brewer.class.getName());
+    private transient Logger log = Logger.getLogger(getClass().getName());
     
     @Inject
     Event<IngredientAddedEvent> ingredientAddedEvent;
@@ -30,7 +33,10 @@ public class Brewer {
     @Inject @ApplicationScoped
     Kettle kettle;
     
+    private final Queue<KettleActionEvent> actionQueue = new ConcurrentLinkedQueue<>();
+    
     public void addIngredient(Ingredient ingredient) {
+        actionQueue.add(ingredient);
         if (kettle.isLocked()) {
             throw new IllegalStateException("The kettle is locked. Go away.");
         }
