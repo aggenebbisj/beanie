@@ -1,19 +1,28 @@
-
 package nl.ordina.beer.brewing.entity;
 
 import static java.lang.String.format;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
 
 public class KeepTemperatureStable extends BrewAction {
+
     private transient Logger logger = Logger.getLogger(getClass().getName());
-    
+
     private final Duration duration;
 
     public KeepTemperatureStable(Duration duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("event", "kitchentimer expired")
+                .build();
     }
 
     @Override

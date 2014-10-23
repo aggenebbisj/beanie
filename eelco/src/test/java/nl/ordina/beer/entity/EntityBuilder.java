@@ -20,6 +20,10 @@ public class EntityBuilder {
         return new Temperature(65, CELSIUS);
     }
     
+    public static Temperature defaultTemperatureIncrement() {
+        return new Temperature(5, CELSIUS);
+    }
+    
     public static Duration defaultDuration() {
         return Duration.of(30, MINUTES);
     }

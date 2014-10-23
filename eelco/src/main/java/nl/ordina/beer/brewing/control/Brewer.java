@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -17,8 +16,9 @@ import nl.ordina.beer.entity.Kettle;
 
 @ApplicationScoped
 public class Brewer {
+
     private transient Logger logger = Logger.getLogger(getClass().getName());
-    
+
     private final Queue<BrewAction> queue = new ConcurrentLinkedQueue<>();
 
     @Inject
@@ -29,12 +29,12 @@ public class Brewer {
 
     @Inject
     Event<BrewActionAddedEvent> actionAdded;
-    
+
     public void addActions(List<BrewAction> steps) {
         queue.addAll(steps);
         actionAdded.fire(new BrewActionAddedEvent());
     }
-    
+
     public void addAction(BrewAction action) {
         queue.add(action);
         actionAdded.fire(new BrewActionAddedEvent());
@@ -43,22 +43,26 @@ public class Brewer {
     public void onActionAdded(@Observes BrewActionAddedEvent actionAdded) {
         executeNextAction();
     }
-    
+
     public void onActionCompleted(@Observes BrewActionCompletedEvent actionCompleted) {
-        executeNextAction();
+        if (actionCompleted.getAction().isCompleted(kettle)) executeNextAction();
+        else executeAction(actionCompleted.getAction());
     }
-    
+
     public BrewAction nextAction() {
         return queue.remove();
     }
-    
+
     public void executeNextAction() {
         if (!queue.isEmpty()) {
-            final BrewAction nextAction = nextAction();
-            nextAction.brew(kettle);
-            logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
-            actionCompleted.fire(new BrewActionCompletedEvent(nextAction));
+            executeAction(nextAction());
         }
+    }
+
+    private void executeAction(BrewAction action) {
+        action.brew(kettle);
+        logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
+        actionCompleted.fire(new BrewActionCompletedEvent(action));
     }
 
     public Kettle getKettle() {

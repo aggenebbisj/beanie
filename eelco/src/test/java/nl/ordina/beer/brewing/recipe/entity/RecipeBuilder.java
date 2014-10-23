@@ -9,6 +9,7 @@ import nl.ordina.beer.brewing.entity.AddIngredient;
 import nl.ordina.beer.brewing.entity.ChangeTemperature;
 import nl.ordina.beer.brewing.entity.KeepTemperatureStable;
 import nl.ordina.beer.entity.Ingredient;
+import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import nl.ordina.beer.entity.Volume;
@@ -16,6 +17,10 @@ import static nl.ordina.beer.entity.Volume.VolumeUnit.LITER;
 
 public class RecipeBuilder {
 
+    public static Kettle defaultKettle() {
+        return new Kettle();
+    }
+    
     public static Ingredient defaultIngredient() {
         return new Ingredient("water", new Volume(300, LITER));
     }

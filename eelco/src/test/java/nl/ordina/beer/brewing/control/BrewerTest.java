@@ -7,8 +7,13 @@ import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredi
 import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
 import nl.ordina.beer.brewing.entity.BrewActionAddedEvent;
 import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
+import nl.ordina.beer.brewing.entity.ChangeTemperature;
 import static nl.ordina.beer.entity.EntityBuilder.defaultIngredient;
+import static nl.ordina.beer.entity.EntityBuilder.defaultTemperature;
+import static nl.ordina.beer.entity.EntityBuilder.defaultTemperatureIncrement;
 import nl.ordina.beer.entity.Kettle;
+import nl.ordina.beer.entity.Temperature;
+import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -72,6 +77,12 @@ public class BrewerTest {
         sut.addAction(defaultChangeTemperatureAction());
         sut.executeNextAction();
         verify(kettle).addIngredient(defaultIngredient());
+    }
+    
+    @Test
+    public void should_execute_same_action_if_action_not_fully_completed() {
+        sut.onActionCompleted(new BrewActionCompletedEvent(defaultChangeTemperatureAction()));
+        verify(kettle).changeTemperature(defaultTemperatureIncrement(), defaultTemperature());
     }
     
     @Test

@@ -1,7 +1,9 @@
-
 package nl.ordina.beer.brewing.entity;
 
 import java.time.Duration;
+import javax.json.Json;
+import javax.json.JsonObject;
+import static nl.ordina.beer.entity.EntityBuilder.defaultDuration;
 import static nl.ordina.beer.entity.EntityBuilder.defaultTemperature;
 import nl.ordina.beer.entity.Kettle;
 import static org.hamcrest.CoreMatchers.is;
@@ -11,13 +13,13 @@ import org.junit.Test;
 
 public class KeepTemperatureStableTest {
 
-    private ChangeTemperature sut = new ChangeTemperature(defaultTemperature(), Duration.ZERO);
-    
+    private KeepTemperatureStable sut = new KeepTemperatureStable(Duration.ZERO);
+
     @Test
-    public void should_change_temperature_of_kettle() {
-        Kettle kettle = new Kettle();
-        assertThat(kettle.getTemperature(), is(not(defaultTemperature())));
-        sut.executeFor(kettle);
-        assertThat(kettle.getTemperature(), is(defaultTemperature()));
+    public void test_json_marshalling() {
+        JsonObject expected = Json.createObjectBuilder()
+                .add("event", "kitchentimer expired")
+                .build();
+        assertThat(sut.toJson(), is(expected));
     }
 }

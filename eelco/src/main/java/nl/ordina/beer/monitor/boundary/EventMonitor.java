@@ -42,7 +42,7 @@ public class EventMonitor {
 
     public void receive(@Observes BrewActionCompletedEvent event) {
         logger.info(() -> format("RECEIVED EVENT %s", event));
-//        peers.stream().forEach(peer -> send(peer, event.toJson()));
+        peers.stream().forEach(peer -> send(peer, event.toJson()));
 
         final List<Session> closed = peers.stream()
                 .filter(p -> !p.isOpen())

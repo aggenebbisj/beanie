@@ -2,6 +2,7 @@
 package nl.ordina.beer.brewing.entity;
 
 import java.util.Objects;
+import javax.json.JsonObject;
 
 public class BrewActionCompletedEvent {
     private final BrewAction action;
@@ -10,6 +11,14 @@ public class BrewActionCompletedEvent {
         this.action = action;
     }
 
+    public BrewAction getAction() {
+        return action;
+    }
+    
+    public JsonObject toJson() {
+        return action.toJson();
+    }
+    
     @Override
     public String toString() {
         return "BrewActionCompletedEvent{" + "action=" + action + '}';
@@ -35,5 +44,5 @@ public class BrewActionCompletedEvent {
         }
         return true;
     }
-    
+
 }

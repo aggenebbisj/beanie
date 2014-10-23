@@ -1,11 +1,13 @@
-
 package nl.ordina.beer.brewing.entity;
 
 import java.util.Objects;
+import javax.json.Json;
+import javax.json.JsonObject;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 
 public class AddIngredient extends BrewAction {
+
     private final Ingredient ingredient;
 
     public AddIngredient(Ingredient ingredient) {
@@ -15,6 +17,22 @@ public class AddIngredient extends BrewAction {
     @Override
     public void executeFor(Kettle kettle) {
         kettle.addIngredient(ingredient);
+    }
+
+    @Override
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("event", "ingredient added")
+                .add("ingredient",
+                        Json.createObjectBuilder()
+                        .add("name", ingredient.getName())
+                        .add("volume",
+                                Json.createObjectBuilder()
+                                .add("value", ingredient.getVolume().getValue())
+                                .add("unit", ingredient.getVolume().getUnit().name())
+                                .build())
+                        .build())
+                .build();
     }
 
     @Override
@@ -43,6 +61,4 @@ public class AddIngredient extends BrewAction {
         return true;
     }
 
-    
-    
 }

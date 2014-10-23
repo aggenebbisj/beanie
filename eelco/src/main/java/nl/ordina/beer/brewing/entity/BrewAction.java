@@ -3,8 +3,7 @@ package nl.ordina.beer.brewing.entity;
 
 import static java.lang.String.format;
 import java.util.logging.Logger;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
+import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
 
 /**
@@ -26,6 +25,18 @@ public abstract class BrewAction {
         executeFor(kettle);
     }
 
+    /**
+     * Override this method in specific events to add custom behavior.
+     * 
+     * @param kettle The kettle can be used to check if the event is completed,
+     *               e.g. if the kettle is heated up enough
+     */
+    public boolean isCompleted(Kettle kettle) {
+        return true;
+    }
+    
     public abstract void executeFor(Kettle kettle);
     
+    public abstract JsonObject toJson();
+
 }
