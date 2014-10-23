@@ -1,7 +1,7 @@
 
 package nl.ordina.beer.brewing.entity;
 
-import nl.ordina.beer.brewing.entity.ChangeTemperature;
+import java.time.Duration;
 import static nl.ordina.beer.entity.EntityBuilder.defaultTemperature;
 import nl.ordina.beer.entity.Kettle;
 import static org.hamcrest.CoreMatchers.is;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class KeepTemperatureStableTest {
 
-    private ChangeTemperature sut = new ChangeTemperature(defaultTemperature());
+    private ChangeTemperature sut = new ChangeTemperature(defaultTemperature(), Duration.ZERO);
     
     @Test
     public void should_change_temperature_of_kettle() {

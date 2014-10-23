@@ -10,6 +10,7 @@ import static nl.ordina.beer.entity.EntityBuilder.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -50,7 +51,7 @@ public class BrewerResourceTest {
     @Test
     public void request_to_empty_kettle_should_add_action_to_brewer() {
         sut.emptyKettle();
-        verify(brewer).addAction(new EmptyKettle());
+        verify(brewer).addAction(any(EmptyKettle.class));
     }
 
     @Test

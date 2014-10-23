@@ -11,8 +11,8 @@ public class EmptyKettle extends BrewAction {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return true;
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

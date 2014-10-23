@@ -3,8 +3,6 @@ package nl.ordina.beer.brewing.entity;
 
 import static java.lang.String.format;
 import java.time.Duration;
-import static java.time.temporal.ChronoUnit.MINUTES;
-import static java.time.temporal.ChronoUnit.SECONDS;
 import java.util.Objects;
 import java.util.logging.Logger;
 import nl.ordina.beer.entity.Kettle;
@@ -27,6 +25,11 @@ public class KeepTemperatureStable extends BrewAction {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "KeepTemperatureStable{" + "logger=" + logger + ", duration=" + duration + '}';
     }
 
     @Override
