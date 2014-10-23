@@ -33,10 +33,7 @@ public class Brewer {
     @Inject @ApplicationScoped
     Kettle kettle;
     
-    private final Queue<KettleActionEvent> actionQueue = new ConcurrentLinkedQueue<>();
-    
     public void addIngredient(Ingredient ingredient) {
-        actionQueue.add(ingredient);
         if (kettle.isLocked()) {
             throw new IllegalStateException("The kettle is locked. Go away.");
         }
