@@ -18,6 +18,11 @@ public class AddIngredient extends BrewAction {
     }
 
     @Override
+    public String toString() {
+        return "AddIngredient{" + "ingredient=" + ingredient + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         return hash;

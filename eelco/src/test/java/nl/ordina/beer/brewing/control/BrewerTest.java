@@ -5,7 +5,7 @@ import static java.util.Arrays.asList;
 import javax.enterprise.event.Event;
 import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
 import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
-import nl.ordina.beer.brewing.entity.BrewActionAdded;
+import nl.ordina.beer.brewing.entity.BrewActionAddedEvent;
 import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
 import static nl.ordina.beer.entity.EntityBuilder.defaultIngredient;
 import nl.ordina.beer.entity.Kettle;
@@ -33,7 +33,7 @@ public class BrewerTest {
     private Event<BrewActionCompletedEvent> actionCompleted;
     
     @Mock
-    private Event<BrewActionAdded> actionAdded;
+    private Event<BrewActionAddedEvent> actionAdded;
     
     @Test
     public void should_be_able_to_add_action_to_queue() {
@@ -51,13 +51,13 @@ public class BrewerTest {
     @Test
     public void adding_an_action_should_fire_an_event() {
         sut.addAction(defaultAddIngredientAction());
-        verify(actionAdded).fire(any(BrewActionAdded.class));
+        verify(actionAdded).fire(any(BrewActionAddedEvent.class));
     }
     
     @Test
     public void adding_multiple_actions_should_fire_an_event() {
         sut.addActions(asList(defaultAddIngredientAction()));
-        verify(actionAdded).fire(any(BrewActionAdded.class));
+        verify(actionAdded).fire(any(BrewActionAddedEvent.class));
     }
     
     @Test 

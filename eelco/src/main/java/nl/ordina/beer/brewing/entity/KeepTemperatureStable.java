@@ -1,12 +1,17 @@
 
 package nl.ordina.beer.brewing.entity;
 
+import static java.lang.String.format;
 import java.time.Duration;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import java.util.Objects;
+import java.util.logging.Logger;
 import nl.ordina.beer.entity.Kettle;
 
 public class KeepTemperatureStable extends BrewAction {
+    private transient Logger logger = Logger.getLogger(getClass().getName());
+    
     private final Duration duration;
 
     public KeepTemperatureStable(Duration duration) {
@@ -15,12 +20,13 @@ public class KeepTemperatureStable extends BrewAction {
 
     @Override
     public void executeFor(Kettle kettle) {
-//        try {
+        try {
             // Does nothing, like in real life brewing :)
-//            Thread.sleep(duration.get(MINUTES) * 1000); // Speed up minutes to seconds
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+            logger.info(() -> format("Waiting for %s minutes", duration.getSeconds() / 60));
+            Thread.sleep(duration.getSeconds() / 60 * 1000); // Speed up minutes to seconds
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
