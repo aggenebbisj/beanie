@@ -52,7 +52,8 @@ public class Brewer {
         action.executeFor(kettle);
         logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
         actionCompleted.fire(new BrewActionCompletedEvent(action));
-        queue.remove();
+        if (action.isCompleted()) 
+            queue.remove();
         executeNextAction();
     }
 
