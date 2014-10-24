@@ -2,9 +2,17 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
     'use strict';
     var ingredientsResourceUrl = $rootScope.resourcePath + 'brewer/ingredients';
     var kettleResourceUrl = $rootScope.resourcePath + 'brewer/kettle';
-    $scope.recipe = [];
+    var recipeUrl = $rootScope.resourcePath + 'brewer/recipe';
+            
+    $scope.recipe = { };
+    
+    $scope.recipe.name = '';
+    $scope.recipe.steps = [];
     
     $scope.operations = {
+        brewRecipe: function() {
+            restService.postWithData(recipeUrl, $scope.recipe);
+        },
         flush: {
             activate: function () {
                 restService.del(ingredientsResourceUrl);
@@ -21,7 +29,7 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
             addToRecipe: function(type, newValue) {
                 if (newValue > 0) {
                     var ingredient = restService.createIngredient(type, newValue, 'liter');
-                    $scope.recipe.push({ 'type': 'addIngredient', 'ingredient': ingredient, 'description': ingredient.description() });
+                    $scope.recipe.steps.push({ 'type': 'addIngredient', 'ingredient': ingredient, 'description': ingredient.description() });
                 }
             }
         },
@@ -32,7 +40,7 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
             },
             addToRecipe: function (value) {
                 var temperature = restService.createTemperature(value, 'celsius');
-                $scope.recipe.push({ 'type': 'changeTemperature', 'temperature': temperature, 'description': temperature.description() });
+                $scope.recipe.steps.push({ 'type': 'changeTemperature', 'temperature': temperature, 'description': temperature.description() });
             }
         },
         wait: {
@@ -42,7 +50,7 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
             },
             addToRecipe: function (value) {
                 var duration = restService.createDuration(value, 'minutes');
-                $scope.recipe.push({ 'type': 'keepTemperatureStable', 'duration': value, 'description': duration.description() });
+                $scope.recipe.steps.push({ 'type': 'keepTemperatureStable', 'duration': duration, 'description': duration.description() });
             }
         }
     };

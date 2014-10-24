@@ -8,12 +8,14 @@
 
 <div ng-controller="ManualBrewingCtrl">
 <section id="recipe">
-    <h2>Recipe</h2>
+    <h2>Recipe: {{recipe.name}}</h2>
+    <input type="text" ng-model="recipe.name" placeholder="Enter your recipe name" />
     <ol>
-        <li ng-repeat="step in recipe track by $index">
+        <li ng-repeat="step in recipe.steps track by $index">
             {{ step.description }}
         </li>
     </ol>
+    <button title="brew recipe" ng-click="operations.brewRecipe()" ng-disabled="recipe.name === ''" ng-hide="recipe.steps.length === 0">Brew!</button>        
 </section>
 
 <section class="operations">
