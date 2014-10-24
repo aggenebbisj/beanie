@@ -1,52 +1,42 @@
 var manualBrewing = angular.module('breweryApp');
-    'use strict';
+'use strict';
 
-manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService) {
-    $rootScope.brewer = {};
-    $rootScope.brewer.readings = {
-        'capacity': 0,
-        'temperature': 0,
-        'locked': 0
-    };
-
-    $scope.manualKettleReadings = [
+manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+    $scope.readings = [
         ['Label', 'Value'],
         ['Temperature', 0],
         ['Volume', 0]
     ];
 
-    refreshService.refreshReadings($rootScope.resourcePath + 'brewer/kettle');
-
-    connect();
-
-    function connect() {
-        var websocket = new WebSocket($rootScope.wsUri + 'monitor');
-        websocket.onmessage = function (evtJson) {
-            console.log(evtJson.data);
-            var evt = JSON.parse(evtJson.data);
-            switch (evt.event) {
-                case 'ingredient added':
-                    $rootScope.brewer.readings.capacity += evt.ingredient.volume.value;
-                    updateReadings();
-                    break;
-                case 'temperature changed':
-                    $rootScope.brewer.readings.temperature = evt.temperature.value;
-                    updateReadings();
-                    break;
-                default:
-                    console.log('default' + evt);
-
+    websocketService.onopen(function (event) {
+        var endpoint = $rootScope.resourcePath + 'brewer/kettle';
+        refreshService.refreshReadings(endpoint, function (data) {
+            $scope.readings[1][1] = data.temperature && data.temperature.value || 0;
+            $scope.readings[2][1] = data.ingredients && sumVolumes(data.ingredients) || 0;
+            
+            function sumVolumes(ingredients) {
+                return ingredients.reduce(function (a, b) {
+                    return (a.volume && a.volume.value || a) + b.volume.value;
+                }, 0);
             }
-            $rootScope.$apply();
-            $scope.$apply();
+        });
+    });
 
-            $('#messages').append("RECEIVED: " + evtJson.data + '<br/>');
-        };
-    }
-
-    function updateReadings() {
-        $scope.manualKettleReadings[1][1] = $rootScope.brewer.readings.temperature;
-        $scope.manualKettleReadings[2][1] = $rootScope.brewer.readings.capacity;
-        $scope.$apply();
-    }
+    websocketService.onmessage(function (event) {
+        console.log(event);
+        var evt = JSON.parse(event.data);
+        switch (evt.event) {
+            case 'ingredient added':
+                $scope.readings[2][1] += evt.ingredient.volume.value;
+                break;
+            case 'temperature changed':
+                $scope.readings[1][1] = evt.temperature.value;
+                break;
+            case 'kettle emptied':
+                $scope.readings[2][1] = 0;
+                break;
+            default:
+                console.log('default' + evt);
+        }
+    });
 });
