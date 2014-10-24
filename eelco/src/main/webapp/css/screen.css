@@ -1,11 +1,11 @@
 .operations {
-    //border: 1px solid red;
+border : 1 px solid red;
     clear: both;
 }
 
 .operations li {
-    //border: 1px solid green;
-    padding: 5px; 
+ border : 1 px solid green;
+    padding: 5px;
     display: block;
     float: left;
     text-align: center;
@@ -18,18 +18,38 @@
     margin-bottom: 5px;
 }
 
+.background {
+    background: url("../images/bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
-.footer
-{
+.middlepane {
+    background: #ffffff;
+    filter: alpha(opacity=85);
+    -moz-opacity: .85;
+    opacity: .85;
+    padding: 2%;
+    border-radius: 2%;
+    z-index: -50;
+}
+
+.orange {
+    color: orange;
+}
+
+.footer {
     text-align: right;
 }
 
 .operations input {
     display: block;
-    width: 50px; 
+    width: 50px;
     margin: 5px auto;
     margin-top: 0px;
-    
+
 }
 
 .clear {
