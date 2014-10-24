@@ -49,8 +49,7 @@ public class Brewer {
     }
 
     private void executeAction(BrewAction action) {
-        action.brew(kettle);
-        //TODO: Move into the brew method, then the action raises the action complete event
+        action.executeFor(kettle);
         logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
         actionCompleted.fire(new BrewActionCompletedEvent(action));
         queue.remove();
