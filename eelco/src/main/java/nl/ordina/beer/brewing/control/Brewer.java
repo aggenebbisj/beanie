@@ -39,6 +39,7 @@ public class Brewer {
     public void addAction(BrewAction action) {
         logger.info(() -> "Brewer: queue size before adding: " + queue.size());
         queue.add(action);
+        //TODO: Blocking call, queue is redundant, or make nonblocking (asynchroon) MDB, Queue Observer......
         if ((action.equals(nextAction()))) executeNextAction();
     }
 
@@ -63,6 +64,7 @@ public class Brewer {
 
     private void executeAction(BrewAction action) {
         action.brew(kettle);
+        //TODO: Move into the brew method, then the action raises the action complete event
         logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
         actionCompleted.fire(new BrewActionCompletedEvent(action));
     }

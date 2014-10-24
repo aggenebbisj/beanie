@@ -15,14 +15,17 @@ import nl.ordina.beer.entity.Kettle;
  */
 public abstract class BrewAction {
     
+    //TODO:Logger producer
     private transient Logger logger = Logger.getLogger(getClass().getName());
     
     /**
+     * TODO: Template method alleen voor logging?
      * @param kettle The kettle on which the brewing is performed
      */
     public void brew(Kettle kettle) {
         logger.info(() -> format("Brewing %s for kettle %s", this, kettle));
         executeFor(kettle);
+        // TODO: Eventing? ActionComplete
     }
 
     /**
@@ -37,6 +40,7 @@ public abstract class BrewAction {
     
     public abstract void executeFor(Kettle kettle);
     
+    // TODO: Why json: use standard encode/decode or JAXB
     public abstract JsonObject toJson();
 
 }
