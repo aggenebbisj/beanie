@@ -43,19 +43,28 @@ restService.factory('restService', function ($http) {
                 'volume': {
                     'value': value,
                     'unit': unit
+                },
+                description: function() {
+                    return 'Add ' + value + ' ' + unit + 's of ' + name;
                 }
             };
         },
         createTemperature: function (value, unit) {
             return {
                 'value': value,
-                'unit': unit
+                'unit': unit,
+                description: function() {
+                    return 'Change temperature to ' + value + ' degrees Celsius';
+                }
             };
         },
         createDuration: function (value, unit) {
             return {
                 'value': value,
-                'unit': unit
+                'unit': unit,
+                description: function() {
+                    return 'Keep temperature stable for ' + value + ' ' + unit;
+                }
             };
         }
     };
