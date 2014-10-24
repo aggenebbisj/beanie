@@ -8,6 +8,7 @@ import static java.util.logging.Logger.getLogger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
+import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -16,9 +17,10 @@ import javax.json.Json;
 import javax.json.JsonReader;
 import nl.ordina.beer.brewing.control.Brewer;
 
+@JMSDestinationDefinition(name = "java:app/jms/RecipeQueue", interfaceName = "javax.jms.Queue")
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup",
-            propertyValue = "jms/RecipeQueue"),
+            propertyValue = "java:app/jms/RecipeQueue"),
     @ActivationConfigProperty(propertyName = "destinationType",
             propertyValue = "javax.jms.Queue")
 })

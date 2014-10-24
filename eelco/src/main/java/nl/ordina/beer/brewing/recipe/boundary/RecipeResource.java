@@ -20,7 +20,7 @@ public class RecipeResource {
 
     @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
-    @Resource(lookup = "jms/RecipeQueue")
+    @Resource(lookup = "java:app/jms/RecipeQueue")
     private Queue queue;
 
 
