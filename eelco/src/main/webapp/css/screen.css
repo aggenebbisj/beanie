@@ -75,6 +75,10 @@
     position:relative;
     top:1px;
 }
+.myButton:disabled {
+    cursor: no-drop;
+    color: #cc9f52
+}
 
 
 
