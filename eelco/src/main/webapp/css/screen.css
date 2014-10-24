@@ -1,10 +1,8 @@
 .operations {
-border : 1 px solid red;
     clear: both;
 }
 
 .operations li {
- border : 1 px solid green;
     padding: 5px;
     display: block;
     float: left;
