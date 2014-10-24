@@ -38,5 +38,6 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
             default:
                 console.log('default' + evt);
         }
+        $scope.$apply();
     });
 });
