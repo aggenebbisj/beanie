@@ -24,11 +24,6 @@ public class BrewActionCompletedEvent {
         return "BrewActionCompletedEvent{" + "action=" + action + '}';
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
 
     @Override
     public boolean equals(Object obj) {

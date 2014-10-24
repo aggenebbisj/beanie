@@ -41,10 +41,6 @@ public class Volume implements Comparable<Volume> {
         return value < o.value ? -1 : value > o.value ? 1 : 0;
     }
 
-    @Override
-    public int hashCode() {
-        return 7;
-    }
 
     @Override
     public boolean equals(Object obj) {

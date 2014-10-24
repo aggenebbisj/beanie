@@ -58,11 +58,6 @@ public class ChangeTemperature extends BrewAction {
                 .build();
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
 
     @Override
     public boolean equals(Object obj) {

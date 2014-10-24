@@ -40,9 +40,16 @@ public class EventMonitor {
         peers.remove(client);
     }
 
+    /**
+     *
+     * @param event brew completion event raised by the brewer.
+     */
     public void receive(@Observes BrewActionCompletedEvent event) {
         logger.info(() -> format("RECEIVED EVENT %s", event));
-        peers.stream().forEach(peer -> send(peer, event.toJson()));
+
+        peers.stream()
+                .filter(p -> p.isOpen())
+                .forEach(p -> send(p, event.toJson()));
 
         final List<Session> closed = peers.stream()
                 .filter(p -> !p.isOpen())
@@ -51,14 +58,12 @@ public class EventMonitor {
     }
 
     private void send(Session peer, JsonObject event) {
-        if (peer.isOpen()) {
-            try {
-                peer.getBasicRemote().sendObject(event);
-            } catch (IOException e) {
-                logger.log(WARNING, "Error writing to peer " + peer, e);
-            } catch (EncodeException e) {
-                throw new IllegalStateException(e);
-            }
+        try {
+            peer.getBasicRemote().sendObject(event);
+        } catch (IOException e) {
+            logger.log(WARNING, "Error writing to peer " + peer, e);
+        } catch (EncodeException e) {
+            throw new IllegalStateException(e);
         }
     }
 

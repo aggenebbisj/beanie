@@ -21,9 +21,16 @@ public abstract class BrewAction {
         return true;
     }
     
+    /**
+     * Execute the Action on the given kettle
+     * @param kettle -
+     */
     public abstract void executeFor(Kettle kettle);
     
-    // TODO: Why json: use standard encode/decode or JAXB
+    /**
+     * 
+     * @return json representation of this action to send it as an event to the monitor. 
+     */
     public abstract JsonObject toJson();
 
 }

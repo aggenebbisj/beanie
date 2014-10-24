@@ -38,14 +38,9 @@ public class KeepTemperatureStable extends BrewAction {
 
     @Override
     public String toString() {
-        return "KeepTemperatureStable{" + "logger=" + logger + ", duration=" + duration + '}';
+        return "KeepTemperatureStable{duration=" + duration + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
 
     @Override
     public boolean equals(Object obj) {

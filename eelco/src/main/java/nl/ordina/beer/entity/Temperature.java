@@ -66,10 +66,6 @@ public class Temperature {
         return unit;
     }
 
-    @Override
-    public int hashCode() {
-        return 7;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -88,7 +84,7 @@ public class Temperature {
 
     @Override
     public String toString() {
-        return "Temperature{" + value + " " + unit + '}';
+        return "Temperature{value=" + value + ", unit=" + unit + "}";
     }
 
 }
