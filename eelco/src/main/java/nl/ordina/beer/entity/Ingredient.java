@@ -39,14 +39,9 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" + "name=" + name + ", volume=" + volume + '}';
+        return "Ingredient{" + "name=" + name + ", volume=" + volume + "}";
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
 
     @Override
     public boolean equals(Object obj) {

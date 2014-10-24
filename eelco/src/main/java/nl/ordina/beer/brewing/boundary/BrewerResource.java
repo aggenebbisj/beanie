@@ -42,14 +42,14 @@ public class BrewerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("ingredients")
     public void addIngredient(Ingredient ingredient) {
-        logger.info(() -> format("Manual: Adding ingredient %s", ingredient));
+        logger.finest(() -> format("Manual: Adding ingredient %s", ingredient));
         brewer.addAction(new AddIngredient(ingredient));
     }
 
     @DELETE
     @Path("ingredients")
     public void emptyKettle() {
-        logger.info(() -> "Manual: Emptying the kettle...");
+        logger.finest(() -> "Manual: Emptying the kettle...");
         brewer.addAction(new EmptyKettle());
     }
 
@@ -57,7 +57,7 @@ public class BrewerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("kettle")
     public Kettle getKettle() {
-        logger.info(() -> format("Manual: Getting kettle %s", brewer.getKettle()));
+        logger.finest(() -> format("Manual: Getting kettle %s", brewer.getKettle()));
         return brewer.getKettle();
     }
     
@@ -65,7 +65,7 @@ public class BrewerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("kettle/temperature")
     public void changeTemperatureTo(Temperature goal) {
-        logger.info(() -> "Manual: Changing temperature to " + goal);
+        logger.finest(() -> "Manual: Changing temperature to " + goal);
         brewer.addAction(new ChangeTemperature(goal));
     }
     
@@ -74,7 +74,7 @@ public class BrewerResource {
     @Path("kettle/temperature/stable")
     public void keepTemperatureStable(String minutes) {
         Duration duration = durationAdapter.unmarshal(minutes);
-        logger.info(() -> "Manual: Keeping temperature stable for " + minutes);
+        logger.finest(() -> "Manual: Keeping temperature stable for " + minutes);
         brewer.addAction(new KeepTemperatureStable(duration));
     }
     

@@ -1,23 +1,23 @@
 
 package nl.ordina.beer.brewing.control;
 
-import static java.util.Arrays.asList;
-import javax.enterprise.event.Event;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
-import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
-import static nl.ordina.beer.entity.EntityBuilder.defaultIngredient;
-import static nl.ordina.beer.entity.EntityBuilder.defaultTemperature;
-import static nl.ordina.beer.entity.EntityBuilder.defaultTemperatureIncrement;
+import nl.ordina.beer.brewing.entity.BrewAction;
 import nl.ordina.beer.entity.Kettle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.enterprise.event.Event;
+
+import static java.util.Arrays.asList;
+import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
+import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
+import static nl.ordina.beer.entity.EntityBuilder.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BrewerTest {
@@ -29,7 +29,7 @@ public class BrewerTest {
     private Kettle kettle;
     
     @Mock
-    private Event<BrewActionCompletedEvent> actionCompleted;
+    private Event<BrewAction> actionCompleted;
     
     @Test 
     public void should_not_execute_action_when_queue_is_empty() {
@@ -53,7 +53,7 @@ public class BrewerTest {
     @Test
     public void should_fire_event_if_action_completed() {
         sut.addAction(defaultAddIngredientAction());
-        verify(actionCompleted).fire(new BrewActionCompletedEvent(defaultAddIngredientAction()));
+        verify(actionCompleted).fire(defaultAddIngredientAction());
     }
     
     @Test

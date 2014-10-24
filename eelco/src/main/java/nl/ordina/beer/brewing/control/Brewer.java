@@ -1,16 +1,17 @@
 package nl.ordina.beer.brewing.control;
 
-import static java.lang.String.format;
+import nl.ordina.beer.brewing.entity.BrewAction;
+import nl.ordina.beer.entity.Kettle;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import nl.ordina.beer.brewing.entity.BrewAction;
-import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
-import nl.ordina.beer.entity.Kettle;
+
+import static java.lang.String.format;
 
 /**
  * This is the actual brewer. The one that makes the beer.
@@ -28,7 +29,7 @@ public class Brewer {
     private Kettle kettle;
 
     @Inject
-    private Event<BrewActionCompletedEvent> actionCompleted;
+    private Event<BrewAction> actionExecuted;
 
     public void addActions(List<BrewAction> steps) {
         queue.addAll(steps);
@@ -36,7 +37,7 @@ public class Brewer {
     }
 
     public void addAction(BrewAction action) {
-        logger.info(() -> "Brewer: queue size before adding: " + queue.size());
+        logger.finest(() -> "Brewer: queue size before adding: " + queue.size());
         if (queue.isEmpty()) {
             queue.add(action);
             executeNextAction();
@@ -55,8 +56,8 @@ public class Brewer {
 
     private void executeAction(BrewAction action) {
         action.executeFor(kettle);
-        logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
-        actionCompleted.fire(new BrewActionCompletedEvent(action));
+        logger.finest(() -> format("Brewer: action completed. Remaining in queue %s", queue));
+        actionExecuted.fire(action);
         if (action.isCompleted()) 
             queue.remove();
         executeNextAction();

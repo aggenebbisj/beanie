@@ -35,20 +35,11 @@ public class AddIngredient extends BrewAction {
                 .build();
     }
 
-    //TODO: Why?
     @Override
     public String toString() {
         return "AddIngredient{" + "ingredient=" + ingredient + '}';
     }
 
-    //TODO: Why?
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    //TODO: Why?
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
