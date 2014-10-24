@@ -27,19 +27,18 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
             switch (evt.event) {
                 case 'ingredient added':
                     $rootScope.brewer.readings.capacity += evt.ingredient.volume.value;
-                    updateReadings();
                     break;
                 case 'temperature changed':
                     $rootScope.brewer.readings.temperature = evt.temperature.value;
-                    updateReadings();
+                    break;
+                case 'kettle emptied':
+                    $rootScope.brewer.readings.capacity = 0;
                     break;
                 default:
                     console.log('default' + evt);
 
             }
-            $rootScope.$apply();
-            $scope.$apply();
-
+            updateReadings();
             $('#messages').append("RECEIVED: " + evtJson.data + '<br/>');
         };
     }
@@ -48,5 +47,6 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
         $scope.manualKettleReadings[1][1] = $rootScope.brewer.readings.temperature;
         $scope.manualKettleReadings[2][1] = $rootScope.brewer.readings.capacity;
         $scope.$apply();
+        $rootScope.$apply();
     }
 });
