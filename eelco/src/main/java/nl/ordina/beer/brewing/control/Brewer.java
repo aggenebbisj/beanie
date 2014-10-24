@@ -12,6 +12,11 @@ import nl.ordina.beer.brewing.entity.BrewAction;
 import nl.ordina.beer.brewing.entity.BrewActionCompletedEvent;
 import nl.ordina.beer.entity.Kettle;
 
+/**
+ * This is the actual brewer. The one that makes the beer.
+ * 
+ * @author Ordina J-Tech
+ */
 @ApplicationScoped
 public class Brewer {
 
@@ -23,7 +28,7 @@ public class Brewer {
     private Kettle kettle;
 
     @Inject
-    Event<BrewActionCompletedEvent> actionCompleted;
+    private Event<BrewActionCompletedEvent> actionCompleted;
 
     public void addActions(List<BrewAction> steps) {
         queue.addAll(steps);
@@ -49,11 +54,11 @@ public class Brewer {
     }
 
     private void executeAction(BrewAction action) {
-        action.brew(kettle);
-        //TODO: Move into the brew method, then the action raises the action complete event
+        action.executeFor(kettle);
         logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
         actionCompleted.fire(new BrewActionCompletedEvent(action));
-        queue.remove();
+        if (action.isCompleted()) 
+            queue.remove();
         executeNextAction();
     }
 

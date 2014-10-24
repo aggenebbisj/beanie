@@ -1,7 +1,6 @@
-var manualBrewing = angular.module('breweryApp');
-'use strict';
-
-manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+    'use strict';
+    
     $scope.readingsVolume = [
         ['Label', 'Value'],
         ['Volume', 0]
@@ -42,5 +41,6 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
             default:
                 console.log('default' + evt);
         }
+        $scope.$apply();
     });
 });

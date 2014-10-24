@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -57,6 +58,7 @@ public class BrewerTest {
     
     @Test
     public void adding_multiple_action_should_execute_them_all() {
+        Mockito.when(kettle.getTemperature()).thenReturn(defaultTemperature());
         sut.addActions(asList(defaultAddIngredientAction(), defaultChangeTemperatureAction()));
         verify(kettle).addIngredient(defaultIngredient());
         verify(kettle).changeTemperature(defaultTemperatureIncrement(), defaultTemperature());

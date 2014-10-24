@@ -25,7 +25,7 @@ import nl.ordina.beer.entity.Temperature;
 /**
  * RESTful endpoint for manual brewing.
  * 
- * @author Remko de Jong
+ * @author Ordina J-Tech
  */
 @Path("brewer")
 public class BrewerResource {

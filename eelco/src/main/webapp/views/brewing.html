@@ -1,50 +1,50 @@
-<h1>Manual brewing</h1>
 <section class="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
+    <h2>Dashboard</h2>
     <temperature data='readingsTemperature'></temperature>
     <volume data='readingsVolume'></volume>
 </section>
 
-
 <section class="operations" ng-controller="ManualBrewingCtrl">
+    <h2>Brew!</h2>
     <ul>
         <li>
-            <h2>Water</h2>
+            <h3>Water</h3>
             <img src="images/water.jpg"/>
             <input name="water" type="number" ng-model="waterValue" min="0" max="100"/>
             <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>        
         </li>
         <li>
-            <h2>Barley</h2>
+            <h3>Barley</h3>
             <img src="images/barley.jpg"/>
             <input name="barley" type="number" ng-model="barleyValue" min="0" max="100"/>
             <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>        
         </li>
         <li>
-            <h2>Hops</h2>
+            <h3>Hops</h3>
             <img src="images/hops.jpg"/>
             <input name="hops" type="number" ng-model="hopsValue" min="0" max="100"/>
             <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>        
         </li>
         <li>
-            <h2>Yeast</h2>
+            <h3>Yeast</h3>
             <img src="images/yeast.jpg"/>
             <input name="yeast" type="number" ng-model="yeastValue" min="0" max="100" />
             <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
         </li>
         <li>
-            <h2>Temperature</h2>
+            <h3>Temperature</h3>
             <img src="images/temperature.jpg"/>
             <input name="temperature" type="number" ng-model="temperatureValue" min="-273" max="100"/>
             <button title="change" ng-click="operations.temperature.activate(temperatureValue)">Change</button>        
         </li>
         <li>
-            <h2>Wait</h2>
+            <h3>Wait</h3>
             <img src="images/timer.jpg"/>
             <input name="wait" type="number" ng-model="waitValue" />
             <button title="wait" ng-click="operations.wait.activate(waitValue)">Wait</button>        
         </li> 
         <li>
-            <h2>Reset</h2>
+            <h3>Reset</h3>
             <img src="images/reset.jpg"/>
             <br/>
             <button title="add" ng-click="operations.flush.activate()">Empty kettle</button>  

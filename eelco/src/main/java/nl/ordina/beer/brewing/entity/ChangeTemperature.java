@@ -42,8 +42,8 @@ public class ChangeTemperature extends BrewAction {
     }
 
     @Override
-    public boolean isCompleted(Kettle kettle) {
-        return kettle.isOnTemperature(goal);
+    public boolean isCompleted() {
+        return current.equals(goal);
     }
 
     @Override

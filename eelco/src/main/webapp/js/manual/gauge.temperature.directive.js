@@ -1,6 +1,5 @@
-var manualBrewing = angular.module('breweryApp');
-
-manualBrewing.directive('temperature', function () {
+angular.module('breweryApp').directive('temperature', function () {
+    'use strict';
 
     return {
         restrict: 'E',

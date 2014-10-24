@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * Adapter to unmarshal and marshal <code>java.time.Duration</code> objects. 
  * JAXB does not not have out of the box support for this yet.
  * 
- * @author Remko de Jong
+ * @author Ordina J-Tech
  */
 public class DurationXmlAdapter extends XmlAdapter<String, Duration> {
 

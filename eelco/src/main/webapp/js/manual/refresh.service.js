@@ -1,7 +1,5 @@
-var manualBrewing = angular.module('breweryApp');
-'use strict';
-
-manualBrewing.factory("refreshService", function ($rootScope, restService) {
+angular.module('breweryApp').factory("refreshService", function ($rootScope, restService) {
+    'use strict';
     return {
         refreshReadings: function (resourcePath, callback) {
             restService.get(resourcePath)

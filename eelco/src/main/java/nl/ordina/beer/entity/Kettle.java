@@ -25,6 +25,7 @@ public class Kettle {
     
     public void flush() {
         ingredients.clear();
+        temperature = new Temperature(0, Temperature.TemperatureUnit.CELSIUS);
     }
     
     public Temperature getTemperature() {
