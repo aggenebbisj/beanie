@@ -1,7 +1,6 @@
-var manualBrewing = angular.module('breweryApp');
-'use strict';
-
-manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+    'use strict';
+    
     $scope.readings = [
         ['Label', 'Value'],
         ['Temperature', 0],

@@ -1,6 +1,4 @@
-var manualBrewing = angular.module('breweryApp');
-
-manualBrewing.controller('ManualBrewingCtrl', function ($scope, $rootScope, restService, refreshService) {
+angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $rootScope, restService, refreshService) {
     'use strict';
     var ingredientsResourceUrl = $rootScope.resourcePath + 'brewer/ingredients';
     var kettleResourceUrl = $rootScope.resourcePath + 'brewer/kettle';

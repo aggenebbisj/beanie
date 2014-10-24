@@ -1,4 +1,4 @@
-manualBrewing.directive('gauge', function () {
+angular.module('breweryApp').directive('gauge', function () {
 
     return {
         restrict: 'E',
