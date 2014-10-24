@@ -6,71 +6,73 @@
     </div>
 </section>
 
-<div ng-controller="ManualBrewingCtrl">
-<section id="recipe">
-    <h2>Recipe: {{recipe.name}}</h2>
-    <input type="text" ng-model="recipe.name" placeholder="Enter your recipe name" />
-    <ol>
-        <li ng-repeat="step in recipe.steps track by $index">
-            {{ step.description }}
-        </li>
-    </ol>
-    <button title="brew recipe" ng-click="operations.brewRecipe()" ng-disabled="recipe.name === ''" ng-hide="recipe.steps.length === 0">Brew!</button>        
-</section>
+<div class="brewing" ng-controller="ManualBrewingCtrl">
+    <section id="recipe">
+        <h2>Recipe: {{recipe.name}}</h2>
+        <input type="text" ng-model="recipe.name" placeholder="Enter your recipe name" />
+        <button title="brew recipe" ng-click="operations.brewRecipe()" ng-disabled="recipe.name === ''" ng-hide="recipe.steps.length === 0">Brew!</button>        
+        <div id="recipesteps">
+            <ol>
+                <li ng-repeat="step in recipe.steps track by $index">
+                    {{ step.description}}
+                </li>
+            </ol>
+        </div>
+        
+    </section>
 
-<section class="operations">
-    <h2>Brew!</h2>
-    <ul>
-        <li>
-            <h3>Water</h3>
-            <img src="images/water.jpg"/>
-            <input name="water" type="number" ng-model="waterValue" min="0" max="1000"/>
-            <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>
-            <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('water', waterValue)">Add to recipe</button>        
-        </li>
-        <li>
-            <h3>Barley</h3>
-            <img src="images/barley.jpg"/>
-            <input name="barley" type="number" ng-model="barleyValue" min="0" max="1000"/>
-            <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>
-            <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('barley', barleyValue)">Add to recipe</button>        
-        </li>
-        <li>
-            <h3>Hops</h3>
-            <img src="images/hops.jpg"/>
-            <input name="hops" type="number" ng-model="hopsValue" min="0" max="1000"/>
-            <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>
-            <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('hops', hopsValue)">Add to recipe</button>        
-        </li>
-        <li>
-            <h3>Yeast</h3>
-            <img src="images/yeast.jpg"/>
-            <input name="yeast" type="number" ng-model="yeastValue" min="0" max="1000" />
-            <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
-            <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('yeast', yeastValue)">Add to recipe</button>        
-        </li>
-        <li>
-            <h3>Temperature</h3>
-            <img src="images/temperature.jpg"/>
-            <input name="temperature" type="number" ng-model="temperatureValue" min="-273" max="100"/>
-            <button title="change" ng-click="operations.temperature.activate(temperatureValue)">Change</button>
-            <button title="add to recipe" ng-click="operations.temperature.addToRecipe(temperatureValue)">Add to recipe</button>        
-        </li>
-        <li>
-            <h3>Wait</h3>
-            <img src="images/timer.jpg"/>
-            <input name="wait" type="number" ng-model="waitValue" min="0" max="60"/>
-            <button title="wait" ng-click="operations.wait.activate(waitValue)">Wait</button>
-            <button title="add to recipe" ng-click="operations.wait.addToRecipe(waitValue)">Add to recipe</button>        
-        </li> 
-        <li>
-            <h3>Empty kettle</h3>
-            <img src="images/reset.jpg"/>
-            <br/>
-            <button title="add" ng-click="operations.flush.activate()">Empty kettle</button>  
-        </li> 
-    </ul>
-    <div class='clear'></div>
-    <div id="messages"></div>
-</section>
+    <section class="operations">
+        <h2>Brew!</h2>
+        <ul>
+            <li>
+                <h3>Water</h3>
+                <img src="images/water.jpg"/>
+                <input name="water" type="number" ng-model="waterValue" min="0" max="1000"/>
+                <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>
+                <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('water', waterValue)">Add to recipe</button>        
+            </li>
+            <li>
+                <h3>Barley</h3>
+                <img src="images/barley.jpg"/>
+                <input name="barley" type="number" ng-model="barleyValue" min="0" max="1000"/>
+                <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>
+                <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('barley', barleyValue)">Add to recipe</button>        
+            </li>
+            <li>
+                <h3>Hops</h3>
+                <img src="images/hops.jpg"/>
+                <input name="hops" type="number" ng-model="hopsValue" min="0" max="1000"/>
+                <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>
+                <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('hops', hopsValue)">Add to recipe</button>        
+            </li>
+            <li>
+                <h3>Yeast</h3>
+                <img src="images/yeast.jpg"/>
+                <input name="yeast" type="number" ng-model="yeastValue" min="0" max="1000" />
+                <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
+                <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('yeast', yeastValue)">Add to recipe</button>        
+            </li>
+            <li>
+                <h3>Temperature</h3>
+                <img src="images/temperature.jpg"/>
+                <input name="temperature" type="number" ng-model="temperatureValue" min="-273" max="100"/>
+                <button title="change" ng-click="operations.temperature.activate(temperatureValue)">Change</button>
+                <button title="add to recipe" ng-click="operations.temperature.addToRecipe(temperatureValue)">Add to recipe</button>        
+            </li>
+            <li>
+                <h3>Wait</h3>
+                <img src="images/timer.jpg"/>
+                <input name="wait" type="number" ng-model="waitValue" min="0" max="60"/>
+                <button title="wait" ng-click="operations.wait.activate(waitValue)">Wait</button>
+                <button title="add to recipe" ng-click="operations.wait.addToRecipe(waitValue)">Add to recipe</button>        
+            </li> 
+            <li>
+                <h3>Empty kettle</h3>
+                <img src="images/reset.jpg"/>
+                <br/>
+                <button title="add" ng-click="operations.flush.activate()">Empty kettle</button>  
+            </li> 
+        </ul>
+        <div class='clear'></div>
+    </section>
 </div>
