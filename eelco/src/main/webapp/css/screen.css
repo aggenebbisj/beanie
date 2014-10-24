@@ -54,6 +54,11 @@ h1{
 
 }
 
+.operations button {
+    display: block;
+    margin: 5px auto;
+}
+
 .clear {
     clear: both;
 }
