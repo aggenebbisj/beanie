@@ -1,18 +1,21 @@
-var manualBrewing = angular.module('breweryApp');
-'use strict';
-
-manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
-    $scope.readings = [
+angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
+    'use strict';
+    
+    $scope.readingsVolume = [
         ['Label', 'Value'],
-        ['Temperature', 0],
         ['Volume', 0]
+    ];
+    
+    $scope.readingsTemperature = [
+        ['Label', 'Value'],
+        ['Temperature', 0]
     ];
 
     websocketService.onopen(function (event) {
         var endpoint = $rootScope.resourcePath + 'brewer/kettle';
         refreshService.refreshReadings(endpoint, function (data) {
-            $scope.readings[1][1] = data.temperature && data.temperature.value || 0;
-            $scope.readings[2][1] = data.ingredients && sumVolumes(data.ingredients) || 0;
+            $scope.readingsTemperature[1][1] = data.temperature && data.temperature.value || 0;
+            $scope.readingsVolume[1][1] = data.ingredients && sumVolumes(data.ingredients) || 0;
             
             function sumVolumes(ingredients) {
                 return ingredients.reduce(function (a, b) {
@@ -27,13 +30,13 @@ manualBrewing.controller('ManualBrewingMonitorCtrl', function ($scope, $rootScop
         var evt = JSON.parse(event.data);
         switch (evt.event) {
             case 'ingredient added':
-                $scope.readings[2][1] += evt.ingredient.volume.value;
+                $scope.readingsVolume[1][1] += evt.ingredient.volume.value;
                 break;
             case 'temperature changed':
-                $scope.readings[1][1] = evt.temperature.value;
+                $scope.readingsTemperature[1][1] = evt.temperature.value;
                 break;
             case 'kettle emptied':
-                $scope.readings[2][1] = 0;
+                $scope.readingsVolume[1][1] = 0;
                 break;
             default:
                 console.log('default' + evt);

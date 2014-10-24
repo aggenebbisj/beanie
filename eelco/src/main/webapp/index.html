@@ -11,7 +11,7 @@
         <h1>Welcome to the <span class="orange">Ordina</span> Brewery</h1>
     </header>
 
-    <article ng-include="'views/manualbrewing.html'" ng-controller="ManualBrewingCtrl" class="middlepane"></article>
+    <article ng-include="'views/brewing.html'" ng-controller="ManualBrewingCtrl" class="middlepane"></article>
 
         <footer class="footer">
             &copy; Copyright 2014 Ordina
@@ -27,6 +27,7 @@
         <script src="js/manual/refresh.service.js"></script>
         <script src="js/common/rest.service.js"></script>
         <script src="js/common/websocket.service.js"></script>
-        <script src="js/manual/gauge.directive.js"></script>
+        <script src="js/manual/gauge.temperature.directive.js"></script>
+        <script src="js/manual/gauge.volume.directive.js"></script>
     </body>
 </html>

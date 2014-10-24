@@ -1,6 +1,9 @@
 <section class="dashboard-brewer" ng-controller="ManualBrewingMonitorCtrl">
     <h2>Dashboard</h2>
-    <gauge data='readings'></gauge>
+    <div>
+        <temperature data='readingsTemperature' ></temperature>
+        <volume data='readingsVolume' ></volume>
+    </div>
 </section>
 
 <section class="operations" ng-controller="ManualBrewingCtrl">
