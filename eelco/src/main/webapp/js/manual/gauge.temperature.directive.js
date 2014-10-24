@@ -14,7 +14,10 @@ angular.module('breweryApp').directive('temperature', function () {
                 width: 400, height: 200,
                 redFrom: 90, redTo: 100,
                 yellowFrom: 75, yellowTo: 90,
-                minorTicks: 5
+                minorTicks: 5, min:0, animation: {
+                    duration: 500,
+                    easing: 'linear',
+                },
             };
             scope.$watch('data', function (v) {
                 if (typeof v !== 'undefined') {

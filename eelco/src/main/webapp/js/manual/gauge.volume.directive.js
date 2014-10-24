@@ -15,7 +15,10 @@ manualBrewing.directive('volume', function () {
                 width: 400, height: 200,
                 redFrom: 900, redTo: 1000,
                 yellowFrom: 750, yellowTo: 900,
-                minorTicks: 5
+                minorTicks: 5, max: 1000, animation: {
+                    duration: 500,
+                    easing: 'linear',
+                },
             };
             scope.$watch('data', function (v) {
                 if (typeof v !== 'undefined') {
