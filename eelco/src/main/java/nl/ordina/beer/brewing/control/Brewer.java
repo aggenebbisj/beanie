@@ -36,7 +36,7 @@ public class Brewer {
     }
 
     public void addAction(BrewAction action) {
-        logger.info(() -> "Brewer: queue size before adding: " + queue.size());
+        logger.finest(() -> "Brewer: queue size before adding: " + queue.size());
         if (queue.isEmpty()) {
             queue.add(action);
             executeNextAction();
@@ -55,7 +55,7 @@ public class Brewer {
 
     private void executeAction(BrewAction action) {
         action.executeFor(kettle);
-        logger.info(() -> format("Brewer: action completed. Remaining in queue %s", queue));
+        logger.finest(() -> format("Brewer: action completed. Remaining in queue %s", queue));
         actionCompleted.fire(new BrewActionCompletedEvent(action));
         if (action.isCompleted()) 
             queue.remove();

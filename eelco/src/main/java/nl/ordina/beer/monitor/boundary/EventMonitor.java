@@ -30,13 +30,13 @@ public class EventMonitor {
 
     @OnOpen
     public void onOpen(Session client) {
-        logger.info(() -> format("CONNECTED: %s", client));
+        logger.finest(() -> format("CONNECTED: %s", client));
         peers.add(client);
     }
 
     @OnClose
     public void onClose(Session client) {
-        logger.info(() -> format("CLOSED: %s", client));
+        logger.finest(() -> format("CLOSED: %s", client));
         peers.remove(client);
     }
 
@@ -45,7 +45,7 @@ public class EventMonitor {
      * @param event brew completion event raised by the brewer.
      */
     public void receive(@Observes BrewActionCompletedEvent event) {
-        logger.info(() -> format("RECEIVED EVENT %s", event));
+        logger.finest(() -> format("RECEIVED EVENT %s", event));
 
         peers.stream()
                 .filter(p -> p.isOpen())

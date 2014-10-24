@@ -29,7 +29,7 @@ public class KeepTemperatureStable extends BrewAction {
     public void executeFor(Kettle kettle) {
         try {
             // Does nothing, like in real life brewing :)
-            logger.info(() -> format("Waiting for %s minutes", duration.getSeconds() / 60));
+            logger.finest(() -> format("Waiting for %s minutes", duration.getSeconds() / 60));
             Thread.sleep(duration.getSeconds() / 60 * 1000); // Speed up minutes to seconds
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

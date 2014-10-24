@@ -32,7 +32,7 @@ public class ChangeTemperature extends BrewAction {
     @Override
     public void executeFor(Kettle kettle) {
         try {
-            logger.info(() -> format("Faking slow heating process, waiting %s seconds", delay.getSeconds()));
+            logger.finest(() -> format("Faking slow heating process, waiting %s seconds", delay.getSeconds()));
             Thread.sleep(delay.getSeconds() * 1000); // Fake slow heating process
             kettle.changeTemperature(new Temperature(DEGREES_INCREMENT, CELSIUS), goal);
             current = kettle.getTemperature();
