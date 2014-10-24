@@ -4,6 +4,7 @@ package nl.ordina.beer.brewing.entity;
 import java.time.Duration;
 import javax.json.Json;
 import javax.json.JsonObject;
+import static nl.ordina.beer.brewing.recipe.entity.RecipeBuilder.defaultKettle;
 import static nl.ordina.beer.entity.EntityBuilder.defaultTemperature;
 import static nl.ordina.beer.entity.EntityBuilder.defaultTemperatureIncrement;
 import nl.ordina.beer.entity.Kettle;
@@ -30,13 +31,15 @@ public class ChangeTemperatureTest {
     
     @Test
     public void test_json_marshalling() {
+        Kettle kettle = defaultKettle();
+        sut.executeFor(kettle);
         final Temperature temperature = defaultTemperature();
         JsonObject expected = Json.createObjectBuilder()
                 .add("event", "temperature changed")
                 .add("temperature",
                         Json.createObjectBuilder()
-                        .add("scale", temperature.getUnit().name())
-                        .add("value", temperature.getValue())
+                        .add("scale", kettle.getTemperature().getUnit().name())
+                        .add("value", kettle.getTemperature().getValue())
                         .build())
                 .build();
         assertThat(sut.toJson(), is(expected));

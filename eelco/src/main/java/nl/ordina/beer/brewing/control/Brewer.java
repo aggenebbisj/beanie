@@ -29,28 +29,30 @@ public class Brewer {
 
     @Inject
     Event<BrewActionAddedEvent> actionAdded;
-
+    
     public void addActions(List<BrewAction> steps) {
-        queue.addAll(steps);
-        actionAdded.fire(new BrewActionAddedEvent());
+        steps.stream().forEach((action) -> {
+            queue.add(action);
+        });
     }
 
     public void addAction(BrewAction action) {
+        logger.info(() -> "Brewer: queue size before adding: " + queue.size());
         queue.add(action);
-        actionAdded.fire(new BrewActionAddedEvent());
-    }
-
-    public void onActionAdded(@Observes BrewActionAddedEvent actionAdded) {
-        executeNextAction();
+        if ((action.equals(nextAction()))) executeNextAction();
     }
 
     public void onActionCompleted(@Observes BrewActionCompletedEvent actionCompleted) {
-        if (actionCompleted.getAction().isCompleted(kettle)) executeNextAction();
+        if (actionCompleted.getAction().isCompleted(kettle)) {
+            queue.remove();
+            logger.info(() -> "Brewer: Action completed. Current queue size: " + queue.size());
+            executeNextAction();
+        }
         else executeAction(actionCompleted.getAction());
     }
 
     public BrewAction nextAction() {
-        return queue.remove();
+        return queue.peek();
     }
 
     public void executeNextAction() {
