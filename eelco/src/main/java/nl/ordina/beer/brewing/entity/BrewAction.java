@@ -9,7 +9,7 @@ import nl.ordina.beer.entity.Kettle;
  * domain. E.g. adding an ingredient, changing the temperature, etc. Extend
  * this class when adding new actions.
  * 
- * @author Remko de Jong
+ * @author Ordina J-Tech
  */
 public abstract class BrewAction {
 
