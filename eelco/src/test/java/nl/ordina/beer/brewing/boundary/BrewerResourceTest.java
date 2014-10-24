@@ -1,25 +1,25 @@
 package nl.ordina.beer.brewing.boundary;
 
-import java.util.logging.Logger;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultKeepTemperatureStableAction;
 import nl.ordina.beer.brewing.control.Brewer;
 import nl.ordina.beer.brewing.entity.EmptyKettle;
-import static nl.ordina.beer.entity.EntityBuilder.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
 import org.mockito.Mock;
-import static org.mockito.Mockito.verify;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.logging.Logger;
+
+import static nl.ordina.beer.brewing.control.BrewActionBuilder.*;
+import static nl.ordina.beer.entity.EntityBuilder.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BrewerResourceTest {
 
     @InjectMocks
-    private BrewerResource sut;
+    private BrewerRestEndpoint sut;
 
     @Mock
     private Brewer brewer;

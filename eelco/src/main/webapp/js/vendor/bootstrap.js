@@ -14,6 +14,7 @@ if ("undefined" == typeof jQuery)
                 return{end: b[c]};
         return!1
     }
+
     a.fn.emulateTransitionEnd = function (b) {
         var c = !1, d = this;
         a(this).one("bsTransitionEnd", function () {
@@ -25,8 +26,8 @@ if ("undefined" == typeof jQuery)
         return setTimeout(e, b), this
     }, a(function () {
         a.support.transition = b(), a.support.transition && (a.event.special.bsTransitionEnd = {bindType: a.support.transition.end, delegateType: a.support.transition.end, handle: function (b) {
-                return a(b.target).is(this) ? b.handleObj.handler.apply(this, arguments) : void 0
-            }})
+            return a(b.target).is(this) ? b.handleObj.handler.apply(this, arguments) : void 0
+        }})
     })
 }(jQuery), +function (a) {
     "use strict";
@@ -36,6 +37,7 @@ if ("undefined" == typeof jQuery)
             e || c.data("bs.alert", e = new d(this)), "string" == typeof b && e[b].call(c)
         })
     }
+
     var c = '[data-dismiss="alert"]', d = function (b) {
         a(b).on("click", c, this.close)
     };
@@ -43,6 +45,7 @@ if ("undefined" == typeof jQuery)
         function c() {
             f.detach().trigger("closed.bs.alert").remove()
         }
+
         var d = a(this), e = d.attr("data-target");
         e || (e = d.attr("href"), e = e && e.replace(/.*(?=#[^\s]*$)/, ""));
         var f = a(e);
@@ -60,6 +63,7 @@ if ("undefined" == typeof jQuery)
             e || d.data("bs.button", e = new c(this, f)), "toggle" == b ? e.toggle() : b && e.setState(b)
         })
     }
+
     var c = function (b, d) {
         this.$element = a(b), this.options = a.extend({}, c.DEFAULTS, d), this.isLoading = !1
     };
@@ -91,6 +95,7 @@ if ("undefined" == typeof jQuery)
             e || d.data("bs.carousel", e = new c(this, f)), "number" == typeof b ? e.to(b) : g ? e[g]() : f.interval && e.pause().cycle()
         })
     }
+
     var c = function (b, c) {
         this.$element = a(b).on("keydown.bs.carousel", a.proxy(this.keydown, this)), this.$indicators = this.$element.find(".carousel-indicators"), this.options = c, this.paused = this.sliding = this.interval = this.$active = this.$items = null, "hover" == this.options.pause && this.$element.on("mouseenter.bs.carousel", a.proxy(this.pause, this)).on("mouseleave.bs.carousel", a.proxy(this.cycle, this))
     };
@@ -168,6 +173,7 @@ if ("undefined" == typeof jQuery)
             !e && f.toggle && "show" == b && (b = !b), e || d.data("bs.collapse", e = new c(this, f)), "string" == typeof b && e[b]()
         })
     }
+
     var c = function (b, d) {
         this.$element = a(b), this.options = a.extend({}, c.DEFAULTS, d), this.transitioning = null, this.options.parent && (this.$parent = a(this.options.parent)), this.options.toggle && this.toggle()
     };
@@ -226,18 +232,21 @@ if ("undefined" == typeof jQuery)
             d.hasClass("open") && (d.trigger(b = a.Event("hide.bs.dropdown", e)), b.isDefaultPrevented() || d.removeClass("open").trigger("hidden.bs.dropdown", e))
         }))
     }
+
     function c(b) {
         var c = b.attr("data-target");
         c || (c = b.attr("href"), c = c && /#[A-Za-z]/.test(c) && c.replace(/.*(?=#[^\s]*$)/, ""));
         var d = c && a(c);
         return d && d.length ? d : b.parent()
     }
+
     function d(b) {
         return this.each(function () {
             var c = a(this), d = c.data("bs.dropdown");
             d || c.data("bs.dropdown", d = new g(this)), "string" == typeof b && d[b].call(c)
         })
     }
+
     var e = ".dropdown-backdrop", f = '[data-toggle="dropdown"]', g = function (b) {
         a(b).on("click.bs.dropdown", this.toggle)
     };
@@ -283,6 +292,7 @@ if ("undefined" == typeof jQuery)
             f || e.data("bs.modal", f = new c(this, g)), "string" == typeof b ? f[b](d) : g.show && f.show(d)
         })
     }
+
     var c = function (b, c) {
         this.options = c, this.$body = a(document.body), this.$element = a(b), this.$backdrop = this.isShown = null, this.scrollbarWidth = 0, this.options.remote && this.$element.find(".modal-content").load(this.options.remote, a.proxy(function () {
             this.$element.trigger("loaded.bs.modal")
@@ -366,12 +376,13 @@ if ("undefined" == typeof jQuery)
             (e || "destroy" != b) && (e || d.data("bs.tooltip", e = new c(this, f)), "string" == typeof b && e[b]())
         })
     }
+
     var c = function (a, b) {
         this.type = this.options = this.enabled = this.timeout = this.hoverState = this.$element = null, this.init("tooltip", a, b)
     };
     c.VERSION = "3.2.0", c.DEFAULTS = {animation: !0, placement: "top", selector: !1, template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', trigger: "hover focus", title: "", delay: 0, html: !1, container: !1, viewport: {selector: "body", padding: 0}}, c.prototype.init = function (b, c, d) {
         this.enabled = !0, this.type = b, this.$element = a(c), this.options = this.getOptions(d), this.$viewport = this.options.viewport && a(this.options.viewport.selector || this.options.viewport);
-        for (var e = this.options.trigger.split(" "), f = e.length; f--; ) {
+        for (var e = this.options.trigger.split(" "), f = e.length; f--;) {
             var g = e[f];
             if ("click" == g)
                 this.$element.on("click." + this.type, this.options.selector, a.proxy(this.toggle, this));
@@ -426,8 +437,8 @@ if ("undefined" == typeof jQuery)
     }, c.prototype.applyPlacement = function (b, c) {
         var d = this.tip(), e = d[0].offsetWidth, f = d[0].offsetHeight, g = parseInt(d.css("margin-top"), 10), h = parseInt(d.css("margin-left"), 10);
         isNaN(g) && (g = 0), isNaN(h) && (h = 0), b.top = b.top + g, b.left = b.left + h, a.offset.setOffset(d[0], a.extend({using: function (a) {
-                d.css({top: Math.round(a.top), left: Math.round(a.left)})
-            }}, b), 0), d.addClass("in");
+            d.css({top: Math.round(a.top), left: Math.round(a.left)})
+        }}, b), 0), d.addClass("in");
         var i = d[0].offsetWidth, j = d[0].offsetHeight;
         "top" == c && j != f && (b.top = b.top + f - j);
         var k = this.getViewportAdjustedDelta(c, b, i, j);
@@ -443,6 +454,7 @@ if ("undefined" == typeof jQuery)
         function b() {
             "in" != c.hoverState && d.detach(), c.$element.trigger("hidden.bs." + c.type)
         }
+
         var c = this, d = this.tip(), e = a.Event("hide.bs." + this.type);
         return this.$element.removeAttr("aria-describedby"), this.$element.trigger(e), e.isDefaultPrevented() ? void 0 : (d.removeClass("in"), a.support.transition && this.$tip.hasClass("fade") ? d.one("bsTransitionEnd", b).emulateTransitionEnd(150) : b(), this.hoverState = null, this)
     }, c.prototype.fixTitle = function () {
@@ -507,6 +519,7 @@ if ("undefined" == typeof jQuery)
             (e || "destroy" != b) && (e || d.data("bs.popover", e = new c(this, f)), "string" == typeof b && e[b]())
         })
     }
+
     var c = function (a, b) {
         this.init("popover", a, b)
     };
@@ -537,12 +550,14 @@ if ("undefined" == typeof jQuery)
         var e = a.proxy(this.process, this);
         this.$body = a("body"), this.$scrollElement = a(a(c).is("body") ? window : c), this.options = a.extend({}, b.DEFAULTS, d), this.selector = (this.options.target || "") + " .nav li > a", this.offsets = [], this.targets = [], this.activeTarget = null, this.scrollHeight = 0, this.$scrollElement.on("scroll.bs.scrollspy", e), this.refresh(), this.process()
     }
+
     function c(c) {
         return this.each(function () {
             var d = a(this), e = d.data("bs.scrollspy"), f = "object" == typeof c && c;
             e || d.data("bs.scrollspy", e = new b(this, f)), "string" == typeof c && e[c]()
         })
     }
+
     b.VERSION = "3.2.0", b.DEFAULTS = {offset: 10}, b.prototype.getScrollHeight = function () {
         return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
     }, b.prototype.refresh = function () {
@@ -551,7 +566,9 @@ if ("undefined" == typeof jQuery)
         var d = this;
         this.$body.find(this.selector).map(function () {
             var d = a(this), e = d.data("target") || d.attr("href"), f = /^#./.test(e) && a(e);
-            return f && f.length && f.is(":visible") && [[f[b]().top + c, e]] || null
+            return f && f.length && f.is(":visible") && [
+                [f[b]().top + c, e]
+            ] || null
         }).sort(function (a, b) {
             return a[0] - b[0]
         }).each(function () {
@@ -563,7 +580,7 @@ if ("undefined" == typeof jQuery)
             return g != (a = f[f.length - 1]) && this.activate(a);
         if (g && b <= e[0])
             return g != (a = f[0]) && this.activate(a);
-        for (a = e.length; a--; )
+        for (a = e.length; a--;)
             g != f[a] && b >= e[a] && (!e[a + 1] || b <= e[a + 1]) && this.activate(f[a])
     }, b.prototype.activate = function (b) {
         this.activeTarget = b, a(this.selector).parentsUntil(this.options.target, ".active").removeClass("active");
@@ -587,6 +604,7 @@ if ("undefined" == typeof jQuery)
             e || d.data("bs.tab", e = new c(this)), "string" == typeof b && e[b]()
         })
     }
+
     var c = function (b) {
         this.element = a(b)
     };
@@ -605,6 +623,7 @@ if ("undefined" == typeof jQuery)
         function e() {
             f.removeClass("active").find("> .dropdown-menu > .active").removeClass("active"), b.addClass("active"), g ? (b[0].offsetWidth, b.addClass("in")) : b.removeClass("fade"), b.parent(".dropdown-menu") && b.closest("li.dropdown").addClass("active"), d && d()
         }
+
         var f = c.find("> .active"), g = d && a.support.transition && f.hasClass("fade");
         g ? f.one("bsTransitionEnd", e).emulateTransitionEnd(150) : e(), f.removeClass("in")
     };
@@ -622,6 +641,7 @@ if ("undefined" == typeof jQuery)
             e || d.data("bs.affix", e = new c(this, f)), "string" == typeof b && e[b]()
         })
     }
+
     var c = function (b, d) {
         this.options = a.extend({}, c.DEFAULTS, d), this.$target = a(this.options.target).on("scroll.bs.affix.data-api", a.proxy(this.checkPosition, this)).on("click.bs.affix.data-api", a.proxy(this.checkPositionWithEventLoop, this)), this.$element = a(b), this.affixed = this.unpin = this.pinnedOffset = null, this.checkPosition()
     };

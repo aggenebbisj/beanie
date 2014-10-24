@@ -3,10 +3,10 @@ angular.module('breweryApp').factory("refreshService", function ($rootScope, res
     return {
         refreshReadings: function (resourcePath, callback) {
             restService.get(resourcePath)
-                    .success(function (response) {
-                        callback(response);
-                    }).error(function (response) {
-            });
+                .success(function (response) {
+                    callback(response);
+                }).error(function (response) {
+                });
         }
     };
 });

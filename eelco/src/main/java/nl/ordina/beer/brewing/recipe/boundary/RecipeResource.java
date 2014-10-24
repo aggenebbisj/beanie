@@ -22,9 +22,9 @@ public class RecipeResource {
 
     @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
+
     @Resource(lookup = "java:app/jms/RecipeQueue")
     private Queue queue;
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

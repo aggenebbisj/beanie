@@ -23,8 +23,9 @@ import static java.util.stream.Collectors.toList;
 @ServerEndpoint("/sockets/monitor")
 public class EventMonitor {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
     private static final Set<Session> peers = synchronizedSet(new HashSet<>());
+
+    private transient Logger logger = Logger.getLogger(getClass().getName());
 
     Set<Session> getPeers() {
         return peers;
@@ -43,19 +44,13 @@ public class EventMonitor {
     }
 
     /**
-     *
-     * @param action Observes brew action executed event raised by the brewer.
+     * @param action
+     *         Observes brew action executed event raised by the brewer.
      */
     public void receive(@Observes BrewAction action) {
         logger.finest(() -> format("RECEIVED EVENT %s", action));
-
-        peers.stream()
-                .filter(p -> p.isOpen())
-                .forEach(p -> send(p, action.toJson()));
-
-        final List<Session> closed = peers.stream()
-                .filter(p -> !p.isOpen())
-                .collect(toList());
+        peers.stream().filter(p -> p.isOpen()).forEach(p -> send(p, action.toJson()));
+        final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
         peers.removeAll(closed);
     }
 

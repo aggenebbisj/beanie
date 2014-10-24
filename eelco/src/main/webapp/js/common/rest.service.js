@@ -44,7 +44,7 @@ restService.factory('restService', function ($http) {
                     'value': value,
                     'unit': unit
                 },
-                description: function() {
+                description: function () {
                     return 'Add ' + value + ' ' + unit + 's of ' + name;
                 }
             };
@@ -53,7 +53,7 @@ restService.factory('restService', function ($http) {
             return {
                 'value': value,
                 'unit': unit,
-                description: function() {
+                description: function () {
                     return 'Change temperature to ' + value + ' degrees Celsius';
                 }
             };
@@ -62,7 +62,7 @@ restService.factory('restService', function ($http) {
             return {
                 'value': value,
                 'unit': unit,
-                description: function() {
+                description: function () {
                     return 'Keep temperature stable for ' + value + ' ' + unit;
                 }
             };

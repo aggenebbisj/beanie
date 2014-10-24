@@ -1,9 +1,9 @@
-
 package nl.ordina.beer.entity;
+
+import org.junit.Test;
 
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class TemperatureTest {
 

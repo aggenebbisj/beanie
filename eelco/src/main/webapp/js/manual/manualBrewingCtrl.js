@@ -3,14 +3,14 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
     var ingredientsResourceUrl = $rootScope.resourcePath + 'brewer/ingredients';
     var kettleResourceUrl = $rootScope.resourcePath + 'brewer/kettle';
     var recipeUrl = $rootScope.resourcePath + 'brewer/recipe';
-            
+
     $scope.recipe = { };
-    
+
     $scope.recipe.name = '';
     $scope.recipe.steps = [];
-    
+
     $scope.operations = {
-        brewRecipe: function() {
+        brewRecipe: function () {
             restService.postWithData(recipeUrl, $scope.recipe);
         },
         flush: {
@@ -26,7 +26,7 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
                     restService.postWithData(ingredientsResourceUrl, ingredient);
                 }
             },
-            addToRecipe: function(type, newValue) {
+            addToRecipe: function (type, newValue) {
                 if (newValue > 0) {
                     var ingredient = restService.createIngredient(type, newValue, 'liter');
                     $scope.recipe.steps.push({ 'type': 'addIngredient', 'ingredient': ingredient, 'description': ingredient.description() });

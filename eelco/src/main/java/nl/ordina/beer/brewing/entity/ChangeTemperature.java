@@ -1,24 +1,28 @@
 package nl.ordina.beer.brewing.entity;
 
-import static java.lang.String.format;
+import nl.ordina.beer.entity.Kettle;
+import nl.ordina.beer.entity.Temperature;
+
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.logging.Logger;
-import javax.json.Json;
-import javax.json.JsonObject;
-import nl.ordina.beer.entity.Kettle;
-import nl.ordina.beer.entity.Temperature;
+
+import static java.lang.String.format;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 
 public class ChangeTemperature extends BrewAction {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
-
     private static final int DEGREES_INCREMENT = 5;
 
-    private Temperature current;
     private final Temperature goal;
+
     private final Duration delay;
+
+    private transient Logger logger = Logger.getLogger(getClass().getName());
+
+    private Temperature current;
 
     public ChangeTemperature(Temperature goal) {
         this(goal, Duration.ofSeconds(1));
@@ -27,6 +31,11 @@ public class ChangeTemperature extends BrewAction {
     public ChangeTemperature(Temperature goal, Duration delay) {
         this.goal = goal;
         this.delay = delay;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return current.equals(goal);
     }
 
     @Override
@@ -42,22 +51,14 @@ public class ChangeTemperature extends BrewAction {
     }
 
     @Override
-    public boolean isCompleted() {
-        return current.equals(goal);
-    }
-
-    @Override
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "temperature changed")
-                .add("temperature",
-                        Json.createObjectBuilder()
-                        .add("scale", current.getUnit().name())
-                        .add("value", current.getValue())
-                        .build())
-                .build();
+        return Json.createObjectBuilder().add("event", "temperature changed").add("temperature",
+                                                                                  Json.createObjectBuilder()
+                                                                                      .add("scale",
+                                                                                           current.getUnit().name())
+                                                                                      .add("value", current.getValue())
+                                                                                      .build()).build();
     }
-
 
     @Override
     public boolean equals(Object obj) {

@@ -1,8 +1,9 @@
 package nl.ordina.beer.brewing.entity;
 
+import nl.ordina.beer.entity.Kettle;
+
 import javax.json.Json;
 import javax.json.JsonObject;
-import nl.ordina.beer.entity.Kettle;
 
 public class EmptyKettle extends BrewAction {
 
@@ -13,9 +14,7 @@ public class EmptyKettle extends BrewAction {
 
     @Override
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "kettle emptied")
-                .build();
+        return Json.createObjectBuilder().add("event", "kettle emptied").build();
     }
 
 }

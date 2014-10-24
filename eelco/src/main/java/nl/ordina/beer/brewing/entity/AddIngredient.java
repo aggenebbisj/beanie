@@ -1,17 +1,23 @@
 package nl.ordina.beer.brewing.entity;
 
-import java.util.Objects;
-import javax.json.Json;
-import javax.json.JsonObject;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 
-public class AddIngredient extends BrewAction {
+import javax.json.Json;
+import javax.json.JsonObject;
+import java.util.Objects;
+
+public class AddIngredient implements BrewAction {
 
     private final Ingredient ingredient;
 
     public AddIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return true;
     }
 
     @Override
@@ -21,23 +27,20 @@ public class AddIngredient extends BrewAction {
 
     @Override
     public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "ingredient added")
-                .add("ingredient",
-                        Json.createObjectBuilder()
-                        .add("name", ingredient.getName())
-                        .add("volume",
-                                Json.createObjectBuilder()
-                                .add("value", ingredient.getVolume().getValue())
-                                .add("unit", ingredient.getVolume().getUnit().name())
-                                .build())
-                        .build())
-                .build();
-    }
-
-    @Override
-    public String toString() {
-        return "AddIngredient{" + "ingredient=" + ingredient + '}';
+        return Json.createObjectBuilder().add("event", "ingredient added").add("ingredient",
+                                                                               Json.createObjectBuilder().add("name",
+                                                                                                              ingredient
+                                                                                                                      .getName())
+                                                                                   .add("volume",
+                                                                                        Json.createObjectBuilder().add(
+                                                                                                "value",
+                                                                                                ingredient.getVolume()
+                                                                                                          .getValue())
+                                                                                            .add("unit",
+                                                                                                 ingredient.getVolume()
+                                                                                                           .getUnit()
+                                                                                                           .name())
+                                                                                            .build()).build()).build();
     }
 
     @Override
@@ -53,6 +56,11 @@ public class AddIngredient extends BrewAction {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AddIngredient{" + "ingredient=" + ingredient + '}';
     }
 
 }

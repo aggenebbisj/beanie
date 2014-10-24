@@ -1,28 +1,23 @@
 package nl.ordina.beer.brewing.entity;
 
-import static java.lang.String.format;
+import nl.ordina.beer.entity.Kettle;
+
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.logging.Logger;
-import javax.json.Json;
-import javax.json.JsonObject;
-import nl.ordina.beer.entity.Kettle;
+
+import static java.lang.String.format;
 
 public class KeepTemperatureStable extends BrewAction {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
-
     private final Duration duration;
+
+    private transient Logger logger = Logger.getLogger(getClass().getName());
 
     public KeepTemperatureStable(Duration duration) {
         this.duration = duration;
-    }
-
-    @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "kitchentimer expired")
-                .build();
     }
 
     @Override
@@ -37,10 +32,9 @@ public class KeepTemperatureStable extends BrewAction {
     }
 
     @Override
-    public String toString() {
-        return "KeepTemperatureStable{duration=" + duration + '}';
+    public JsonObject toJson() {
+        return Json.createObjectBuilder().add("event", "kitchentimer expired").build();
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -55,6 +49,11 @@ public class KeepTemperatureStable extends BrewAction {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "KeepTemperatureStable{duration=" + duration + '}';
     }
 
 }

@@ -7,18 +7,9 @@ import javax.xml.bind.annotation.XmlEnumValue;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Temperature {
 
-    public enum TemperatureUnit {
-
-        @XmlEnumValue("celsius")
-        CELSIUS
-    }
-
     private int value;
-    private TemperatureUnit unit;
 
-    public static Temperature of(int degrees, TemperatureUnit scale) {
-        return new Temperature(degrees, scale);
-    }
+    private TemperatureUnit unit;
 
     public Temperature() {
         // Required by JAXB
@@ -29,10 +20,14 @@ public class Temperature {
         this.unit = unit;
     }
 
+    public static Temperature of(int degrees, TemperatureUnit scale) {
+        return new Temperature(degrees, scale);
+    }
+
     public boolean isLowerThan(Temperature other) {
         return this.value < other.value;
     }
-    
+
     public Temperature difference(Temperature goal) {
         assert (this.unit == goal.unit);
         return new Temperature(goal.value - this.value, this.unit);
@@ -41,7 +36,7 @@ public class Temperature {
     public boolean isPositive() {
         return this.value > 0;
     }
-        
+
     public Temperature plus(Temperature increase) {
         return new Temperature(value + increase.value, unit);
     }
@@ -49,7 +44,7 @@ public class Temperature {
     public Temperature minus(Temperature decrease) {
         return new Temperature(value - decrease.value, unit);
     }
-    
+
     public Temperature max(Temperature other) {
         return other.value > this.value ? other : this;
     }
@@ -57,7 +52,7 @@ public class Temperature {
     public Temperature min(Temperature other) {
         return other.value < this.value ? other : this;
     }
-    
+
     public int getValue() {
         return value;
     }
@@ -65,7 +60,6 @@ public class Temperature {
     public TemperatureUnit getUnit() {
         return unit;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -85,6 +79,11 @@ public class Temperature {
     @Override
     public String toString() {
         return "Temperature{value=" + value + ", unit=" + unit + "}";
+    }
+
+    public enum TemperatureUnit {
+        @XmlEnumValue("celsius")
+        CELSIUS
     }
 
 }

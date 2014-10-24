@@ -1,11 +1,11 @@
 angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($scope, $rootScope, refreshService, websocketService) {
     'use strict';
-    
+
     $scope.readingsVolume = [
         ['Label', 'Value'],
         ['Volume', 0]
     ];
-    
+
     $scope.readingsTemperature = [
         ['Label', 'Value'],
         ['Temperature', 0]
@@ -16,7 +16,7 @@ angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($s
         refreshService.refreshReadings(endpoint, function (data) {
             $scope.readingsTemperature[1][1] = data.temperature && data.temperature.value || 0;
             $scope.readingsVolume[1][1] = data.ingredients && sumVolumes(data.ingredients) || 0;
-            
+
             function sumVolumes(ingredients) {
                 return ingredients.reduce(function (a, b) {
                     return (a.volume && a.volume.value || a) + b.volume.value;
