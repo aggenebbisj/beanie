@@ -24,28 +24,28 @@
         <li>
             <h3>Water</h3>
             <img src="images/water.jpg"/>
-            <input name="water" type="number" ng-model="waterValue" min="0" max="100"/>
+            <input name="water" type="number" ng-model="waterValue" min="0" max="1000"/>
             <button title="add" ng-click="operations.ingredient.activate('water', waterValue)">Add</button>
             <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('water', waterValue)">Add to recipe</button>        
         </li>
         <li>
             <h3>Barley</h3>
             <img src="images/barley.jpg"/>
-            <input name="barley" type="number" ng-model="barleyValue" min="0" max="100"/>
+            <input name="barley" type="number" ng-model="barleyValue" min="0" max="1000"/>
             <button title="add" ng-click="operations.ingredient.activate('barley', barleyValue)">Add</button>
             <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('barley', barleyValue)">Add to recipe</button>        
         </li>
         <li>
             <h3>Hops</h3>
             <img src="images/hops.jpg"/>
-            <input name="hops" type="number" ng-model="hopsValue" min="0" max="100"/>
+            <input name="hops" type="number" ng-model="hopsValue" min="0" max="1000"/>
             <button title="add" ng-click="operations.ingredient.activate('hops', hopsValue)">Add</button>
             <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('hops', hopsValue)">Add to recipe</button>        
         </li>
         <li>
             <h3>Yeast</h3>
             <img src="images/yeast.jpg"/>
-            <input name="yeast" type="number" ng-model="yeastValue" min="0" max="100" />
+            <input name="yeast" type="number" ng-model="yeastValue" min="0" max="1000" />
             <button title="add" ng-click="operations.ingredient.activate('yeast', yeastValue)">Add</button>        
             <button title="add to recipe" ng-click="operations.ingredient.addToRecipe('yeast', yeastValue)">Add to recipe</button>        
         </li>
@@ -59,7 +59,7 @@
         <li>
             <h3>Wait</h3>
             <img src="images/timer.jpg"/>
-            <input name="wait" type="number" ng-model="waitValue" min="0" />
+            <input name="wait" type="number" ng-model="waitValue" min="0" max="60"/>
             <button title="wait" ng-click="operations.wait.activate(waitValue)">Wait</button>
             <button title="add to recipe" ng-click="operations.wait.addToRecipe(waitValue)">Add to recipe</button>        
         </li> 
