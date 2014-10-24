@@ -1,4 +1,6 @@
-manualBrewing.directive('gauge', function () {
+var manualBrewing = angular.module('breweryApp');
+
+manualBrewing.directive('temperature', function () {
 
     return {
         restrict: 'E',
