@@ -4,15 +4,15 @@ import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 
 import javax.json.Json;
-import javax.json.JsonObject;
+import javax.websocket.EncodeException;
+import javax.websocket.EndpointConfig;
 import java.time.Duration;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 
-public class ChangeTemperature extends BrewAction {
+public class ChangeTemperature implements BrewAction {
 
     private static final int DEGREES_INCREMENT = 5;
 
@@ -50,29 +50,21 @@ public class ChangeTemperature extends BrewAction {
         }
     }
 
-    @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder().add("event", "temperature changed").add("temperature",
-                                                                                  Json.createObjectBuilder()
-                                                                                      .add("scale",
-                                                                                           current.getUnit().name())
-                                                                                      .add("value", current.getValue())
-                                                                                      .build()).build();
-    }
+    public static class Encoder implements javax.websocket.Encoder.Text<ChangeTemperature> {
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
+        @Override
+        public void init(final EndpointConfig config) {
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ChangeTemperature other = (ChangeTemperature) obj;
-        if (!Objects.equals(this.goal, other.goal)) {
-            return false;
-        }
-        return true;
-    }
 
+        @Override
+        public void destroy() {
+        }
+
+        @Override
+        public String encode(final ChangeTemperature ct) throws EncodeException {
+            return Json.createObjectBuilder().add("event", "temperature changed").add("temperature",
+                    Json.createObjectBuilder().add("scale", ct.current.getUnit().name()).add("value",
+                            ct.current.getValue()).build()).build().toString();
+        }
+    }
 }

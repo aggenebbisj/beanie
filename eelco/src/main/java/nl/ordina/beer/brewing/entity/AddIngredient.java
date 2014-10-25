@@ -3,13 +3,11 @@ package nl.ordina.beer.brewing.entity;
 import nl.ordina.beer.entity.Ingredient;
 import nl.ordina.beer.entity.Kettle;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import java.util.Objects;
-
 public class AddIngredient implements BrewAction {
 
     private final Ingredient ingredient;
+
+    private boolean completed;
 
     public AddIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
@@ -17,50 +15,23 @@ public class AddIngredient implements BrewAction {
 
     @Override
     public boolean isCompleted() {
-        return true;
+        return completed;
     }
 
     @Override
     public void executeFor(Kettle kettle) {
+        completed = false;
         kettle.addIngredient(ingredient);
+        completed = true;
     }
 
-    @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder().add("event", "ingredient added").add("ingredient",
-                                                                               Json.createObjectBuilder().add("name",
-                                                                                                              ingredient
-                                                                                                                      .getName())
-                                                                                   .add("volume",
-                                                                                        Json.createObjectBuilder().add(
-                                                                                                "value",
-                                                                                                ingredient.getVolume()
-                                                                                                          .getValue())
-                                                                                            .add("unit",
-                                                                                                 ingredient.getVolume()
-                                                                                                           .getUnit()
-                                                                                                           .name())
-                                                                                            .build()).build()).build();
-    }
+    /**
+     * Concrete implementation of javax.websocket.Encoder.Text<AddIngredient> that marshals an AddIngredient object to a
+     * JSON string.
+     */
+    //TODO
+    public static class Encoder {
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AddIngredient other = (AddIngredient) obj;
-        if (!Objects.equals(this.ingredient, other.ingredient)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "AddIngredient{" + "ingredient=" + ingredient + '}';
     }
 
 }

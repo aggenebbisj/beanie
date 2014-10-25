@@ -16,9 +16,8 @@ import static java.util.logging.Logger.getLogger;
 
 @JMSDestinationDefinition(name = "java:app/jms/RecipeQueue", interfaceName = "javax.jms.Queue")
 @MessageDriven(activationConfig = {@ActivationConfigProperty(propertyName = "destinationLookup",
-                                                             propertyValue = "java:app/jms/RecipeQueue"),
-                                   @ActivationConfigProperty(propertyName = "destinationType",
-                                                             propertyValue = "javax.jms.Queue")})
+        propertyValue = "java:app/jms/RecipeQueue"), @ActivationConfigProperty(propertyName = "destinationType",
+        propertyValue = "javax.jms.Queue")})
 public class RecipeMessageDrivenBean implements MessageListener {
 
     private static final Logger log = getLogger(RecipeMessageDrivenBean.class.getName());

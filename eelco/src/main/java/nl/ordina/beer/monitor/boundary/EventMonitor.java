@@ -2,66 +2,54 @@ package nl.ordina.beer.monitor.boundary;
 
 import nl.ordina.beer.brewing.entity.BrewAction;
 
-import javax.enterprise.event.Observes;
-import javax.json.JsonObject;
-import javax.websocket.EncodeException;
-import javax.websocket.OnClose;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import static java.lang.String.format;
 import static java.util.Collections.synchronizedSet;
-import static java.util.logging.Level.WARNING;
-import static java.util.stream.Collectors.toList;
 
-@ServerEndpoint("/sockets/monitor")
+/**
+ * This class describes a web socket endpoint for the path "/sockets/monitor". The configuration relies on a set of
+ * custom encoders that are found in the concrete implementations of the BrewAction interface.
+ */
+//TODO
 public class EventMonitor {
 
     private static final Set<Session> peers = synchronizedSet(new HashSet<>());
 
     private transient Logger logger = Logger.getLogger(getClass().getName());
 
-    Set<Session> getPeers() {
-        return peers;
-    }
-
-    @OnOpen
+    /**
+     * The session of the newly connected client is stored in an internal cache.
+     *
+     * @param client
+     *         A Session object of the newly connected client
+     */
+    //TODO
     public void onOpen(Session client) {
-        logger.finest(() -> format("CONNECTED: %s", client));
-        peers.add(client);
-    }
-
-    @OnClose
-    public void onClose(Session client) {
-        logger.finest(() -> format("CLOSED: %s", client));
-        peers.remove(client);
     }
 
     /**
+     * The session of a client is removed as soon as a connection closes.
+     *
+     * @param client
+     *         A Session object of the closed connection
+     */
+    //TODO
+    public void onClose(Session client) {
+    }
+
+    /**
+     * This method implements a lambda that filters the peers for open connections and sends the action to each peer.
+     * Moreover, it implements a lambda to filter and remove any closed connections to keep the cache clean and tidy. If
+     * you are new to Lambda's, please have a look at http://docs.oracle
+     * .com/javase/tutorial/collections/streams/index.html
+     *
      * @param action
      *         Observes brew action executed event raised by the brewer.
      */
-    public void receive(@Observes BrewAction action) {
-        logger.finest(() -> format("RECEIVED EVENT %s", action));
-        peers.stream().filter(p -> p.isOpen()).forEach(p -> send(p, action.toJson()));
-        final List<Session> closed = peers.stream().filter(p -> !p.isOpen()).collect(toList());
-        peers.removeAll(closed);
+    //TODO
+    public void observeBrewActions(BrewAction action) {
     }
-
-    private void send(Session peer, JsonObject event) {
-        try {
-            peer.getBasicRemote().sendObject(event);
-        } catch (IOException e) {
-            logger.log(WARNING, "Error writing to peer " + peer, e);
-        } catch (EncodeException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
 }

@@ -23,7 +23,7 @@ public class Brewer {
 
     final Queue<BrewAction> queue = new ConcurrentLinkedQueue<>();
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @Inject
     private Kettle kettle;
