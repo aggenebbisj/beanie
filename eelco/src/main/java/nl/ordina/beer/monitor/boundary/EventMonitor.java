@@ -12,6 +12,7 @@ import static java.util.Collections.synchronizedSet;
 /**
  * This class describes a web socket endpoint for the path "/sockets/monitor". The configuration relies on a set of
  * custom encoders that are found in the concrete implementations of the BrewAction interface.
+ * If you are new to web sockets, please visit http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm#GKJIQ5
  */
 //TODO
 public class EventMonitor {

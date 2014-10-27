@@ -4,11 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.ordina</groupId>
-    <artifactId>eelco</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>beer-brewing</artifactId>
+    <version>1.0</version>
     <packaging>war</packaging>
-
-    <name>eelco</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,36 +20,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-processing</artifactId>
-            <version>2.13</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- REST client implementation -->
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.12</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
+        <finalName>beer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
