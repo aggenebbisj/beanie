@@ -16,10 +16,10 @@ import java.util.logging.Logger;
  * @author Ordina J-Tech
  */
 // TODO
-public class BrewerRestEndpoint {
+public class BrewerResource {
 
     //TODO
-    DurationJSONAdapter durationAdapter;
+    DurationJsonAdapter durationAdapter;
 
     private Logger logger = Logger.getLogger(getClass().getName());
 

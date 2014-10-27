@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
  *
  * @author Ordina J-Tech
  */
-public class DurationJSONAdapter extends XmlAdapter<String, Duration> {
+public class DurationJsonAdapter extends XmlAdapter<String, Duration> {
 
     @Override
     public Duration unmarshal(String value) {

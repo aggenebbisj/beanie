@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.ordina</groupId>
-    <artifactId>beer-brewing</artifactId>
+    <artifactId>brewery</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
@@ -23,7 +23,7 @@
     </dependencies>
 
     <build>
-        <finalName>beer</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
