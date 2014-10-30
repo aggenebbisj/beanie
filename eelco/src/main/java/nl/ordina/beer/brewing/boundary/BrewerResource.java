@@ -30,7 +30,8 @@ import nl.ordina.beer.entity.Temperature;
 @Path("brewer")
 public class BrewerResource {
     
-    private transient Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    private transient Logger logger;
     
     @Inject 
     private Brewer brewer;

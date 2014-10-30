@@ -16,7 +16,7 @@ angular.module('breweryApp').controller('ManualBrewingCtrl', function ($scope, $
         flush: {
             activate: function () {
                 restService.del(ingredientsResourceUrl);
-                refreshService.refreshReadings(kettleResourceUrl);
+                refreshService.refreshReadings(kettleResourceUrl, function() {});
             }
         },
         ingredient: {

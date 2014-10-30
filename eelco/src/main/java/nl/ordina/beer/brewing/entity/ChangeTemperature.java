@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
@@ -12,7 +13,8 @@ import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 
 public class ChangeTemperature extends BrewAction {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    private transient Logger logger;
 
     private static final int DEGREES_INCREMENT = 5;
 

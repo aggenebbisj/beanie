@@ -55,7 +55,7 @@ public class RecipeXmlAdapter extends XmlAdapter<JsonObject, Recipe> {
     }
 
     public Temperature unmarshalTemperature(JsonObject temperature) {
-        final int value = temperature.getInt("value");
+        final int value = Integer.parseInt(temperature.getString("value"));
         final String unit = temperature.getString("unit").toUpperCase();
         return new Temperature(value, TemperatureUnit.valueOf(unit));
     }

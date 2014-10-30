@@ -19,11 +19,14 @@ import static java.lang.String.format;
 import static java.util.Collections.synchronizedSet;
 import static java.util.logging.Level.WARNING;
 import static java.util.stream.Collectors.toList;
+import javax.inject.Inject;
 
 @ServerEndpoint("/sockets/monitor")
 public class EventMonitor {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    private transient Logger logger;
+    
     private static final Set<Session> peers = synchronizedSet(new HashSet<>());
 
     Set<Session> getPeers() {

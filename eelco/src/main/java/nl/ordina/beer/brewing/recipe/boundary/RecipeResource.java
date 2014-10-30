@@ -2,8 +2,8 @@ package nl.ordina.beer.brewing.recipe.boundary;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.util.logging.Logger.getLogger;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
@@ -16,7 +16,8 @@ import javax.ws.rs.core.MediaType;
 @Path("brewer/recipe")
 public class RecipeResource {
 
-    private static final Logger log = getLogger(RecipeResource.class.getName());
+    @Inject
+    private transient Logger logger;
 
     @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
@@ -30,7 +31,7 @@ public class RecipeResource {
         try (JMSContext context = connectionFactory.createContext();) {
             context.createProducer().send(queue, recipe.toString());
         } catch (Exception e) {
-            log.log(Level.SEVERE, e.getMessage(), e);
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 

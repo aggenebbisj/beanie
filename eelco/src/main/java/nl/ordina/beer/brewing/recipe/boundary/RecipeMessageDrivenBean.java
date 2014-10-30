@@ -4,7 +4,6 @@ package nl.ordina.beer.brewing.recipe.boundary;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.util.logging.Logger.getLogger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
@@ -25,7 +24,9 @@ import nl.ordina.beer.brewing.control.Brewer;
             propertyValue = "javax.jms.Queue")
 })
 public class RecipeMessageDrivenBean implements MessageListener {
-    private static final Logger log = getLogger(RecipeMessageDrivenBean.class.getName());
+    
+    @Inject
+    private transient Logger logger;
 
     @Inject
     private Brewer brewer;
@@ -41,7 +42,7 @@ public class RecipeMessageDrivenBean implements MessageListener {
                 final JsonReader reader = Json.createReader(new StringReader(s));
                 brewer.addActions(recipeAdapter.unmarshal(reader.readObject()).getSteps());
             } catch (JMSException e) {
-                log.log(Level.SEVERE, e.getMessage(), e);
+                logger.log(Level.SEVERE, e.getMessage(), e);
             }
         }
 

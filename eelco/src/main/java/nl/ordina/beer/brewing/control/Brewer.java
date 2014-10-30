@@ -21,7 +21,8 @@ import static java.lang.String.format;
 @ApplicationScoped
 public class Brewer {
 
-    private transient Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    private transient Logger logger;
 
     final Queue<BrewAction> queue = new ConcurrentLinkedQueue<>();
 
