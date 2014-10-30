@@ -1,48 +1,67 @@
 package nl.ordina.beer.brewing.entity;
 
-import static java.lang.String.format;
-import java.time.Duration;
-import java.util.Objects;
-import java.util.logging.Logger;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
 import nl.ordina.beer.entity.Kettle;
 
-public class KeepTemperatureStable extends BrewAction {
+import javax.json.Json;
+import javax.websocket.EncodeException;
+import javax.websocket.EndpointConfig;
+import java.time.Duration;
+import java.util.logging.Logger;
 
-    @Inject
-    private transient Logger logger;
+import static java.lang.String.format;
+import java.util.Objects;
+
+public class KeepTemperatureStable implements BrewAction {
 
     private final Duration duration;
+
+    private transient Logger logger = Logger.getLogger(getClass().getName());
+
+    private boolean completed;
 
     public KeepTemperatureStable(Duration duration) {
         this.duration = duration;
     }
 
     @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "kitchentimer expired")
-                .build();
+    public boolean isCompleted() {
+        return completed;
     }
 
     @Override
     public void executeFor(Kettle kettle) {
+        completed = false;
         try {
             // Does nothing, like in real life brewing :)
             logger.finest(() -> format("Waiting for %s minutes", duration.getSeconds() / 60));
             Thread.sleep(duration.getSeconds() / 60 * 1000); // Speed up minutes to seconds
+            completed = true;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public String toString() {
-        return "KeepTemperatureStable{duration=" + duration + '}';
+    public static class Encoder implements javax.websocket.Encoder.Text<KeepTemperatureStable> {
+
+        @Override
+        public String encode(final KeepTemperatureStable object) throws EncodeException {
+            return Json.createObjectBuilder().add("event", "kitchentimer expired").build().toString();
+        }
+
+        @Override
+        public void init(final EndpointConfig config) {
+        }
+
+        @Override
+        public void destroy() {
+        }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {

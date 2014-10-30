@@ -6,15 +6,16 @@ import java.util.Objects;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.json.Json;
-import javax.json.JsonObject;
+import javax.websocket.EncodeException;
+import javax.websocket.EndpointConfig;
 import nl.ordina.beer.entity.Kettle;
 import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 
-public class ChangeTemperature extends BrewAction {
+public class ChangeTemperature implements BrewAction {
 
     @Inject
-    private transient Logger logger;
+    transient Logger logger;
 
     private static final int DEGREES_INCREMENT = 5;
 
@@ -31,6 +32,11 @@ public class ChangeTemperature extends BrewAction {
         this.delay = delay;
     }
 
+    public ChangeTemperature(Temperature goal, Duration delay, Logger logger) {
+        this(goal, delay);
+        this.logger = logger;
+    }
+    
     @Override
     public void executeFor(Kettle kettle) {
         try {
@@ -48,18 +54,33 @@ public class ChangeTemperature extends BrewAction {
         return current.equals(goal);
     }
 
-    @Override
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("event", "temperature changed")
-                .add("temperature",
-                        Json.createObjectBuilder()
-                        .add("scale", current.getUnit().name())
-                        .add("value", current.getValue())
-                        .build())
-                .build();
+    public static class Encoder implements javax.websocket.Encoder.Text<ChangeTemperature> {
+
+        @Override
+        public void init(final EndpointConfig config) {
+        }
+
+        @Override
+        public void destroy() {
+        }
+
+        @Override
+        public String encode(final ChangeTemperature ct) throws EncodeException {
+            return Json.createObjectBuilder()
+                        .add("event", "temperature changed")
+                        .add("temperature", Json.createObjectBuilder()
+                                .add("scale", ct.current.getUnit().name())
+                                .add("value", ct.current.getValue())
+                                .build())
+                        .build().toString();
+        }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -70,10 +91,18 @@ public class ChangeTemperature extends BrewAction {
             return false;
         }
         final ChangeTemperature other = (ChangeTemperature) obj;
+        if (!Objects.equals(this.current, other.current)) {
+            return false;
+        }
         if (!Objects.equals(this.goal, other.goal)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "ChangeTemperature{" + "current=" + current + ", goal=" + goal + '}';
+    }
+    
 }

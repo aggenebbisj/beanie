@@ -65,7 +65,7 @@ public class RecipeBuilder {
                         ).add(Json.createObjectBuilder()
                                 .add("type", "changeTemperature")
                                 .add("temperature", Json.createObjectBuilder()
-                                        .add("value", 65)
+                                        .add("value", "65")
                                         .add("unit", "celsius")
                                 )
                         ).add(Json.createObjectBuilder()

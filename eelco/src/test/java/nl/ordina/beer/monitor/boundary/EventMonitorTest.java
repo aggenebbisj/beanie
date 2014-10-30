@@ -1,21 +1,27 @@
 
 package nl.ordina.beer.monitor.boundary;
 
+import java.util.logging.Logger;
 import javax.websocket.Session;
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventMonitorTest {
-
-    private EventMonitor sut = new EventMonitor();
+    
+    @InjectMocks
+    private EventMonitor sut;
     
     @Mock
     private Session client;
+    
+    @Mock
+    private Logger logger;
     
     @Test
     public void should_add_peer_on_open() {

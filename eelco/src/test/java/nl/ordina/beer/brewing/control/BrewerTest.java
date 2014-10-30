@@ -1,6 +1,7 @@
 
 package nl.ordina.beer.brewing.control;
 
+import java.time.Duration;
 import nl.ordina.beer.brewing.entity.BrewAction;
 import nl.ordina.beer.entity.Kettle;
 import org.junit.Test;
@@ -13,8 +14,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.enterprise.event.Event;
 
 import static java.util.Arrays.asList;
+import java.util.logging.Logger;
 import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
-import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
+import nl.ordina.beer.brewing.entity.ChangeTemperature;
 import static nl.ordina.beer.entity.EntityBuilder.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -30,6 +32,9 @@ public class BrewerTest {
     
     @Mock
     private Event<BrewAction> actionCompleted;
+    
+    @Mock
+    private Logger logger;
     
     @Test 
     public void should_not_execute_action_when_queue_is_empty() {
@@ -59,7 +64,8 @@ public class BrewerTest {
     @Test
     public void adding_multiple_action_should_execute_them_all() {
         Mockito.when(kettle.getTemperature()).thenReturn(defaultTemperature());
-        sut.addActions(asList(defaultAddIngredientAction(), defaultChangeTemperatureAction()));
+        sut.addActions(asList(defaultAddIngredientAction(), 
+                new ChangeTemperature(defaultTemperature(), Duration.ZERO, logger)));
         verify(kettle).addIngredient(defaultIngredient());
         verify(kettle).changeTemperature(defaultTemperatureIncrement(), defaultTemperature());
     }

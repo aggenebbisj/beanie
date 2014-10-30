@@ -1,6 +1,7 @@
 
 package nl.ordina.beer.brewing.control;
 
+import java.time.Duration;
 import nl.ordina.beer.brewing.entity.AddIngredient;
 import nl.ordina.beer.brewing.entity.ChangeTemperature;
 import nl.ordina.beer.brewing.entity.KeepTemperatureStable;
@@ -19,7 +20,7 @@ public class BrewActionBuilder {
     }
     
     public static ChangeTemperature defaultChangeTemperatureAction() {
-        return new ChangeTemperature(defaultTemperature());
+        return new ChangeTemperature(defaultTemperature(), Duration.ZERO);
     }
     
     public static KeepTemperatureStable defaultKeepTemperatureStableAction() {

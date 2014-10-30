@@ -3,7 +3,6 @@ package nl.ordina.beer.monitor.boundary;
 import nl.ordina.beer.brewing.entity.BrewAction;
 
 import javax.enterprise.event.Observes;
-import javax.json.JsonObject;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
@@ -20,8 +19,16 @@ import static java.util.Collections.synchronizedSet;
 import static java.util.logging.Level.WARNING;
 import static java.util.stream.Collectors.toList;
 import javax.inject.Inject;
+import nl.ordina.beer.brewing.entity.AddIngredient;
+import nl.ordina.beer.brewing.entity.ChangeTemperature;
+import nl.ordina.beer.brewing.entity.EmptyKettle;
+import nl.ordina.beer.brewing.entity.KeepTemperatureStable;
 
-@ServerEndpoint("/sockets/monitor")
+@ServerEndpoint(
+            value = "/sockets/monitor", 
+            encoders = { AddIngredient.Encoder.class, ChangeTemperature.Encoder.class,
+                         EmptyKettle.Encoder.class, KeepTemperatureStable.Encoder.class } 
+)
 public class EventMonitor {
 
     @Inject
@@ -54,7 +61,7 @@ public class EventMonitor {
 
         peers.stream()
                 .filter(p -> p.isOpen())
-                .forEach(p -> send(p, action.toJson()));
+                .forEach(p -> send(p, action));
 
         final List<Session> closed = peers.stream()
                 .filter(p -> !p.isOpen())
@@ -62,7 +69,7 @@ public class EventMonitor {
         peers.removeAll(closed);
     }
 
-    private void send(Session peer, JsonObject event) {
+    private void send(Session peer, Object event) {
         try {
             peer.getBasicRemote().sendObject(event);
         } catch (IOException e) {

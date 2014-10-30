@@ -2,7 +2,8 @@
 package nl.ordina.beer.brewing.entity;
 
 import javax.json.Json;
-import javax.json.JsonObject;
+import javax.websocket.EncodeException;
+import nl.ordina.beer.brewing.entity.EmptyKettle.Encoder;
 import static nl.ordina.beer.entity.EntityBuilder.defaultIngredient;
 import nl.ordina.beer.entity.Kettle;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,10 +26,9 @@ public class EmptyKettleTest {
     }
     
     @Test
-    public void test_json_marshalling() {
-        JsonObject expected = Json.createObjectBuilder()
-                .add("event", "kettle emptied")
-                .build();
-        assertThat(sut.toJson(), is(expected));
+    public void test_json_marshalling() throws EncodeException {
+        String expected = Json.createObjectBuilder()
+                .add("event", "kettle emptied").build().toString();
+        assertThat(new Encoder().encode(sut), is(expected));
     }
 }

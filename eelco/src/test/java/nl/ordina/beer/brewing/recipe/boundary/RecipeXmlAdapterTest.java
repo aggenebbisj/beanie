@@ -49,7 +49,7 @@ public class RecipeXmlAdapterTest {
     @Test
     public void test_unmarshal_temperature() {
         JsonObject json = Json.createObjectBuilder()
-                .add("value", 65)
+                .add("value", "65")
                 .add("unit", "celsius")
                 .build();
 

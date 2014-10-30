@@ -1,8 +1,8 @@
 package nl.ordina.beer.brewing.entity;
 
 import javax.json.Json;
-import javax.json.JsonObject;
-import static nl.ordina.beer.brewing.recipe.entity.RecipeBuilder.defaultKettle;
+import javax.websocket.EncodeException;
+import nl.ordina.beer.brewing.entity.AddIngredient.Encoder;
 import static nl.ordina.beer.entity.EntityBuilder.defaultIngredient;
 import nl.ordina.beer.entity.Ingredient;
 import static org.hamcrest.CoreMatchers.is;
@@ -14,9 +14,9 @@ public class AddIngredientTest {
     private AddIngredient sut = new AddIngredient(defaultIngredient());
 
     @Test
-    public void test_json_marshalling() {
+    public void test_json_marshalling() throws EncodeException {
         final Ingredient ingredient = defaultIngredient();
-        JsonObject expected = Json.createObjectBuilder()
+        String expected = Json.createObjectBuilder()
                 .add("event", "ingredient added")
                 .add("ingredient",
                         Json.createObjectBuilder()
@@ -27,8 +27,8 @@ public class AddIngredientTest {
                                 .add("unit", ingredient.getVolume().getUnit().name())
                                 .build())
                         .build())
-                .build();
-        assertThat(sut.toJson(), is(expected));
+                .build().toString();
+        assertThat(new Encoder().encode(sut), is(expected));
     }
 
 }
