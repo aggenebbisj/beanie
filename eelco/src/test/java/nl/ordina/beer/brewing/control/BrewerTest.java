@@ -1,7 +1,6 @@
 
 package nl.ordina.beer.brewing.control;
 
-import java.time.Duration;
 import nl.ordina.beer.brewing.entity.BrewAction;
 import nl.ordina.beer.entity.Kettle;
 import org.junit.Test;
@@ -16,7 +15,7 @@ import javax.enterprise.event.Event;
 import static java.util.Arrays.asList;
 import java.util.logging.Logger;
 import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultAddIngredientAction;
-import nl.ordina.beer.brewing.entity.ChangeTemperature;
+import static nl.ordina.beer.brewing.control.BrewActionBuilder.defaultChangeTemperatureAction;
 import static nl.ordina.beer.entity.EntityBuilder.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -64,8 +63,7 @@ public class BrewerTest {
     @Test
     public void adding_multiple_action_should_execute_them_all() {
         Mockito.when(kettle.getTemperature()).thenReturn(defaultTemperature());
-        sut.addActions(asList(defaultAddIngredientAction(), 
-                new ChangeTemperature(defaultTemperature(), Duration.ZERO, logger)));
+        sut.addActions(asList(defaultAddIngredientAction(), defaultChangeTemperatureAction()));
         verify(kettle).addIngredient(defaultIngredient());
         verify(kettle).changeTemperature(defaultTemperatureIncrement(), defaultTemperature());
     }

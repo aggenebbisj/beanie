@@ -2,7 +2,6 @@
 package nl.ordina.beer.brewing.entity;
 
 import java.time.Duration;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.websocket.EncodeException;
 import nl.ordina.beer.brewing.entity.ChangeTemperature.Encoder;
@@ -14,10 +13,8 @@ import nl.ordina.beer.entity.Temperature;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,14 +23,6 @@ public class ChangeTemperatureTest {
     private static final Duration NO_DELAY = Duration.ZERO;
     
     private ChangeTemperature sut = new ChangeTemperature(defaultTemperature(), NO_DELAY);
-    
-    @Mock
-    private Logger logger;
-    
-    @Before
-    public void init() {
-        sut.logger = logger;
-    }
     
     @Test
     public void should_change_temperature_of_kettle_with_small_increment() {

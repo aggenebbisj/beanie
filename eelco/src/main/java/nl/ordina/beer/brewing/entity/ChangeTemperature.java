@@ -1,10 +1,7 @@
 package nl.ordina.beer.brewing.entity;
 
-import static java.lang.String.format;
 import java.time.Duration;
 import java.util.Objects;
-import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.json.Json;
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
@@ -13,9 +10,6 @@ import nl.ordina.beer.entity.Temperature;
 import static nl.ordina.beer.entity.Temperature.TemperatureUnit.CELSIUS;
 
 public class ChangeTemperature implements BrewAction {
-
-    @Inject
-    transient Logger logger;
 
     private static final int DEGREES_INCREMENT = 5;
 
@@ -32,15 +26,9 @@ public class ChangeTemperature implements BrewAction {
         this.delay = delay;
     }
 
-    public ChangeTemperature(Temperature goal, Duration delay, Logger logger) {
-        this(goal, delay);
-        this.logger = logger;
-    }
-    
     @Override
     public void executeFor(Kettle kettle) {
         try {
-            logger.finest(() -> format("Faking slow heating process, waiting %s seconds", delay.getSeconds()));
             Thread.sleep(delay.getSeconds() * 1000); // Fake slow heating process
             kettle.changeTemperature(new Temperature(DEGREES_INCREMENT, CELSIUS), goal);
             current = kettle.getTemperature();
