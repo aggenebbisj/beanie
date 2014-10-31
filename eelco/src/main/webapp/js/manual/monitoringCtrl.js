@@ -37,6 +37,7 @@ angular.module('breweryApp').controller('ManualBrewingMonitorCtrl', function ($s
                 break;
             case 'kettle emptied':
                 $scope.readingsVolume[1][1] = 0;
+                $scope.readingsTemperature[1][1] = 0;
                 break;
             default:
                 console.log('default' + evt);
